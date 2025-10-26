@@ -15,10 +15,20 @@ Para la primera etapa del TPC se solicita:
 
 VAMOS REALIZANDO:
 
-- Proyecto dominio -------------------------------------------------------------------CREADO
+- Capa dominio -------------------------------------------------------------------CREADO
+	tenia mal escrito el nombre (domio, ya lo corregi)
 - Clases base: Cliente, Proveedor, Producto, Marca, Categoría, Usuario----------------CREADO (REVISAR)
 - Clases funcionales: Compra, CompraDetalle, Venta, VentaDetalle----------------------CREADO (REVISAR)
-- 
+ 
+- capa Negocio -----------------------------------------------------------------------CREADO
+ + AccesoDatos -----------------------------------------------------------------------CREADO
+ + CategoriaNegocio ------------------------------------------------------------------CREADO
+ + Cliente ---------------------------------------------------------------------------CREADO
+ + CompraNegocio ---------------------------------------------------------------------CREADO
+ + MarcaNegocio ----------------------------------------------------------------------CREADO
+ + ProductoNegocio -------------------------------------------------------------------CREADO
+ + UsuarioNegocio --------------------------------------------------------------------CREADO
+ + VentaNegocio ----------------------------------------------------------------------CREADO
 
 
 

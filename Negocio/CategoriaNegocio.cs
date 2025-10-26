@@ -1,32 +1,31 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Dominio;
 
 namespace Negocio
 {
-    public class MarcaNegocio
+    public class CategoriaNegocio
     {
-        public List<Marca> listar()
+        public List<Categoria> listar()
         {
-            List<Marca> lista = new List<Marca>();
+            List<Categoria> lista = new List<Categoria>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setConsulta("SELECT Id, Nombre FROM Marcas");
+                datos.setConsulta("SELECT Id, Nombre FROM Categorias");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Marca marca = new Marca();
-                    marca.Id = (int)datos.Lector["Id"];
-                    marca.Nombre = datos.Lector["Nombre"].ToString();
+                    Categoria cat = new Categoria();
+                    cat.Id = (int)datos.Lector["Id"];
+                    cat.Nombre = datos.Lector["Nombre"].ToString();
 
-                    lista.Add(marca);
+                    lista.Add(cat);
                 }
 
                 return lista;
@@ -41,5 +40,5 @@ namespace Negocio
             }
         }
     }
-
 }
+

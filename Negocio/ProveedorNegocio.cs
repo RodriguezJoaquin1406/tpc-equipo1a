@@ -1,32 +1,32 @@
-﻿using System;
+﻿using Dominio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using Dominio;
 
 namespace Negocio
 {
-    public class MarcaNegocio
+    public class ProveedorNegocio
     {
-        public List<Marca> listar()
+        public List<Proveedor> listar()
         {
-            List<Marca> lista = new List<Marca>();
+            List<Proveedor> lista = new List<Proveedor>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setConsulta("SELECT Id, Nombre FROM Marcas");
+                datos.setConsulta("SELECT Id, Nombre, Contacto FROM Proveedores");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Marca marca = new Marca();
-                    marca.Id = (int)datos.Lector["Id"];
-                    marca.Nombre = datos.Lector["Nombre"].ToString();
+                    Proveedor proveedor = new Proveedor();
+                    proveedor.Id = (int)datos.Lector["Id"];
+                    proveedor.Nombre = datos.Lector["Nombre"].ToString();
+                    proveedor.Contacto = datos.Lector["Contacto"].ToString();
 
-                    lista.Add(marca);
+                    lista.Add(proveedor);
                 }
 
                 return lista;
