@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domio
+namespace Dominio
 {
-    internal class Venta
+    public class Venta
     {
         public int Id { get; set; }
         public Cliente Cliente { get; set; }

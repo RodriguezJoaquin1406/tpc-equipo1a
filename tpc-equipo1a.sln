@@ -5,7 +5,7 @@ VisualStudioVersion = 17.14.36518.9
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tp-Cuatrimestral-Equipo1A", "Tp-Cuatrimestral-Equipo1A\Tp-Cuatrimestral-Equipo1A.csproj", "{A8789F36-CFE1-4F3C-BD75-4CD9BA60F409}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domio", "Domio\Domio.csproj", "{FB5DB7C0-F285-40B5-AB5B-668C3B9A9099}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Dominio", "Domio\Dominio.csproj", "{FB5DB7C0-F285-40B5-AB5B-668C3B9A9099}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{02463E15-7018-4232-B768-7D210B7A183B}"
 EndProject

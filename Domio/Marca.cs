@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Domio
+namespace Dominio
 {
-    internal class Marca
+    public class Marca
     {
         public int Id { get; set; }
         public string Nombre { get; set; }
