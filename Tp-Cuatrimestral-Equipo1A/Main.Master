@@ -1,0 +1,159 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Main.master.cs" Inherits="Tp_Cuatrimestral_Equipo1A.Main" %>
+
+<!DOCTYPE html>
+<html lang="es">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    
+    <!-- Bootstrap  -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    
+    <!-- Google Fonts e Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=Lato:wght@400;700&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+    
+    <!-- CSS personalizado -->
+    <style>
+        body {
+            font-family: "Lato", sans-serif;
+            background-color: #ffecd1;
+            color: #3C3633;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        header {
+            background-color: #FDFBF7;
+        }
+
+        .main-container {
+            flex: 1;
+        }
+
+        .font-display {
+            font-family: "Playfair Display", serif;
+        }
+
+        .accent-light {
+            color: #C6AC8F;
+        }
+        
+        .nav-link:hover, .footer-link:hover {
+            color: #C6AC8F !important;
+        }
+        
+        .nav-link.active {
+            color: #C6AC8F !important;
+            font-weight: bold;
+        }
+
+        .card-img-top {
+            width: 100%;
+            height: 24rem;
+            object-fit: cover;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover .card-img-top {
+            transform: scale(1.05);
+        }
+        
+        .card {
+            border: none;
+            border-radius: 0.5rem;
+            overflow: hidden;
+        }
+        
+        .card-body {
+             background-color: #EAE0D5;
+        }
+
+        .price {
+            font-weight: bold;
+            font-size: 1.25rem;
+            color: #C6AC8F;
+        }
+        
+        .form-select {
+            border-radius: 0.5rem;
+            border-color: #C6AC8F;
+            background-color: #FDFBF7;
+        }
+
+        .form-select:focus {
+            border-color: #C6AC8F;
+            box-shadow: 0 0 0 0.25rem rgba(198, 172, 143, 0.5);
+        }
+
+        .macrame-border {
+            position: relative;
+            padding-bottom: 2rem;
+            margin-bottom: 3rem;
+        }
+        .macrame-border::before {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 20px;
+            background-image: url('data:image/svg+xml;utf8,<svg width="100" height="10" viewBox="0 0 100 10" xmlns="http://www.w3.org/2000/svg"><path d="M0 5 Q 12.5 0, 25 5 T 50 5 T 75 5 T 100 5" stroke="%23C6AC8F" stroke-width="2" fill="none" /></svg>');
+            background-repeat: repeat-x;
+            opacity: 0.6;
+        }
+        
+        .page-footer {
+            background-color: #f0a46e;
+            border-top: 1px solid rgba(198, 172, 143, 0.3);
+        }
+    </style>
+    
+    <asp:ContentPlaceHolder ID="head" runat="server">
+        <title>Boutique mi sueño</title>
+    </asp:ContentPlaceHolder>
+</head>
+<body>
+    <form id="form1" runat="server">
+        <header class="py-3 px-md-5 shadow-sm bg-light sticky-top">
+            <div class="container d-flex justify-content-between align-items-center">
+                <h1 class="h2 font-display">Boutique mi sueño</h1>
+                <nav class="d-none d-md-flex align-items-center gap-4">
+                    <asp:HyperLink NavigateUrl="~/Default.aspx" CssClass="nav-link text-dark" Text="Inicio" runat="server" />
+                    <asp:HyperLink NavigateUrl="PaginasPublic/Catalogo.aspx" CssClass="nav-link text-dark" Text="Catálogo" runat="server" />
+                    <asp:HyperLink NavigateUrl="PaginasPublic/Ubicaciones.aspx" CssClass="nav-link text-dark" Text="Ubicaciones" runat="server" />
+                    <asp:HyperLink NavigateUrl="PaginasPublic/Nosotros.aspx" CssClass="nav-link text-dark" Text="Nosotros" runat="server" />
+                    <asp:HyperLink NavigateUrl="PaginasPublic/Contacto.aspx" CssClass="nav-link text-dark" Text="Contacto" runat="server" />
+                </nav>
+                <div class="d-flex align-items-center gap-3">
+                    <!-- 
+                    <asp:LinkButton CssClass="text-dark" runat="server"><span class="material-icons">search</span></asp:LinkButton>
+                        <asp:LinkButton CssClass="text-dark" runat="server"><span class="material-icons">shopping_bag</span></asp:LinkButton>
+                        
+                    -->
+                    <asp:LinkButton CssClass="d-md-none text-dark" runat="server"><span class="material-icons">menu</span></asp:LinkButton>
+                </div>
+            </div>
+        </header>
+
+        <main class="container my-5 px-md-5 main-container">
+            <asp:ContentPlaceHolder ID="MainContent" runat="server">
+            </asp:ContentPlaceHolder>
+        </main>
+
+        <footer class="page-footer mt-auto py-5 px-md-5">
+            <div class="container text-center">
+                <p class="h3 font-display mb-4">Boutique Mi Sueño</p>
+                <div class="d-flex justify-content-center gap-4 mb-4">
+                    <asp:HyperLink NavigateUrl="https://www.instagram.com/boutique.misueno/" CssClass="footer-link text-dark" Text="Instagram" runat="server" />
+                </div>
+                <p class="small text-muted">© 2025 Boutique mi sueño.</p>
+            </div>
+        </footer>
+
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    </form>
+</body>
+</html>
