@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tp-Cuatrimestral-Equipo1A",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Domio", "Domio\Domio.csproj", "{FB5DB7C0-F285-40B5-AB5B-668C3B9A9099}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Negocio", "Negocio\Negocio.csproj", "{02463E15-7018-4232-B768-7D210B7A183B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{FB5DB7C0-F285-40B5-AB5B-668C3B9A9099}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{FB5DB7C0-F285-40B5-AB5B-668C3B9A9099}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{FB5DB7C0-F285-40B5-AB5B-668C3B9A9099}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02463E15-7018-4232-B768-7D210B7A183B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02463E15-7018-4232-B768-7D210B7A183B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02463E15-7018-4232-B768-7D210B7A183B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02463E15-7018-4232-B768-7D210B7A183B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
