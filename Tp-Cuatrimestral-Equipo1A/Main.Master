@@ -67,7 +67,7 @@
         }
         
         .card-body {
-             background-color: #EAE0D5;
+            background-color: #EAE0D5;
         }
 
         .price {
@@ -106,7 +106,7 @@
         }
         
         .page-footer {
-            background-color: #f0a46e;
+            background-color: #f7a034;
             border-top: 1px solid rgba(198, 172, 143, 0.3);
         }
     </style>
@@ -128,12 +128,13 @@
                     <asp:HyperLink NavigateUrl="PaginasPublic/Contacto.aspx" CssClass="nav-link text-dark" Text="Contacto" runat="server" />
                 </nav>
                 <div class="d-flex align-items-center gap-3">
+                    <asp:HyperLink NavigateUrl="PaginasPublic/Login.aspx" CssClass="nav-link text-dark" Text="Iniciar Sesion" runat="server" />
                     <!-- 
                     <asp:LinkButton CssClass="text-dark" runat="server"><span class="material-icons">search</span></asp:LinkButton>
                         <asp:LinkButton CssClass="text-dark" runat="server"><span class="material-icons">shopping_bag</span></asp:LinkButton>
                         
                     -->
-                    <asp:LinkButton CssClass="d-md-none text-dark" runat="server"><span class="material-icons">menu</span></asp:LinkButton>
+                    <%--<asp:LinkButton CssClass="d-md-none text-dark" runat="server"><span class="material-icons">menu</span></asp:LinkButton>--%>
                 </div>
             </div>
         </header>
