@@ -31,5 +31,14 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList size;
+
+        /// <summary>
+        /// RepeaterProductos control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Repeater RepeaterProductos;
     }
 }

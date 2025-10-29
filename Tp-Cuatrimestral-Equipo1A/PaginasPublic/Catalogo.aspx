@@ -44,19 +44,23 @@
 
 
             <%--Producto  para ejemplo luego cambiar y poner repeater--%>
+            <asp:Repeater runat="server" id="RepeaterProductos">
+                <ItemTemplate>
+                    <div class="col">
+                        <div class="card h-100">
+                            <div class="overflow-hidden">
+                                <asp:Image ImageUrl='<%# Eval("ImageUrl") %>' AlternateText='<%# Eval("AlternateText") %>' CssClass="card-img-top" runat="server" />
+                            </div>
+                            <div class="card-body">
+                                <h3 class="h4 font-display card-title"><%# Eval("Title") %></h3>
+                                <p class="card-text text-muted"><%# Eval("Description") %></p>
+                                <p class="price"><%# Eval("Price", "{0:C}") %></p>
+                            </div>
+                        </div>
+                </ItemTemplate>
+            </asp:Repeater>
 
-            <div class="col">
-                <div class="card h-100">
-                    <div class="overflow-hidden">
-                        <asp:Image ImageUrl="https://lh3.googleusercontent.com/aida-public/AB6AXuCLddfPR4hF7HXWUDNQpdAEYypRgjRZh0M9VLcIqV1Zpz6lDdTzEBlbXKmLgfn98NnlK1tnO25L-gygHslKuZViJEpsnExMU1CvhdM7OCiDea3BkR3OEjMFCfJZFxgK6BKNmCM1pB9KIAo27wUde6CILvHn8O98XkhnQ06z2DsTsTk05g310beJdKM5GDI1puhZLTWCFGAZNm8NG8fph_vKJ6CK7kIX3xMbr0GHNTdNqMNAjPv2WMGi1juApeL70Bl8s3472D9QS_rk" AlternateText="Blusa color crema de manga larga" CssClass="card-img-top" runat="server" />
-                    </div>
-                    <div class="card-body">
-                        <h3 class="h4 font-display card-title">Blusa "Solsticio"</h3>
-                        <p class="card-text text-muted">Una blusa elegante y versátil con detalles bordados.</p>
-                        <p class="price">$75.00</p>
-                    </div>
-                </div>
-            </div>
+            
 
             
         </div>
