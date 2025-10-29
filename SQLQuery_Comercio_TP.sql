@@ -90,6 +90,13 @@ CREATE TABLE Usuarios (
     Rol VARCHAR(20) NOT NULL CHECK (Rol IN ('Administrador', 'Vendedor', 'Cliente'))
 );
 
+-- Tabla De imagenes
+CREATE TABLE Imagenes (
+    IdImagen INT IDENTITY(1,1) PRIMARY KEY,
+    IdProducto INT FOREIGN KEY REFERENCES Productos(Id),
+    UrlImagen VARCHAR(255)
+);
+
 ---------------------------------------------Inserts 
 -- Clientes
 INSERT INTO Clientes (Nombre, Email, Telefono) VALUES
@@ -156,3 +163,10 @@ INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnitario) VALUES
 (1, 4, 5, 4900),
 (2, 2, 1, 84500),
 (2, 5, 1, 162000);
+
+INSERT INTO Imagenes (IdImagen, IdProducto, UrlImagen) VALUES
+(1,'https://lh3.googleusercontent.com/aida-public/AB6AXuDow8Hsjsk-7pLj07IAMqGa2HWFasXSB2_lM8_5tywHJPAnqQAbJ2T2Ls6T83ZC-OIPO-3cOe7AmtVxlGbRBtvmKKxU2Cx8-9DcSH48STSWxIAAysFYACWC6bYvUHLuFZ6iJn22FaJ1ROODRgJhTsU2VWdbgsgbkuyUSPDZxKDlYr4vNQdMqMkPqvARe9lIi1v8xKrYC0XPK5nf49L6baQ55rcPvJs8b12NHii6O40rlpzxd9q0kUCX8oHbCqm9WBS7UdWvP-Gv3JAU'),
+(2,'https://lh3.googleusercontent.com/aida-public/AB6AXuCocRlxGHe-YwR6vQ_fZUgW7RpJP5CKHRttTI0g_72lIgkHmuDG7vQx9fLKsdlT61DG-3WWXPRDKt-HlQFeJfq4XG5q672_RWl79dmmcKcQZG2ue2mjl8T13YJPN2PfPvjRfzHyRPfEjof0k-CQNMkyMfo1l8ZtBLNzJJHN5rrlbyoiLs1AqLmDcCgUjxlq8cLiSRrm-5lLMfrLi1_-tWW_is1T_65Md1D5yGv66ie8wnbqFb3KF3NGkZu5OIx3Llnj61jrhQD5Q7Nd'),
+(3,'https://lh3.googleusercontent.com/aida-public/AB6AXuCLddfPR4hF7HXWUDNQpdAEYypRgjRZh0M9VLcIqV1Zpz6lDdTzEBlbXKmLgfn98NnlK1tnO25L-gygHslKuZViJEpsnExMU1CvhdM7OCiDea3BkR3OEjMFCfJZFxgK6BKNmCM1pB9KIAo27wUde6CILvHn8O98XkhnQ06z2DsTsTk05g310beJdKM5GDI1puhZLTWCFGAZNm8NG8fph_vKJ6CK7kIX3xMbr0GHNTdNqMNAjPv2WMGi1juApeL70Bl8s3472D9QS_rk'),
+(4,'https://m.media-amazon.com/images/I/71elvE3aruL._AC_SX569_.jpg'),
+(5,'https://shop.guantexindustrial.com.ar/2280-thickbox_default/d-camisa-de-trabajo-beige-talle-38-630-01.jpg');
