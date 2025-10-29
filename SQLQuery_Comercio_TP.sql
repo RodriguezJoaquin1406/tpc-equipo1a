@@ -143,8 +143,10 @@ INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnitario) VALUES
 
 -- Imagenes (URL vacía por ahora, una por producto)
 INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
-(1, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCLddfPR4hF7HXWUDNQpdAEYypRgjRZh0M9VLcIqV1Zpz6lDdTzEBlbXKmLgfn98NnlK1tnO25L-gygHslKuZViJEpsnExMU1CvhdM7OCiDea3BkR3OEjMFCfJZFxgK6BKNmCM1pB9KIAo27wUde6CILvHn8O98XkhnQ06z2DsTsTk05g310beJdKM5GDI1puhZLTWCFGAZNm8NG8fph_vKJ6CK7kIX3xMbr0GHNTdNqMNAjPv2WMGi1juApeL70Bl8s3472D9QS_rk'),
-(2, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDow8Hsjsk-7pLj07IAMqGa2HWFasXSB2_lM8_5tywHJPAnqQAbJ2T2Ls6T83ZC-OIPO-3cOe7AmtVxlGbRBtvmKKxU2Cx8-9DcSH48STSWxIAAysFYACWC6bYvUHLuFZ6iJn22FaJ1ROODRgJhTsU2VWdbgsgbkuyUSPDZxKDlYr4vNQdMqMkPqvARe9lIi1v8xKrYC0XPK5nf49L6baQ55rcPvJs8b12NHii6O40rlpzxd9q0kUCX8oHbCqm9WBS7UdWvP-Gv3JAU'),
-(3, 'https://lh3.googleusercontent.com/aida-public/AB6AXuCocRlxGHe-YwR6vQ_fZUgW7RpJP5CKHRttTI0g_72lIgkHmuDG7vQx9fLKsdlT61DG-3WWXPRDKt-HlQFeJfq4XG5q672_RWl79dmmcKcQZG2ue2mjl8T13YJPN2PfPvjRfzHyRPfEjof0k-CQNMkyMfo1l8ZtBLNzJJHN5rrlbyoiLs1AqLmDcCgUjxlq8cLiSRrm-5lLMfrLi1_-tWW_is1T_65Md1D5yGv66ie8wnbqFb3KF3NGkZu5OIx3Llnj61jrhQD5Q7Nd'),
-(4, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDnYC_ZysDXxgz2WfiSCmiP7J666NKTRC4Qacf1Q-Dfxw4Dgy6-uVU6i9L6ROnbDY7LyOkTmqRryLla-m8jQxpnd67lgdDZrS4_34M1AVjHsbTnbHBi2OTH5mMD360_3V8O3Psh6EJwvR0y8vzWtBcbQ9cQFgpLd_ASM-2bQfw0pPeKQn7TlqseUemom57JPskdJ870iaUAVLS2jHTlKvmVYDjlbPzQj_1xt01clogaYNLA86q00r49uUJSHNUm0rDqAO5HBYcIHbvA'),
-(5, 'https://lh3.googleusercontent.com/aida-public/AB6AXuDZwckRThPhFbJArBgSWS3ZCdI9_oqEQGGgzjhpFJ3feWySuBw4fEy6fU6mJvBRH3jp73fYIcpIyckydBOGNIVk98b2lQZi0QCiP-o_87SEdVJGcL9ybANAI1Rp4hHHqGjVQYhmKs9cLCvWXuKjHy7dJf80guPLSonTV-p4I1ukvP0p0a-2812MHpZgiNaqOQKUo-W00HWxhBoOWprM0uDW1kGmsuk_XhrZFn3yCwCke-CDOaS0dZgiPhjikZKUZK2BmT7vfSz66e1r');
+(1, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/15/ec/1744695942740c0ebd017afb104141f95abb9c156d_thumbnail_405x.webp'),
+(2, 'https://http2.mlstatic.com/D_NQ_NP_913956-MLA84211306237_042025-O.webp'),
+(3, 'https://img.ltwebstatic.com/images3_spmp/2025/03/12/03/1741764251df14f0c32747d76c9efe4505dd856929_thumbnail_405x.webp'),
+(4, 'https://newswarovskiargentina.vtexassets.com/unsafe/1440x0/center/middle/https%3A%2F%2Fnewswarovskiargentina.vtexassets.com%2Farquivos%2Fids%2F653364%2Fpendientes-5705831-1.jpg%3Fv%3D638739523608530000'),
+(5, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/23/84/17453729703da87c9bc65401c1f4fc6168d7b0539a_thumbnail_560x.webp');
+
+
