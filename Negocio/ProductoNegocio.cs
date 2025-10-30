@@ -11,40 +11,49 @@ namespace Negocio
     {
         public List<Producto> listar()
         {
-            List<Producto> lista = new List<Producto>();
-            AccesoDatos datos = new AccesoDatos();
+            var lista = new List<Producto>();
+            var datos = new AccesoDatos();
 
             try
             {
-                string consulta = @"SELECT P.Id, P.Nombre, P.StockActual, P.StockMinimo, P.PorcentajeGanancia,
-                                           M.Id AS IdMarca, M.Nombre AS NombreMarca,
-                                           C.Id AS IdCategoria, C.Nombre AS NombreCategoria
-                                    FROM Productos P
-                                    INNER JOIN Marcas M ON P.IdMarca = M.Id
-                                    INNER JOIN Categorias C ON P.IdCategoria = C.Id";
+                string consulta = @"
+                    SELECT 
+                        P.Id,
+                        P.Nombre,
+                        P.Descripcion,
+                        P.PrecioBase,
+                        P.StockActual,
+                        C.Id  AS IdCategoria,
+                        C.Nombre AS NombreCategoria,
+                        Img.UrlImagen AS UrlImagen
+                    FROM Productos P
+                    INNER JOIN Categorias C ON P.IdCategoria = C.Id
+                    OUTER APPLY (
+                        SELECT TOP 1 I.UrlImagen
+                        FROM Imagenes I
+                        WHERE I.IdProducto = P.Id
+                        ORDER BY I.IdImagen
+                    ) Img";
 
                 datos.setConsulta(consulta);
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Producto prod = new Producto();
-                    prod.Id = (int)datos.Lector["Id"];
-                    prod.Nombre = datos.Lector["Nombre"].ToString();
-                    prod.StockActual = (int)datos.Lector["StockActual"];
-                    prod.StockMinimo = (int)datos.Lector["StockMinimo"];
-                    prod.PorcentajeGanancia = (decimal)datos.Lector["PorcentajeGanancia"];
-
-                    prod.Marca = new Marca
+                    var prod = new Producto
                     {
-                        Id = (int)datos.Lector["IdMarca"],
-                        Nombre = datos.Lector["NombreMarca"].ToString()
-                    };
-
-                    prod.Categoria = new Categoria
-                    {
-                        Id = (int)datos.Lector["IdCategoria"],
-                        Nombre = datos.Lector["NombreCategoria"].ToString()
+                        Id = (int)datos.Lector["Id"],
+                        Nombre = datos.Lector["Nombre"].ToString(),
+                        Descripcion = datos.Lector["Descripcion"].ToString(),
+                        // MONEY -> decimal in .NET
+                        PrecioBase = (decimal)datos.Lector["PrecioBase"],
+                        StockActual = (int)datos.Lector["StockActual"],
+                        Categoria = new Categoria
+                        {
+                            Id = (int)datos.Lector["IdCategoria"],
+                            Nombre = datos.Lector["NombreCategoria"].ToString()
+                        },
+                        UrlImagen = datos.Lector["UrlImagen"] == DBNull.Value ? null : datos.Lector["UrlImagen"].ToString()
                     };
 
                     lista.Add(prod);
@@ -63,4 +72,3 @@ namespace Negocio
         }
     }
 }
-

@@ -12,12 +12,10 @@
     </section>
 
     <section>
-
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
             <div class="d-flex flex-wrap gap-3">
                 <div>
                     <asp:Label For="category" CssClass="form-label small fw-medium" Text="Categoría" runat="server" />
-                    <%--¿Falta hacer logica para traer categorias de base de datos o hardcodearlas?--%>
                     <asp:DropDownList ID="category" CssClass="form-select" runat="server">
                         <asp:ListItem>Todos</asp:ListItem>
                     </asp:DropDownList>
@@ -30,41 +28,32 @@
                 </div>
             </div>
 
-            <%--Hacer que cuente los productos filtrados y total--%>
-
             <div class="text-muted small">
                 Mostrando 6 de 24 productos
             </div>
         </div>
 
-
-
-
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">
-
-
-            <%--Producto  para ejemplo luego cambiar y poner repeater--%>
-            <asp:Repeater runat="server" id="RepeaterProductos">
+            <asp:Repeater runat="server" ID="RepeaterProductos">
                 <ItemTemplate>
                     <div class="col">
                         <div class="card h-100">
                             <div class="overflow-hidden">
-                                <asp:Image ImageUrl='<%# Eval("ImageUrl") %>' AlternateText='<%# Eval("AlternateText") %>' CssClass="card-img-top" runat="server" />
+                                <asp:Image 
+                                    ImageUrl='<%# string.IsNullOrEmpty(Eval("UrlImagen") as string) ? ResolveUrl("~/Content/placeholder.png") : (Eval("UrlImagen") as string) %>'
+                                    AlternateText='<%# Eval("Nombre") %>'
+                                    CssClass="card-img-top" 
+                                    runat="server" />
                             </div>
                             <div class="card-body">
-                                <h3 class="h4 font-display card-title"><%# Eval("Title") %></h3>
-                                <p class="card-text text-muted"><%# Eval("Description") %></p>
-                                <p class="price"><%# Eval("Price", "{0:C}") %></p>
+                                <h3 class="h4 font-display card-title"><%# Eval("Nombre") %></h3>
+                                <p class="card-text text-muted"><%# Eval("Descripcion") %></p>
+                                <p class="card-text text-muted"><%# Eval("PrecioBase") %></p>
                             </div>
                         </div>
+                    </div>
                 </ItemTemplate>
             </asp:Repeater>
-
-            
-
-            
         </div>
     </section>
 </asp:Content>
-
-
