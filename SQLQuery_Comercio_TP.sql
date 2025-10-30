@@ -29,29 +29,11 @@ CREATE TABLE Productos (
     Descripcion  VARCHAR(255) NOT NULL,
     IdCategoria  INT NOT NULL FOREIGN KEY REFERENCES Categorias(Id),
     Talle        VARCHAR(10) NOT NULL CHECK (Talle IN ('S','M','L','XL')),
-    Color        VARCHAR(30) NULL,
-    Material     VARCHAR(50) NULL,
     PrecioBase   MONEY NOT NULL CHECK (PrecioBase >= 0),
     StockActual  INT NOT NULL CHECK (StockActual >= 0),
     StockMinimo  INT NOT NULL CHECK (StockMinimo >= 0)
 );
 
--- Compras (sin Proveedores; se guarda el proveedor como texto)
-CREATE TABLE Compras (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    ProveedorNombre   VARCHAR(100) NOT NULL,
-    ProveedorContacto VARCHAR(100) NULL,
-    Fecha DATETIME NOT NULL
-);
-
--- Detalle de Compras
-CREATE TABLE CompraDetalle (
-    Id INT IDENTITY(1,1) PRIMARY KEY,
-    IdCompra INT NOT NULL FOREIGN KEY REFERENCES Compras(Id),
-    IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
-    Cantidad INT NOT NULL CHECK (Cantidad > 0),
-    PrecioUnitario MONEY NOT NULL CHECK (PrecioUnitario >= 0)
-);
 
 -- Ventas
 CREATE TABLE Ventas (
@@ -104,30 +86,18 @@ INSERT INTO Categorias (Nombre) VALUES
 ('Blusas'), ('Vestidos'), ('Bolsos'), ('Joyeria'), ('Accesorios');
 
 -- Productos (sin marcas; con color, material y precio base)
-INSERT INTO Productos (Nombre, Descripcion, IdCategoria, Talle, Color, Material, PrecioBase, StockActual, StockMinimo) VALUES
-('Blusa "Solsticio"', 'Una blusa elegante y versátil con detalles bordados.', 1, 'M', 'Crema',   'Algodón',   25000, 50, 10),
-('Vestido "Arena"',   'Perfecto para un día de verano, fresco y cómodo.',     2, 'L', 'Beige',   'Lino',      48000, 30, 5),
-('Bolso "Nómada"',    'Accesorio artesanal que complementa cualquier look.',  3, 'M', 'Natural', 'Macramé',   32000, 20, 5),
-('Pendientes "Liana"','Detalle final para un estilo bohemio y chic.',         4, 'M', 'Dorado',  'Metal',      8000, 100, 20),
-('Vestido "Brisa"',   'Ligero y etéreo, ideal para ocasiones especiales.',    2, 'S', 'Blanco',  'Gasa',      62000, 15, 3);
+INSERT INTO Productos (Nombre, Descripcion, IdCategoria, Talle, PrecioBase, StockActual, StockMinimo) VALUES
+('Blusa "Solsticio"', 'Una blusa elegante y versátil con detalles bordados.', 1, 'M', 25000, 50, 10),
+('Vestido "Arena"',   'Perfecto para un día de verano, fresco y cómodo.',     2, 'L', 48000, 30, 5),
+('Bolso "Nómada"',    'Accesorio artesanal que complementa cualquier look.',  3, 'M', 32000, 20, 5),
+('Pendientes "Liana"','Detalle final para un estilo bohemio y chic.',         4, 'M', 8000, 100, 20),
+('Vestido "Brisa"',   'Ligero y etéreo, ideal para ocasiones especiales.',    2, 'S', 62000, 15, 3);
 
 -- Usuarios
 INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol) VALUES
 ('admin1', 'admin123', 'Administrador'),
 ('vendedor1', 'venta123', 'Vendedor'),
 ('cliente1', 'compra123', 'Cliente');
-
--- Compras (sin tabla Proveedores)
-INSERT INTO Compras (ProveedorNombre, ProveedorContacto, Fecha) VALUES
-('Textiles del Sur',   'Laura Martínez',  '2025-10-01'),
-('Artesanos Andinos',  'Roberto Díaz',    '2025-10-05');
-
--- CompraDetalle
-INSERT INTO CompraDetalle (IdCompra, IdProducto, Cantidad, PrecioUnitario) VALUES
-(1, 1, 10, 15000),
-(1, 4, 20,  4000),
-(2, 2,  5, 35000),
-(2, 5,  3, 42000);
 
 -- Ventas
 INSERT INTO Ventas (IdCliente, Fecha, NumeroFactura) VALUES
@@ -141,7 +111,7 @@ INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnitario) VALUES
 (2, 2, 1,  52000),
 (2, 5, 1,  75000);
 
--- Imagenes (URL vacía por ahora, una por producto)
+-- Imagenes 
 INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (1, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/15/ec/1744695942740c0ebd017afb104141f95abb9c156d_thumbnail_405x.webp'),
 (2, 'https://http2.mlstatic.com/D_NQ_NP_913956-MLA84211306237_042025-O.webp'),
