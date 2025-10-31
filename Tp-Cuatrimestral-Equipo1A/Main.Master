@@ -124,7 +124,7 @@
             <div class="container d-flex justify-content-between align-items-center">
                 <h1 class="h2 font-display">Boutique mi sueño</h1>
                 <nav class="d-none d-md-flex align-items-center gap-4">
-                    <asp:HyperLink NavigateUrl="~/Default.aspx" CssClass="nav-link text-dark" Text="Inicio" runat="server" />
+                    <asp:HyperLink NavigateUrl="~/PaginasPublic/Inicio.aspx" CssClass="nav-link text-dark" Text="Inicio" runat="server" />
                     <asp:HyperLink NavigateUrl="PaginasPublic/Catalogo.aspx" CssClass="nav-link text-dark" Text="Catálogo" runat="server" />
                     <asp:HyperLink NavigateUrl="PaginasPublic/Ubicaciones.aspx" CssClass="nav-link text-dark" Text="Ubicaciones" runat="server" />
                     <asp:HyperLink NavigateUrl="PaginasPublic/Nosotros.aspx" CssClass="nav-link text-dark" Text="Nosotros" runat="server" />

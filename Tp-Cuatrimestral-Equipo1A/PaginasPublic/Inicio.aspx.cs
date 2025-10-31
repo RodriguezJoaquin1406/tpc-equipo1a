@@ -5,13 +5,12 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 
-namespace Tp_Cuatrimestral_Equipo1A
+namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 {
-    public partial class _Default : Page
+    public partial class Inicio : System.Web.UI.Page
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Response.Redirect("~/PaginasPublic/Inicio.aspx");
 
         }
     }

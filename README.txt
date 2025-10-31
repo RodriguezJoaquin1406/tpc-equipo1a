@@ -30,9 +30,15 @@ VAMOS REALIZANDO:
  + UsuarioNegocio --------------------------------------------------------------------CREADO
  + VentaNegocio ----------------------------------------------------------------------CREADO
 
-- FRONT / Paginas Presentacion
+- FRONT / Paginas Presentación
+ + Pagina Principal ------------------------------------------------------------------CREADO (re base)
  + Pagina master page (main.master), tiene header y footer ---------------------------CREADO
  + Pagina catalogo (PaginasPublic/Catalogo.aspx), parte visual unicamente ------------FALTA EL BACK, PARTE VISUAL CASI ESTA FINALIZADO
+	carrusel de imágenes----------------------------------------------------------CREADO (con imágenes repetidas para probar)
+
+
+
+
 
 
 

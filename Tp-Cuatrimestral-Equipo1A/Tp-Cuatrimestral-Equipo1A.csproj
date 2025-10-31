@@ -122,6 +122,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="PaginasPublic\Catalogo.aspx" />
+    <Content Include="PaginasPublic\Inicio.aspx" />
     <Content Include="PaginasPublic\Login.aspx" />
     <Content Include="PaginasPublic\Ubicaciones.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -226,6 +227,13 @@
     </Compile>
     <Compile Include="PaginasPublic\Catalogo.aspx.designer.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasPublic\Inicio.aspx.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPublic\Inicio.aspx.designer.cs">
+      <DependentUpon>Inicio.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Login.aspx.cs">
       <DependentUpon>Login.aspx</DependentUpon>
