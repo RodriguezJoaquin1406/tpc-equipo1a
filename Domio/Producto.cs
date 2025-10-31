@@ -15,6 +15,7 @@ namespace Dominio
         public Categoria Categoria { get; set; }
         public decimal PrecioBase { get; set; }
         public int StockActual { get; set; }
-        public string UrlImagen { get; set; }
+        public List<string> Imagenes { get; set; } = new List<string>(); // agregado para multiples imagenes (carrusel)
+
     }
 }
