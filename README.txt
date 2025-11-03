@@ -36,6 +36,20 @@ VAMOS REALIZANDO:
  + Pagina catalogo (PaginasPublic/Catalogo.aspx), parte visual unicamente ------------FALTA EL BACK, PARTE VISUAL CASI ESTA FINALIZADO
 	carrusel de imágenes----------------------------------------------------------CREADO (con imágenes repetidas para probar)
 
+========================== DESPUES DE LA PRIMER DEVOLUCION ===================================================== 
+CAMBIOS PARA CONVERTIR EN ECOMERCE
+
++ base de datos nueva ----------------------------------------------------------------CREADO
++ ventas pasa a ser pedido (dominio y negocio) ---------------------------------------CREADO
+- eliminar cliente, + usuario como clase principal -----------------------------------CREADO
+- compras ----------------------------------------------------------------------------ELIMINADO
+- compras detalle porque ya esta pedido ----------------------------------------------ELIMINADO
++ dirección --------------------------------------------------------------------------CREADO
++ método pago ------------------------------------------------------------------------CREADO
+
+* FALTA EL CARRITO QUIERO DEJARLO PARA LO ULTIMO y la clase que da por finalizado la compra
+
+
 
 
 

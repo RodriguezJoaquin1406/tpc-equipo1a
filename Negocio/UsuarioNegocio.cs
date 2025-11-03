@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta("SELECT Id, NombreUsuario, Contraseña, Rol FROM Usuarios");
+                datos.setConsulta(@"SELECT Id, NombreUsuario, Contrasena, Rol, Nombre, Email, Telefono FROM Usuarios");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
@@ -24,8 +24,11 @@ namespace Negocio
                     Usuario user = new Usuario();
                     user.Id = (int)datos.Lector["Id"];
                     user.NombreUsuario = datos.Lector["NombreUsuario"].ToString();
-                    user.Contraseña = datos.Lector["Contraseña"].ToString();
+                    user.Contrasena = datos.Lector["Contrasena"].ToString();
                     user.Rol = datos.Lector["Rol"].ToString();
+                    user.Nombre = datos.Lector["Nombre"].ToString();
+                    user.Email = datos.Lector["Email"].ToString();
+                    user.Telefono = datos.Lector["Telefono"].ToString();
 
                     lista.Add(user);
                 }
@@ -43,4 +46,3 @@ namespace Negocio
         }
     }
 }
-

@@ -10,8 +10,12 @@ namespace Dominio
     {
         public int Id { get; set; }
         public string NombreUsuario { get; set; }
-        public string Contraseña { get; set; }
-        public string Rol { get; set; } // "Administrador" o "Vendedor alguno mas?? cliente?? si puede hacer compra online.....veremos "
+        public string Contrasena { get; set; }
+        public string Rol { get; set; }
 
+        // Datos personales-ya no existe mas cliente
+        public string Nombre { get; set; }
+        public string Email { get; set; }
+        public string Telefono { get; set; }
     }
 }

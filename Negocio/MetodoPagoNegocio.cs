@@ -7,27 +7,25 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    public class ClienteNegocio
+    public class MetodoPagoNegocio
     {
-        public List<Cliente> listar()
+        public List<MetodoPago> Listar()
         {
-            List<Cliente> lista = new List<Cliente>();
+            List<MetodoPago> lista = new List<MetodoPago>();
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setConsulta("SELECT Id, Nombre, Email, Telefono FROM Clientes");
+                datos.setConsulta("SELECT Id, Nombre FROM MetodosPago");
                 datos.ejecutarLectura();
 
                 while (datos.Lector.Read())
                 {
-                    Cliente cli = new Cliente();
-                    cli.Id = (int)datos.Lector["Id"];
-                    cli.Nombre = datos.Lector["Nombre"].ToString();
-                    cli.Email = datos.Lector["Email"].ToString();
-                    cli.Telefono = datos.Lector["Telefono"].ToString();
+                    MetodoPago metodo = new MetodoPago();
+                    metodo.Id = (int)datos.Lector["Id"];
+                    metodo.Nombre = datos.Lector["Nombre"].ToString();
 
-                    lista.Add(cli);
+                    lista.Add(metodo);
                 }
 
                 return lista;
@@ -43,4 +41,3 @@ namespace Negocio
         }
     }
 }
-
