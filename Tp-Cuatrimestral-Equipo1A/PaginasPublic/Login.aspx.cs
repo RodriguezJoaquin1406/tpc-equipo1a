@@ -23,7 +23,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             if (usuario != null)
             {
                 Session["usuario"] = usuario;
-                Response.Redirect("~/PaginasPrivadas/Home.aspx");
+                Response.Redirect("~/PaginasPublic/Inicio.aspx");
             }
             else
             {

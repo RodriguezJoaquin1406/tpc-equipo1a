@@ -46,8 +46,11 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
             try
             {
-                negocio.Registrar(nuevo);
-                Response.Redirect("Login.aspx");
+                Session["usuario"] = nuevo;
+                Session["reciénRegistrado"] = true;
+                Response.Redirect("~/PaginasPrivadas/Home.aspx");
+
+
             }
             catch (Exception ex)
             {

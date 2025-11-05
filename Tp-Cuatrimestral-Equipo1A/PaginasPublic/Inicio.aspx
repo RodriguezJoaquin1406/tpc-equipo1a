@@ -1,4 +1,5 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Inicio.aspx.cs" Inherits="Tp_Cuatrimestral_Equipo1A.PaginasPublic.Inicio" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         .hero {
@@ -18,6 +19,7 @@
         }
     </style>
 </asp:Content>
+
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <section class="hero">
         <h1>Bienvenidos a Boutique Mi Sueño</h1>
@@ -28,9 +30,9 @@
         <p class="lead text-muted mx-auto" style="max-width: 40rem;">
             Prendas únicas, elegantes y de excelente calidad. ¡Explorá lo que tenemos para vos!
         </p>
+
         <div class="d-flex justify-content-center gap-3 mt-4">
-            <asp:HyperLink NavigateUrl="~/PaginasPublic/Catalogo.aspx" CssClass="btn btn-outline-dark btn-lg" Text="Ver Catálogo" runat="server" />
-            <asp:HyperLink NavigateUrl="~/PaginasPublic/Registro.aspx" CssClass="btn btn-dark btn-lg" Text="Registrarse" runat="server" />
+            <asp:HyperLink ID="hlCatalogo" NavigateUrl="~/PaginasPublic/Catalogo.aspx" CssClass="btn btn-outline-dark btn-lg" Text="Ver Catálogo" runat="server" />
         </div>
     </section>
 

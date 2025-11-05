@@ -122,6 +122,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="PaginasPublic\Catalogo.aspx" />
+    <Content Include="PaginasPrivadas\Home.aspx" />
     <Content Include="PaginasPublic\Inicio.aspx" />
     <Content Include="PaginasPublic\Login.aspx" />
     <Content Include="PaginasPublic\Registro.aspx" />
@@ -228,6 +229,13 @@
     </Compile>
     <Compile Include="PaginasPublic\Catalogo.aspx.designer.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasPrivadas\Home.aspx.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPrivadas\Home.aspx.designer.cs">
+      <DependentUpon>Home.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
