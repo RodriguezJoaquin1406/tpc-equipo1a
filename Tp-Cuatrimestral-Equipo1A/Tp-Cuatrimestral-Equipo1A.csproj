@@ -124,6 +124,7 @@
     <Content Include="PaginasPublic\Catalogo.aspx" />
     <Content Include="PaginasPublic\Inicio.aspx" />
     <Content Include="PaginasPublic\Login.aspx" />
+    <Content Include="PaginasPublic\Registro.aspx" />
     <Content Include="PaginasPublic\Ubicaciones.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
@@ -241,6 +242,13 @@
     </Compile>
     <Compile Include="PaginasPublic\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasPublic\Registro.aspx.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPublic\Registro.aspx.designer.cs">
+      <DependentUpon>Registro.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Ubicaciones.aspx.cs">
       <DependentUpon>Ubicaciones.aspx</DependentUpon>

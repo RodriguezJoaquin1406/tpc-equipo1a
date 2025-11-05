@@ -91,7 +91,7 @@
                             <div class="text-center">
                                 <p class="mb-0 small" style="color: rgba(0,0,0,0.8);" >¿Aún no tienes una cuenta?</p>
                                 <p class="mb-0 small">
-                                    <asp:HyperLink ID="hlRegister" NavigateUrl="#" runat="server" CssClass="fw-medium text-decoration-underline muted-accent"> Crear una</asp:HyperLink>
+                                    <asp:HyperLink ID="hlRegister" NavigateUrl="~/PaginasPublic/Registro.aspx" runat="server" CssClass="fw-medium text-decoration-underline muted-accent">Crear una</asp:HyperLink>
                                 </p>
                             </div>
                         </div>

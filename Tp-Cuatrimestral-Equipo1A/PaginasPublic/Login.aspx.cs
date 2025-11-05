@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,7 +17,20 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         }
         protected void btnLogin_Click(object sender, EventArgs e)
         {
-            //a
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            Usuario usuario = negocio.Login(txtEmail.Text, txtPassword.Text);
+
+            if (usuario != null)
+            {
+                Session["usuario"] = usuario;
+                Response.Redirect("~/PaginasPrivadas/Home.aspx");
+            }
+            else
+            {
+                lblEmail.ForeColor = System.Drawing.Color.Red;
+                lblEmail.Text = "Usuario o contraseña incorrectos.";
+            }
         }
+
     }
 }

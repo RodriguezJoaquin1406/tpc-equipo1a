@@ -47,6 +47,11 @@ CAMBIOS PARA CONVERTIR EN ECOMERCE
 + dirección --------------------------------------------------------------------------CREADO
 + método pago ------------------------------------------------------------------------CREADO
 
++ Pagina login
++ Pagina registro
+
+
+
 * FALTA EL CARRITO QUIERO DEJARLO PARA LO ULTIMO y la clase que da por finalizado la compra
 
 
