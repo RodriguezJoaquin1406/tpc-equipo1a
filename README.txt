@@ -53,6 +53,8 @@ CAMBIOS PARA CONVERTIR EN ECOMERCE
 + Pagina registro --------------------------------------------------------------------CREADO
 	alta de registro -------------------------------------------------------------HECHO
 
++ Pagina Ubicaciones -----------------------------------------------------------------INCOMPLETO
+	Mapa--------------------------------------------------------------------------INCOMPLETO
 
 
 * FALTA EL CARRITO QUIERO DEJARLO PARA LO ULTIMO y la clase que da por finalizado la compra
