@@ -124,6 +124,7 @@
     <Content Include="PaginasPublic\Carrito.aspx" />
     <Content Include="PaginasPublic\Catalogo.aspx" />
     <Content Include="PaginasPrivadas\Home.aspx" />
+    <Content Include="PaginasPublic\DetalleProducto.aspx" />
     <Content Include="PaginasPublic\Inicio.aspx" />
     <Content Include="PaginasPublic\Login.aspx" />
     <Content Include="PaginasPublic\Registro.aspx" />
@@ -244,6 +245,13 @@
     </Compile>
     <Compile Include="PaginasPrivadas\Home.aspx.designer.cs">
       <DependentUpon>Home.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasPublic\DetalleProducto.aspx.cs">
+      <DependentUpon>DetalleProducto.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPublic\DetalleProducto.aspx.designer.cs">
+      <DependentUpon>DetalleProducto.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
