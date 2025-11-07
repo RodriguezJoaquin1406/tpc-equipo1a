@@ -121,6 +121,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
+    <Content Include="PaginasPublic\Carrito.aspx" />
     <Content Include="PaginasPublic\Catalogo.aspx" />
     <Content Include="PaginasPrivadas\Home.aspx" />
     <Content Include="PaginasPublic\Inicio.aspx" />
@@ -222,6 +223,13 @@
     </Compile>
     <Compile Include="Main.Master.designer.cs">
       <DependentUpon>Main.Master</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasPublic\Carrito.aspx.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPublic\Carrito.aspx.designer.cs">
+      <DependentUpon>Carrito.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Catalogo.aspx.cs">
       <DependentUpon>Catalogo.aspx</DependentUpon>
