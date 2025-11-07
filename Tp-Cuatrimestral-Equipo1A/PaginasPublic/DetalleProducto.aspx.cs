@@ -56,5 +56,10 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                 }
             }
         }
+
+        public void btnAgregarCarrito_Click(object sender, EventArgs e) 
+        {
+            
+        }
     }
 }
