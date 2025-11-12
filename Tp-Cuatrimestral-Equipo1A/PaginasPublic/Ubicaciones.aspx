@@ -20,20 +20,35 @@
     <div id="mapa-personalizado"></div>
 
     <script>
+
         function initMap() {
-            const miUbicacion = { lat: -34.418833, lng: -58.572472 };
+            // Punto medio entre las dos ubicaciones para centrar el mapa
+            const puntoMedio = { lat: -34.439254, lng: -58.612688 };
+
+            // Ubicacion del local de Puerto de Frutos
+            const ubiLocalPuerto = { lat: -34.418833, lng: -58.572472 };
+
+            // Ubicacion del local de Pacheco
+            const ubiLocalPacheco = { lat: -34.456768, lng: -58.641937 };
 
             const map = new google.maps.Map(document.getElementById("mapa-personalizado"), {
-                zoom: 15,
-                center: miUbicacion,
-                mapId: "DEMO_MAP_ID" 
+                zoom: 13, 
+                center: puntoMedio,
+                mapId: "DEMO_MAP_ID"
             });
 
-            // Create a marker at your location
-            const marker = new google.maps.Marker({
-                position: miUbicacion,
+            // Marcador Puerto 
+            const markerPuerto = new google.maps.Marker({
+                position: ubiLocalPuerto,
                 map: map,
-                title: "Nuestra Tienda"
+                title: "Boutique Mi Sueño"
+            });
+
+            // Marcador Pacheco
+            const markerPacheco = new google.maps.Marker({
+                position: ubiLocalPacheco,
+                map: map,
+                title: "Mi Rincón"
             });
         }
     </script>
