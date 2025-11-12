@@ -50,6 +50,41 @@
                 map: map,
                 title: "Mi Rincón"
             });
+
+            const contenidoHtmlPuerto =
+                '<div id="content">' +
+                '<a href="https://www.instagram.com/boutique.misueno/" target="_blank" style="color:black; text-decoration:none;">' +
+                /*'<img src="https://i.pinimg.com/1200x/58/70/c8/5870c8c46e727d99d4fd828beadfe28f.jpg" alt="icon mi sueno" style="width:30%; height:auto;">' +*/
+                '<h4>Local Puerto De Frutos</h4>' +
+                    '<p>Sarmiento 15, Galeria Eucalipto</p>' +
+                '</a>' +
+                '</div>';
+
+            const infowindowPuerto = new google.maps.InfoWindow({
+                content: contenidoHtmlPuerto,
+            });
+
+            markerPuerto.addListener("click", () => {
+                infowindowPuerto.open(map, markerPuerto);
+            });
+
+
+            const contenidoHtmlPacheco =
+                '<div id="content">' +
+                '<a href="https://www.instagram.com/boutique.mi.rincon/" target="_blank" style="color:black; text-decoration:none;">' +
+                /*'<img src="https://i.pinimg.com/1200x/58/70/c8/5870c8c46e727d99d4fd828beadfe28f.jpg" alt="icon mi sueno" style="width:30%; height:auto;">' +*/
+                '<h4>Local General Pacheco</h4>' +
+                '<p>Neuquen 267, General Pacheco</p>' +
+                '</a>' +
+                '</div>';
+
+            const infowindowPacheco = new google.maps.InfoWindow({
+                content: contenidoHtmlPacheco,
+            });
+
+            markerPacheco.addListener("click", () => {
+                infowindowPacheco.open(map, markerPacheco);
+            });
         }
     </script>
 
