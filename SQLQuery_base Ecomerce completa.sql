@@ -159,6 +159,37 @@ INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (4, 'https://newswarovskiargentina.vtexassets.com/unsafe/1440x0/center/middle/https%3A%2F%2Fnewswarovskiargentina.vtexassets.com%2Farquivos%2Fids%2F653364%2Fpendientes-5705831-1.jpg%3Fv%3D638739523608530000'),
 (5, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/23/84/17453729703da87c9bc65401c1f4fc6168d7b0539a_thumbnail_560x.webp');
 
+INSERT INTO Carrito (IdUsuario, IdProducto, Cantidad) VALUES
+(1, 1, 3),    -- Juan Pérez tiene 3 Blusas en su carrito.
+(2, 2, 1),    -- Ana Gómez agregó 1 Vestido al carrito.
+(3, 3, 2),    -- Carlos Ruiz quiso 2 Bolsos.
+(1, 4, 4),    -- Juan Pérez añadió 4 Pendientes.
+(2, 5, 1);    -- Ana Gómez seleccionó 1 Vestido adicional.
+
+-- Direcciones (se relaciona con Usuarios)
+INSERT INTO Direcciones (IdUsuario, Calle, Ciudad, CodigoPostal, Provincia) VALUES
+(1, 'Av. Siempre Viva 123', 'Springfield', '1900', 'Buenos Aires'),
+(2, 'Calle Falsa 456', 'La Plata', '7000', 'Buenos Aires'),
+(3, 'Ruta 90 km 34', 'Rosario', '2000', 'Santa Fe'),
+(1, 'Av. Libertador 789', 'Zárate', '2800', 'Buenos Aires'),
+(2, 'Calle Mayo 654', 'Cordoba', '5000', 'Cordoba');
+
+-- Pedidos (se relaciona con Usuarios, Direcciones y Métodos de pago)
+INSERT INTO Pedidos (IdUsuario, Fecha, Estado, IdDireccion, IdMetodoPago, Total) VALUES
+(1, '2025-11-01', 'Pagado', 1, 2, 120000),  -- Pedido pagado por Juan Pérez
+(2, '2025-11-05', 'Pendiente', 2, 1, 52000), -- Pedido en espera de Ana Gómez
+(3, '2025-11-07', 'Enviado', 3, 4, 64000),  -- Carlos Ruiz hizo un pedido enviado con Mercado Pago.
+(1, '2025-11-10', 'Cancelado', 4, 5, 32000), -- Un pedido cancelado de Juan Pérez.
+(2, '2025-11-12', 'Pagado', 5, 3, 48000);  -- Pedido con T. Debito por Ana Gómez.
+
+-- DetallePedido (se relaciona con Pedidos y Productos)
+INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario) VALUES
+(1, 1, 4, 25000),  -- Juan Pérez compró 4 Blusas.
+(1, 3, 2, 32000),  -- Añadió 2 Bolsos.
+(2, 2, 1, 48000),  -- Ana Gómez compró un Vestido.
+(3, 4, 3, 8000),  -- Carlos Ruiz obtuvo 3 Pendientes Liana.
+(5, 5, 1, 62000);  -- Ana Gómez compró el Vestido Brisa.
+
 -- Métodos de pago
 INSERT INTO MetodosPago (Nombre) VALUES
 ('Transferencia Bancaria'),
@@ -166,3 +197,5 @@ INSERT INTO MetodosPago (Nombre) VALUES
 ('Tarjeta de Débito'),
 ('Mercado Pago'),
 ('Efectivo en punto de entrega');
+
+
