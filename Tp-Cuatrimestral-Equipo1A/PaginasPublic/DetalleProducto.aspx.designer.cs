@@ -42,22 +42,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         protected global::System.Web.UI.WebControls.Panel pnlProducto;
 
         /// <summary>
-        /// pnlImagenPrincipal control.
+        /// RepeaterImagenes control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Panel pnlImagenPrincipal;
-
-        /// <summary>
-        /// rptImagenes control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.Repeater rptImagenes;
+        protected global::System.Web.UI.WebControls.Repeater RepeaterImagenes;
 
         /// <summary>
         /// lblNombreProducto control.

@@ -1,12 +1,7 @@
 ﻿using Dominio;
-using Microsoft.Ajax.Utilities;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Web;
-using System.Web.UI;
 using System.Web.UI.WebControls;
-
 
 namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 {
@@ -18,48 +13,51 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             {
                 try
                 {
-                    int id;
-
-                    // Si no pudo convertir a entero (id nulo, o texto), redirige.
-                    if (!int.TryParse(Request.QueryString["Id"], out id))
+                    if (!int.TryParse(Request.QueryString["Id"], out int id))
                     {
-                        Response.Redirect("Catalogo.aspx");
+                        Response.Redirect("Catalogo.aspx", false);
                         return;
                     }
 
-                    // Nose si se usa el id 0, pero dejo comentado el chequeo por las dudas.
-                    //if (id == 0)
-                    //{
-                    //    Response.Redirect("Productos.aspx");
-                    //    return;
-                    //}
-
-                    // Validar existencia del producto
-
                     Negocio.ProductoNegocio productoNegocio = new Negocio.ProductoNegocio();
-
                     Producto producto = productoNegocio.buscarPorId(id);
 
-                    if (producto != null)
+                    if (producto != null)   
                     {
-                        // Mostrar detalles del producto
+                        // Bind data to all controls
+                        lblNombreProducto.Text = producto.Nombre;
+                        lblCategoria.Text = producto.Categoria?.Nombre;
+                        lblPrecio.Text = producto.PrecioBase.ToString("C");
+                        lblDescripcion.Text = producto.Descripcion;
+
+                        // Bind images to the carousel repeater
+                        if (producto.Imagenes != null && producto.Imagenes.Any())
+                        {
+                            RepeaterImagenes.DataSource = producto.Imagenes;
+                            RepeaterImagenes.DataBind();
+                        }
+                        
+                        // You can continue binding other controls here...
+                        // ddlTalle.DataSource = ...
+                        // ddlColor.DataSource = ...
                     }
                     else
                     {
-                        Response.Redirect("Catalogo.aspx");
+                        Response.Redirect("Catalogo.aspx", false);
                     }
                 }
                 catch (Exception ex)
                 {
-                    Console.WriteLine("Error: " + ex.ToString());
-                    Response.Redirect("Catalogo.aspx");
+                    // It's a good practice to log the exception
+                    // Log.Error(ex);
+                    Response.Redirect("Error.aspx", false); // Redirect to a generic error page
                 }
             }
         }
 
-        public void btnAgregarCarrito_Click(object sender, EventArgs e) 
+        public void btnAgregarCarrito_Click(object sender, EventArgs e)
         {
-            
+            // Add to cart logic
         }
     }
 }

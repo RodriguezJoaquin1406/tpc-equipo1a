@@ -27,14 +27,14 @@
             background-color: #f0f0f0;
         }
 
-        .product-thumb:hover {
-            opacity: 1;
-        }
+            .product-thumb:hover {
+                opacity: 1;
+            }
 
-        .product-thumb.active {
-            opacity: 1;
-            border-color: #ee9d2b;
-        }
+            .product-thumb.active {
+                opacity: 1;
+                border-color: #ee9d2b;
+            }
 
         /* Botón primario personalizado */
         .btn-primary-custom {
@@ -44,15 +44,15 @@
             font-weight: 700;
         }
 
-        .btn-primary-custom:hover {
-            background-color: #d88d23;
-            border-color: #d88d23;
-        }
+            .btn-primary-custom:hover {
+                background-color: #d88d23;
+                border-color: #d88d23;
+            }
 
-        .btn-primary-custom:disabled {
-            background-color: #ccc;
-            border-color: #ccc;
-        }
+            .btn-primary-custom:disabled {
+                background-color: #ccc;
+                border-color: #ccc;
+            }
 
         /* Acordeón/Details */
         .accordion-button:not(.collapsed) {
@@ -72,13 +72,13 @@
             display: block;
         }
 
-        .related-product-card:hover {
-            transform: translateY(-4px);
-        }
+            .related-product-card:hover {
+                transform: translateY(-4px);
+            }
 
-        .related-product-card:hover .product-title {
-            color: #ee9d2b;
-        }
+                .related-product-card:hover .product-title {
+                    color: #ee9d2b;
+                }
 
         .related-product-image {
             width: 100%;
@@ -94,21 +94,6 @@
         }
     </style>
 
-    <!-- JavaScript para galería de imágenes -->
-    <script type="text/javascript">
-        function changeMainImage(imageUrl, thumbElement) {
-            var mainImg = document.getElementById('mainProductImage');
-            if (mainImg && imageUrl) {
-                mainImg.style.backgroundImage = "url('" + imageUrl + "')";
-            }
-
-            var thumbs = document.querySelectorAll('.product-thumb');
-            thumbs.forEach(function (t) { t.classList.remove('active'); });
-            if (thumbElement) {
-                thumbElement.classList.add('active');
-            }
-        }
-    </script>
 </asp:Content>
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
@@ -122,32 +107,36 @@
 
         <asp:Panel ID="pnlProducto" runat="server">
             <div class="row g-5">
-                <!-- Columna izquierda: Galería de imágenes -->
+
                 <div class="col-lg-6">
-                    <div class="mb-3">
-                        <asp:Panel ID="pnlImagenPrincipal" runat="server" CssClass="product-main-image">
-                        </asp:Panel>
-                    </div>
-                    <div class="row g-3">
-                        <asp:Repeater ID="rptImagenes" runat="server">
-                            <ItemTemplate>
-                                <div class="col-3">
-                                    <div class="product-thumb <%# Container.ItemIndex == 0 ? "active" : "" %>" 
-                                         onclick="changeMainImage('<%# Eval("UrlImagen") %>', this)"
-                                         style='background-image: url("<%# Eval("UrlImagen") %>");'>
+                    <div id="productCarousel" class="carousel slide" data-bs-ride="carousel">
+                        <div class="carousel-inner">
+                            <asp:Repeater ID="RepeaterImagenes" runat="server">
+                                <ItemTemplate>
+                                    <div class="carousel-item <%# Container.ItemIndex == 0 ? "active" : "" %>">
+                                        <img src="<%# Container.DataItem %>" class="d-block w-100" alt="Imagen del producto" style="aspect-ratio: 1; object-fit: cover; border-radius: 12px;" />
                                     </div>
-                                </div>
-                            </ItemTemplate>
-                        </asp:Repeater>
+                                </ItemTemplate>
+                            </asp:Repeater>
+                        </div>
+                        <button class="carousel-control-prev" type="button" data-bs-target="#productCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#productCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
                     </div>
                 </div>
+
 
                 <!-- Columna derecha: Información del producto -->
                 <div class="col-lg-6">
                     <h1 class="display-5 fw-bold mb-3">
                         <asp:Label ID="lblNombreProducto" runat="server"></asp:Label>
                     </h1>
-                    
+
                     <p class="text-muted mb-2">
                         <asp:Label ID="lblCategoria" runat="server"></asp:Label>
                     </p>
@@ -179,19 +168,19 @@
                     <div class="mb-4">
                         <asp:Label ID="lblCantidadLabel" runat="server" AssociatedControlID="txtCantidad" CssClass="form-label fw-medium">Cantidad</asp:Label>
                         <asp:TextBox ID="txtCantidad" runat="server" TextMode="Number" CssClass="form-control" Text="1" min="1"></asp:TextBox>
-                        <asp:RequiredFieldValidator ID="rfvCantidad" runat="server" ControlToValidate="txtCantidad" 
-                                                    ErrorMessage="La cantidad es requerida" CssClass="text-danger small" Display="Dynamic">
+                        <asp:RequiredFieldValidator ID="rfvCantidad" runat="server" ControlToValidate="txtCantidad"
+                            ErrorMessage="La cantidad es requerida" CssClass="text-danger small" Display="Dynamic">
                         </asp:RequiredFieldValidator>
-                        <asp:RangeValidator ID="rvCantidad" runat="server" ControlToValidate="txtCantidad" 
-                                           MinimumValue="1" MaximumValue="999" Type="Integer"
-                                           ErrorMessage="Ingrese una cantidad válida" CssClass="text-danger small" Display="Dynamic">
+                        <asp:RangeValidator ID="rvCantidad" runat="server" ControlToValidate="txtCantidad"
+                            MinimumValue="1" MaximumValue="999" Type="Integer"
+                            ErrorMessage="Ingrese una cantidad válida" CssClass="text-danger small" Display="Dynamic">
                         </asp:RangeValidator>
                     </div>
 
                     <!-- Botón añadir al carrito -->
                     <div class="d-grid mb-4">
-                        <asp:Button ID="btnAgregarCarrito" runat="server" Text="Añadir al carrito" 
-                                    CssClass="btn btn-primary-custom btn-lg" OnClick="btnAgregarCarrito_Click" />
+                        <asp:Button ID="btnAgregarCarrito" runat="server" Text="Añadir al carrito"
+                            CssClass="btn btn-primary-custom btn-lg" OnClick="btnAgregarCarrito_Click" />
                     </div>
 
                     <!-- Descripción expandible -->
@@ -199,35 +188,38 @@
                         <div class="accordion accordion-flush" id="accordionProductDetails">
                             <div class="accordion-item bg-transparent border-0">
                                 <h2 class="accordion-header" id="headingDescription">
-                                    <button class="accordion-button bg-transparent fw-bold ps-0" type="button" 
-                                            data-bs-toggle="collapse" data-bs-target="#collapseDescription" 
-                                            aria-expanded="true" aria-controls="collapseDescription">
+                                    <button class="accordion-button bg-transparent fw-bold ps-0" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseDescription"
+                                        aria-expanded="true" aria-controls="collapseDescription">
                                         Descripción
                                     </button>
                                 </h2>
-                                <div id="collapseDescription" class="accordion-collapse collapse show" 
-                                     aria-labelledby="headingDescription" data-bs-parent="#accordionProductDetails">
+                                <div id="collapseDescription" class="accordion-collapse collapse show"
+                                    aria-labelledby="headingDescription" data-bs-parent="#accordionProductDetails">
                                     <div class="accordion-body ps-0 text-muted">
                                         <asp:Label ID="lblDescripcion" runat="server"></asp:Label>
                                     </div>
                                 </div>
                             </div>
-                            
+
                             <div class="accordion-item bg-transparent border-0 border-top mt-3">
                                 <h2 class="accordion-header" id="headingDetails">
-                                    <button class="accordion-button collapsed bg-transparent fw-bold ps-0" type="button" 
-                                            data-bs-toggle="collapse" data-bs-target="#collapseDetails" 
-                                            aria-expanded="false" aria-controls="collapseDetails">
+                                    <button class="accordion-button collapsed bg-transparent fw-bold ps-0" type="button"
+                                        data-bs-toggle="collapse" data-bs-target="#collapseDetails"
+                                        aria-expanded="false" aria-controls="collapseDetails">
                                         Detalles del Producto
                                     </button>
                                 </h2>
-                                <div id="collapseDetails" class="accordion-collapse collapse" 
-                                     aria-labelledby="headingDetails" data-bs-parent="#accordionProductDetails">
+                                <div id="collapseDetails" class="accordion-collapse collapse"
+                                    aria-labelledby="headingDetails" data-bs-parent="#accordionProductDetails">
                                     <div class="accordion-body ps-0">
                                         <ul class="list-unstyled text-muted">
-                                            <li><strong>Material:</strong> <asp:Label ID="lblMaterial" runat="server"></asp:Label></li>
-                                            <li><strong>Color:</strong> <asp:Label ID="lblColorDisponible" runat="server"></asp:Label></li>
-                                            <li><strong>Talla:</strong> <asp:Label ID="lblTalleDisponible" runat="server"></asp:Label></li>
+                                            <li><strong>Material:</strong>
+                                                <asp:Label ID="lblMaterial" runat="server"></asp:Label></li>
+                                            <li><strong>Color:</strong>
+                                                <asp:Label ID="lblColorDisponible" runat="server"></asp:Label></li>
+                                            <li><strong>Talla:</strong>
+                                                <asp:Label ID="lblTalleDisponible" runat="server"></asp:Label></li>
                                         </ul>
                                     </div>
                                 </div>
