@@ -73,6 +73,50 @@ namespace Negocio
             }
         }
 
+        public void Actualizar(Usuario usuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE Usuarios SET Nombre = @Nombre, Email = @Email, Telefono = @Telefono WHERE Id = @Id");
+                datos.setearParametro("@Nombre", usuario.Nombre);
+                datos.setearParametro("@Email", usuario.Email);
+                datos.setearParametro("@Telefono", usuario.Telefono);
+                datos.setearParametro("@Id", usuario.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void Eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM Usuarios WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
         // --------------------------------------- LOGIN ----------------------------------------
         public Usuario Login(string email, string contrasena)
         {

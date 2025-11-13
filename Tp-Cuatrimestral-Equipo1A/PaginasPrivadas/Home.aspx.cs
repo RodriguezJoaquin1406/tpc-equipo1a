@@ -1,4 +1,5 @@
 ﻿using Dominio;
+using Negocio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,9 +24,9 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPrivadas
             {
                 Usuario usuario = (Usuario)Session["usuario"];
                 lblNombreUsuario.Text = usuario.NombreUsuario;
-                lblNombre.Text = usuario.Nombre;
-                lblEmail.Text = usuario.Email;
-                lblTelefono.Text = usuario.Telefono;
+                txtNombre.Text = usuario.Nombre;
+                txtEmail.Text = usuario.Email;
+                txtTelefono.Text = usuario.Telefono;
                 lblRol.Text = usuario.Rol;
 
                 if (Session["reciénRegistrado"] != null)
@@ -36,6 +37,28 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPrivadas
             }
         }
 
+        protected void btnActualizar_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = (Usuario)Session["usuario"];
+            usuario.Nombre = txtNombre.Text;
+            usuario.Email = txtEmail.Text;
+            usuario.Telefono = txtTelefono.Text;
+
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            negocio.Actualizar(usuario); 
+
+            lblResultado.Text = "Datos actualizados correctamente.";
+        }
+
+        protected void btnEliminarCuenta_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = (Usuario)Session["usuario"];
+            UsuarioNegocio negocio = new UsuarioNegocio();
+            negocio.Eliminar(usuario.Id); 
+
+            Session.Clear();
+            Response.Redirect("~/PaginasPublic/Inicio.aspx");
+        }
 
         protected void btnCerrarSesion_Click(object sender, EventArgs e)
         {
