@@ -148,5 +148,76 @@ namespace Negocio
                 }
             }
         }
+
+        public void agregar(Producto nuevo)
+        {
+            var datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"INSERT INTO Productos (Nombre, Descripcion, PrecioBase, StockActual, IdCategoria)
+                            VALUES (@Nombre, @Descripcion, @PrecioBase, @StockActual, @IdCategoria)");
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.setearParametro("@Descripcion", nuevo.Descripcion);
+                datos.setearParametro("@PrecioBase", nuevo.PrecioBase);
+                datos.setearParametro("@StockActual", nuevo.StockActual);
+                datos.setearParametro("@IdCategoria", nuevo.Categoria.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificar(Producto producto)
+        {
+            var datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"UPDATE Productos SET Nombre = @Nombre, Descripcion = @Descripcion,
+                            PrecioBase = @PrecioBase, StockActual = @StockActual, IdCategoria = @IdCategoria
+                            WHERE Id = @Id");
+                datos.setearParametro("@Nombre", producto.Nombre);
+                datos.setearParametro("@Descripcion", producto.Descripcion);
+                datos.setearParametro("@PrecioBase", producto.PrecioBase);
+                datos.setearParametro("@StockActual", producto.StockActual);
+                datos.setearParametro("@IdCategoria", producto.Categoria.Id);
+                datos.setearParametro("@Id", producto.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            var datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM Productos WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

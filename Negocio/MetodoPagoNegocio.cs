@@ -39,5 +39,63 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public void agregar(MetodoPago nuevo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("INSERT INTO MetodosPago (Nombre) VALUES (@Nombre)");
+                datos.setearParametro("@Nombre", nuevo.Nombre);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificar(MetodoPago metodo)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE MetodosPago SET Nombre = @Nombre WHERE Id = @Id");
+                datos.setearParametro("@Nombre", metodo.Nombre);
+                datos.setearParametro("@Id", metodo.Id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM MetodosPago WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

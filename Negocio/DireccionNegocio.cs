@@ -46,5 +46,76 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+        public void agregar(Direccion nueva)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"INSERT INTO Direcciones (Calle, Numero, Ciudad, Provincia, CodigoPostal)
+                                VALUES (@Calle, @Numero, @Ciudad, @Provincia, @CodigoPostal)");
+                datos.setearParametro("@Calle", nueva.Calle);
+                datos.setearParametro("@Numero", nueva.Numero);
+                datos.setearParametro("@Ciudad", nueva.Ciudad);
+                datos.setearParametro("@Provincia", nueva.Provincia);
+                datos.setearParametro("@CodigoPostal", nueva.CodigoPostal);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void modificar(Direccion direccion)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"UPDATE Direcciones SET Calle = @Calle, Numero = @Numero,
+                                Ciudad = @Ciudad, Provincia = @Provincia, CodigoPostal = @CodigoPostal
+                                WHERE Id = @Id");
+                datos.setearParametro("@Calle", direccion.Calle);
+                datos.setearParametro("@Numero", direccion.Numero);
+                datos.setearParametro("@Ciudad", direccion.Ciudad);
+                datos.setearParametro("@Provincia", direccion.Provincia);
+                datos.setearParametro("@CodigoPostal", direccion.CodigoPostal);
+                datos.setearParametro("@Id", direccion.Id);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminar(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM Direcciones WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 }

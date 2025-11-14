@@ -79,6 +79,7 @@ CREATE TABLE Direcciones (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
     Calle VARCHAR(100),
+    Numero VARCHAR(50),
     Ciudad VARCHAR(50),
     CodigoPostal VARCHAR(10),
     Provincia VARCHAR(50)

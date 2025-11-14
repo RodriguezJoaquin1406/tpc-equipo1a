@@ -2,132 +2,147 @@
 
 Aplicación web para administrar compras y ventas de un negocio multipropósito.
 
+---
 
-_________________________________________ Etapas del Proyecto _______________________________________________
+## _________________________________________ Etapas del Proyecto _______________________________________________
 
-			Etapa 1 - Modelo de Dominio y Pantallas (SE REVISARA EL 31/10)
+### Etapa 1 - Modelo de Dominio y Pantallas (SE REVISARA EL 31/10)
 
 Para la primera etapa del TPC se solicita:
 - la arquitectura de clases (modelo de dominio),
 - armado de pantallas de la aplicación (SIN funcionalidad, sólo ventanas, algunos controles y navegación) y
 - lectura desde base de datos de al menos UNA entidad.
 
+#### VAMOS REALIZANDO:
 
-VAMOS REALIZANDO:
+- Capa dominio ------------------------------------------------------------------- ✅ CREADO  
+  tenía mal escrito el nombre (domio, ya lo corregí)
 
-- Capa dominio -------------------------------------------------------------------CREADO
-	tenia mal escrito el nombre (domio, ya lo corregi)
-- Clases base: Cliente, Proveedor, Producto, Marca, Categoría, Usuario----------------CREADO (REVISAR)
-- Clases funcionales: Compra, CompraDetalle, Venta, VentaDetalle----------------------CREADO (REVISAR)
- 
-- capa Negocio -----------------------------------------------------------------------CREADO
- + AccesoDatos -----------------------------------------------------------------------CREADO
- + CategoriaNegocio ------------------------------------------------------------------CREADO
- + Cliente ---------------------------------------------------------------------------CREADO
- + CompraNegocio ---------------------------------------------------------------------CREADO
- + MarcaNegocio ----------------------------------------------------------------------CREADO
- + ProductoNegocio -------------------------------------------------------------------CREADO
- + UsuarioNegocio --------------------------------------------------------------------CREADO
- + VentaNegocio ----------------------------------------------------------------------CREADO
+- Clases base: Cliente, Proveedor, Producto, Marca, Categoría, Usuario ----------- ✅ CREADO (REVISAR)  
+- Clases funcionales: Compra, CompraDetalle, Venta, VentaDetalle ----------------- ✅ CREADO (REVISAR)
 
-- FRONT / Paginas Presentación
- + Pagina Principal ------------------------------------------------------------------CREADO (re base)
- + Pagina master page (main.master), tiene header y footer ---------------------------CREADO
- + Pagina catalogo (PaginasPublic/Catalogo.aspx), parte visual unicamente ------------FALTA EL BACK, PARTE VISUAL CASI ESTA FINALIZADO
-	carrusel de imágenes----------------------------------------------------------CREADO (con imágenes repetidas para probar)
+- Capa Negocio ------------------------------------------------------------------- ✅ CREADO  
+  + AccesoDatos  
+  + CategoriaNegocio  
+  + ClienteNegocio  
+  + CompraNegocio  
+  + MarcaNegocio  
+  + ProductoNegocio  
+  + UsuarioNegocio  
+  + VentaNegocio  
 
-========================== DESPUES DE LA PRIMER DEVOLUCION ===================================================== 
-CAMBIOS PARA CONVERTIR EN ECOMERCE
+- FRONT / Páginas de Presentación  
+  + Página Principal ------------------------------------------------------------- ✅ CREADO (re base)  
+  + Página master page (`Main.Master`) con header y footer ----------------------- ✅ CREADO  
+  + Página catálogo (`PaginasPublic/Catalogo.aspx`) ------------------------------ 🔄 FALTA BACKEND, VISUAL CASI LISTO  
+    - Carrusel de imágenes ------------------------------------------------------- ✅ CREADO (con imágenes repetidas para probar)
 
-+ base de datos nueva ----------------------------------------------------------------CREADO
-+ ventas pasa a ser pedido (dominio y negocio) ---------------------------------------CREADO
-- eliminar cliente, + usuario como clase principal -----------------------------------CREADO
-- compras ----------------------------------------------------------------------------ELIMINADO
-- compras detalle porque ya esta pedido ----------------------------------------------ELIMINADO
-+ dirección --------------------------------------------------------------------------CREADO
-+ método pago ------------------------------------------------------------------------CREADO
+---
 
-+ Pagina login -----------------------------------------------------------------------CREADO
-	valida correo ----------------------------------------------------------------HECHO
-	valida nombre ----------------------------------------------------------------HECHO
-+ Pagina registro --------------------------------------------------------------------CREADO
-	alta de registro -------------------------------------------------------------HECHO
+### CAMBIOS POST DEVOLUCIÓN PARA CONVERTIR EN ECOMMERCE
 
-+ Pagina Ubicaciones -----------------------------------------------------------------INCOMPLETO
-	Mapa--------------------------------------------------------------------------INCOMPLETO
+- Base de datos nueva ------------------------------------------------------------ ✅ CREADO  
+- Ventas pasa a ser Pedido (dominio y negocio) ----------------------------------- ✅ CREADO  
+- Cliente eliminado, Usuario como clase principal -------------------------------- ✅ CREADO  
+- Compras y CompraDetalle eliminadas --------------------------------------------- ✅ ELIMINADO  
+- Dirección y Método de Pago ----------------------------------------------------- ✅ CREADO  
+
+- Página Login ------------------------------------------------------------------- ✅ CREADO  
+  - Valida correo y nombre de usuario -------------------------------------------- ✅ HECHO  
+  - Inicia sesión y redirige a Inicio con sesión activa -------------------------- ✅ HECHO  
+  - Menú dinámico en `Main.Master` según sesión ---------------------------------- ✅ HECHO  
+
+- Página Registro ---------------------------------------------------------------- ✅ CREADO  
+  - Alta de usuario -------------------------------------------------------------- ✅ HECHO  
+  - Redirige a `Home.aspx` con sesión iniciada ----------------------------------- ✅ HECHO  
+
+- Página Ubicaciones ------------------------------------------------------------- ✅ REALIZADO  
+  - Mapa con ubicación ----------------------------------------------------------- ✅ REALIZADO  
+
+- Página Inicio (`Inicio.aspx`) -------------------------------------------------- ✅ LIMPIADA  
+  - Contenido visual puro, sin lógica de sesión ---------------------------------- ✅ HECHO  
+
+- Página Perfil (`PaginasPrivadas/Home.aspx`) ------------------------------------ ✅ CREADO  
+  - Muestra datos del usuario ---------------------------------------------------- ✅ HECHO  
+  - Permite editar nombre, email y teléfono -------------------------------------- ✅ NUEVO  
+  - Permite eliminar cuenta ------------------------------------------------------ ✅ NUEVO  
+  - Mensaje de bienvenida si viene del registro ---------------------------------- ✅ NUEVO  
+
+- UsuarioNegocio y UsuarioDatos -------------------------------------------------- ✅ AMPLIADO  
+  - Método `Actualizar(Usuario)` ------------------------------------------------- ✅ NUEVO  
+  - Método `Eliminar(int id)` ---------------------------------------------------- ✅ NUEVO  
+
+---
+
+### *FALTA* (para más adelante)
+
+- Carrito de compras (lo dejamos para el final)
+- Clase que finaliza la compra (pedido confirmado)
+
+---
 
 
-* FALTA EL CARRITO QUIERO DEJARLO PARA LO ULTIMO y la clase que da por finalizado la compra
 
-
-
-
-
-
-
-
-
-__________________________________________ Etapa 2 - ABMs y Listados ________________________________________
+## __________________________________________ Etapa 2 - ABMs y Listados ________________________________________
 
 Para la segunda etapa del TPC se solicita:
 - completar y corregir las cuestiones pendientes de la primera etapa,
-- desarrollar todos los ABMs y listados de las entidades administrables de la aplicación, 
-pero NO de las que correspondan a funcionalidad core (Turnos, Incidencia, Venta o Mesas)
+- desarrollar todos los ABMs y listados de las entidades administrables de la aplicación,  
+  pero NO de las que correspondan a funcionalidad core (Turnos, Incidencia, Venta o Mesas)
+
+#### VAMOS REALIZANDO:
+
+- ABM de Usuario (modificación y eliminación desde perfil) ------------------------ ✅ CREADO
+- Validaciones en registro y login ------------------------------------------------ ✅ HECHO
+- Redirecciones y control de sesión en páginas privadas --------------------------- ✅ HECHO
+
+- ABM de Usuario (agregar, modificar, eliminar) ----------------------------------- ✅ CREADO
+- ABM de Producto (listar, buscar, agregar, modificar, eliminar) ------------------ ✅ CREADO
+- ABM de Categoría (listar, agregar, modificar, eliminar) ------------------------- ✅ CREADO
+- ABM de Método de Pago (listar, agregar, modificar, eliminar) -------------------- ✅ CREADO
+- ABM de Dirección (listar, agregar, modificar, eliminar) ------------------------- ✅ CREADO
+
+- Campo Número agregado a la tabla Direcciones (SQL no estaba el varchar)---------- ✅ HECHO
 
 
-Nota: tener en cuenta validaciones, diseño visual, seguir ampliando/corrigiendo el modelo.
+🔜 Próximo paso: funcionalidad core (carrito, pedido, confirmación de compra)
 
+---
 
-VAMOS REALIZANDO:
+## ___________________________________________ Etapa 3 - Funcionalidad Core ____________________________________
 
-
-
-
-
-
-
-
-
-
-___________________________________________ Etapa 3 - Funcionalidad Core ____________________________________
 Para la tercera etapa del TPC deberán construir:
 - La funcionalidad del core de la aplicación (turnos: nuevo, re programar; mesa: abrir, generar pedido, cerrar; ventas: comprar, vender, etc.).
 - Las funcionalidades que aportan valor de agregado al core (búsquedas dinámicas, registrarse, olvidé mi pass, etc.).
 - Validaciones a lo largo de la aplicación: tipos de datos, requeridos, formatos.
 
+#### VAMOS REALIZANDO:
 
-VAMOS REALIZANDO:
+🔜 Próximo objetivo: carrito de compras y finalización de pedido
 
+---
 
+## ___________________________________________ Etapa Final - Seguridad y Optimización __________________________
 
-
-
-
-
-
-
-
-___________________________________________ Etapa Final - Seguridad y Optimización __________________________
 Para la cuarta y última etapa del TPC deberán:
 - Cerrar toda la funcionalidad pendiente (abms y filtrados en todas las entidades).
 - Validaciones a lo largo de toda la aplicación.
 - Seguridad y perfiles de usuario, con la funcionalidad correspondiente para cada perfil.
 - Optimización del diseño visual de cara al usuario (colorcitos, botoncitos lindos, etc.).
 
+#### VAMOS REALIZANDO:
 
-VAMOS REALIZANDO
+🔜 A definir luego de completar el carrito y pedidos
 
+---
 
+## Tecnologías utilizadas
 
+- ASP.NET Web Forms  
+- WinForms  
+- C#  
+- SQL Server  
+- Git + GitHub  
+- [Google Stitch](https://stitch.withgoogle.com)
 
-
-
--------------------------------------------------------------------------------------------------------------
- Tecnologías utilizadas
-- ASP.NET Web Forms
-- WinForms
-- C#
-- SQL Server
-- Git + GitHub
-- HTTPS://stitch.withgoogle.com
--------------------------------------------------------------------------------------------------------------
+---
