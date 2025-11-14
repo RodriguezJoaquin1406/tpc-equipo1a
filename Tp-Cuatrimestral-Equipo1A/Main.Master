@@ -135,8 +135,6 @@
                     <asp:HyperLink NavigateUrl="~/PaginasPublic/Inicio.aspx" CssClass="nav-link text-dark" Text="Inicio" runat="server" />
                     <asp:HyperLink NavigateUrl="~/PaginasPublic/Catalogo.aspx" CssClass="nav-link text-dark" Text="Catálogo" runat="server" />
                     <asp:HyperLink NavigateUrl="~/PaginasPublic/Ubicaciones.aspx" CssClass="nav-link text-dark" Text="Ubicaciones" runat="server" />
-                    <asp:HyperLink NavigateUrl="~/PaginasPublic/Nosotros.aspx" CssClass="nav-link text-dark" Text="Nosotros" runat="server" />
-                    <asp:HyperLink NavigateUrl="~/PaginasPublic/Contacto.aspx" CssClass="nav-link text-dark" Text="Contacto" runat="server" />
                 </nav>
                 <div class="d-flex align-items-center gap-3">
                     <asp:Label ID="lblSaludoMaster" runat="server" CssClass="text-dark me-2" />

@@ -10,6 +10,51 @@
             color: #000000f2;
             text-decoration: none;
         }
+
+        .btn-cream {
+            --cream-bg: #e6a137; /* fondo */
+            --cream-border: #C6AC8F; /* borde / acento */
+            --cream-foreground: #3C3633; /* texto */
+            background-color: var(--cream-bg);
+            color: var(--cream-foreground);
+            border: 1px solid var(--cream-border);
+            font-weight: 600;
+            box-shadow: none;
+            margin:15px; 
+        }
+
+            .btn-cream:hover,
+            .btn-cream:focus {
+                background-color: #E0D5BF; /* un poco más oscuro */
+                border-color: #BFA782;
+                color: var(--cream-foreground);
+            }
+
+            .btn-cream:active {
+                background-color: #D6C9A9;
+                border-color: #A88E66;
+            }
+
+            .btn-cream:disabled,
+            .btn-cream.disabled {
+                background-color: #F3F1EE;
+                border-color: #E0D8C9;
+                color: #A8A09A;
+                opacity: 0.8;
+            }
+
+        /* Variante outline */
+        .btn-cream-outline {
+            background-color: transparent;
+            color: var(--cream-border);
+            border: 1px solid var(--cream-border);
+        }
+
+            .btn-cream-outline:hover {
+                background-color: var(--cream-bg);
+                color: var(--cream-foreground);
+            }
+
     </style>
     <section class="text-center macrame-border">
         <h2 class="display-3 font-display mb-4">Nuestra Colección</h2>
@@ -18,6 +63,9 @@
         </p>
     </section>
 
+    <%if (Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).Rol == "Administrador" ){ %>
+    <button type="button" class="btn btn-cream">Nuevo Producto</button>
+    <%} %>
     <section>
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
             <div class="d-flex flex-wrap gap-3">

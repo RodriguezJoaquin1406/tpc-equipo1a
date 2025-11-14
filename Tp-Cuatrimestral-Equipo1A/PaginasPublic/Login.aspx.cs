@@ -20,15 +20,30 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             UsuarioNegocio negocio = new UsuarioNegocio();
             Usuario usuario = negocio.Login(txtEmail.Text, txtPassword.Text);
 
-            if (usuario != null)
+            try
             {
-                Session["usuario"] = usuario;
-                Response.Redirect("~/PaginasPublic/Inicio.aspx");
+                if (usuario != null)
+                {
+                    Session["usuario"] = usuario;
+                    Session.Add("usuario", usuario);
+                    Response.Redirect("~/PaginasPublic/Inicio.aspx");
+                    //Response.Redirect("MenuLogin1Ejemplo.aspx", false);
+                }
+                if (usuario == null)
+                {
+                    lblEmail.ForeColor = System.Drawing.Color.Red;
+                    lblEmail.Text = "Usuario o contraseña incorrectos.";
+                    Session.Add("error", "user o pass incorrectos");
+                    //Response.Redirect("../Error.aspx", false);
+                }
             }
-            else
+            catch (Exception ex)
             {
                 lblEmail.ForeColor = System.Drawing.Color.Red;
-                lblEmail.Text = "Usuario o contraseña incorrectos.";
+                lblEmail.Text = "Ocurrió un error durante el inicio de sesión. Por favor, inténtelo de nuevo más tarde.";
+                Session.Add("error", ex.ToString());
+                //Response.Redirect("../Error.aspx");
+                // Aquí podrías registrar el error en un log si es necesario
             }
         }
 
