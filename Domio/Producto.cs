@@ -12,9 +12,10 @@ namespace Dominio
         public string Nombre { get; set; }
         public string Descripcion { get; set; }
         public Categoria Categoria { get; set; }
+        public string Talle { get; set; } 
         public decimal PrecioBase { get; set; }
         public int StockActual { get; set; }
-        public List<string> Imagenes { get; set; } = new List<string>(); // agregado para multiples imagenes (carrusel)
-
+        public int StockMinimo { get; set; }
+        public List<string> Imagenes { get; set; } = new List<string>();
     }
 }

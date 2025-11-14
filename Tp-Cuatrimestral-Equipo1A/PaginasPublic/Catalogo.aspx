@@ -64,7 +64,7 @@
     </section>
 
     <%if (Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).Rol == "Administrador" ){ %>
-    <button type="button" class="btn btn-cream">Nuevo Producto</button>
+    <button type="button" class="btn btn-cream"><a href="">Nuevo Producto</a></button>
     <%} %>
     <section>
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
