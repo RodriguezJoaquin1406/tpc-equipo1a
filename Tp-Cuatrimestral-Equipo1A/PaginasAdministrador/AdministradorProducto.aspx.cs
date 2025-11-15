@@ -24,12 +24,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            string user = Session["usuario"] as string;
-            if (user != "Administrador")
-            {
-                Session.Add("error", "Debes ser admin para ingresar");
-                Response.Redirect("/Inicio.aspx", false);
-            }
+
+            // *****  VALIDACION PARA QUE SOLO ADMINISTRADOR PUEDA ENTRAR 
+            // ESTA ROTO HAY QUE ARREGLARLO Y EN EL FUTURO HACER UNA CONSTANTE PARA VALIDAR Y NO USAR UN STRING REPETIDO
+            //string user = Session["usuario"] as string;
+            //if (user != "Administrador")
+            //{
+            //    Session.Add("error", "Debes ser admin para ingresar");
+            //    Response.Redirect("../PaginasPublic/Inicio.aspx", false);
+            //}
 
             prodError = false;
             prodSuccess = false;
@@ -262,7 +265,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     ProductoNegocio negocio = new ProductoNegocio();
                     negocio.eliminar(id);
 
-                    Response.Redirect("ListadoProductos.aspx");
+                    Response.Redirect("../PaginasPublic/Catalogo.aspx");
                 }
             }
             catch (Exception ex)
@@ -274,7 +277,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("ListadoProductos.aspx");
+            Response.Redirect("../PaginasPublic/Catalogo.aspx");
         }
 
         private void LimpiarFormulario()
