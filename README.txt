@@ -79,7 +79,16 @@ Para la primera etapa del TPC se solicita:
 - Carrito de compras (lo dejamos para el final)
 - Clase que finaliza la compra (pedido confirmado)
 
----
+-- CORRECCIONES PENDIENTES SEGUNDA REVISION
+
+- Hacer listado para administrador de productos (uno con mas facil acceso a modificar).
+- Falta verificar Borrado de productos .
+- Paginas ABML de marca, categoria, y usuarios.
+- Hacer una constante para tipo de usuario administrador.
+
+*Pd no preocuparnos tanto por tema permisos, primero hacer que todo en la aplicacion funcione.
+que todo se pueda cargar, modificar, listar y eliminar desde la pagina y luego ver tema permisos.
+
 
 
 
