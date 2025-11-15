@@ -140,15 +140,7 @@
         </div>
     </div>
 
-    <script runat="server">
-        protected int ImagenCount
-        {
-            get { return (int)(ViewState["ImagenCount"] ?? 0); }
-            set { ViewState["ImagenCount"] = value; }
-        }
-
-        
-    </script>
+    
 
     <script>
         function syncImagenes() {

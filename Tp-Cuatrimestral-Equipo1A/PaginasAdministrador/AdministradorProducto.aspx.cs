@@ -15,6 +15,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected bool prodError;
         protected bool prodSuccess;
 
+
         protected int ImagenCount
         {
             get { return (int)(ViewState["ImagenCount"] ?? 0); }
@@ -23,6 +24,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            string user = Session["usuario"] as string;
+            if (user != "Administrador")
+            {
+                Session.Add("error", "Debes ser admin para ingresar");
+                Response.Redirect("/Inicio.aspx", false);
+            }
+
             prodError = false;
             prodSuccess = false;
 
@@ -281,5 +289,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             ImagenCount = 1;
             CreateImageTextBoxes();
         }
+
+
     }
 }

@@ -20,7 +20,7 @@
             border: 1px solid var(--cream-border);
             font-weight: 600;
             box-shadow: none;
-            margin:15px; 
+            margin: 15px;
         }
 
             .btn-cream:hover,
@@ -54,7 +54,6 @@
                 background-color: var(--cream-bg);
                 color: var(--cream-foreground);
             }
-
     </style>
     <section class="text-center macrame-border">
         <h2 class="display-3 font-display mb-4">Nuestra Colección</h2>
@@ -127,6 +126,10 @@
 
                                 <p class="card-text text-muted">Precio: $<%# Eval("PrecioBase") %></p>
                             </div>
+                            <%if (Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).Rol == "Administrador")
+                                { %>
+                            <button type="button" class="btn btn-cream"><a href="../PaginasAdministrador/AdministradorProducto.aspx?id=<%#Eval("Id")%>">Modificar</a></button>
+                            <%} %>
                         </div>
                     </div>
                 </ItemTemplate>
