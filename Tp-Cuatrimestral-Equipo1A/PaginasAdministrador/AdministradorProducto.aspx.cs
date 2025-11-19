@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
+using Domio;
 using Negocio;
 
 namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
@@ -25,21 +26,22 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            // *****  VALIDACION PARA QUE SOLO ADMINISTRADOR PUEDA ENTRAR 
+            //*****VALIDACION PARA QUE SOLO ADMINISTRADOR PUEDA ENTRAR
             // ESTA ROTO HAY QUE ARREGLARLO Y EN EL FUTURO HACER UNA CONSTANTE PARA VALIDAR Y NO USAR UN STRING REPETIDO
             //string user = Session["usuario"] as string;
-            //if (user != "Administrador")
+            //if (user != Perfiles.Administrador)
             //{
             //    Session.Add("error", "Debes ser admin para ingresar");
             //    Response.Redirect("../PaginasPublic/Inicio.aspx", false);
             //}
+
 
             prodError = false;
             prodSuccess = false;
 
             if (!IsPostBack)
             {
-                if (productoModificar != null) 
+                if (productoModificar != null)
                 {
                     txtId.Text = productoModificar.Id.ToString();
                     txtNombre.Text = productoModificar.Nombre;
@@ -78,7 +80,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     if (int.TryParse(Request.QueryString["Id"], out id))
                     {
                         var negocio = new ProductoNegocio();
-                        productoModificar = negocio.buscarPorId(id); 
+                        productoModificar = negocio.buscarPorId(id);
 
                         if (productoModificar != null)
                         {
