@@ -17,5 +17,10 @@ namespace Dominio
         public int StockActual { get; set; }
         public int StockMinimo { get; set; }
         public List<string> Imagenes { get; set; } = new List<string>();
+
+        //public override string ToString()
+        //{
+        //    return this.Nombre;
+        //}
     }
 }
