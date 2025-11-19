@@ -90,6 +90,12 @@ Para la primera etapa del TPC se solicita:
 *Pd no preocuparnos tanto por tema permisos, primero hacer que todo en la aplicacion funcione.
 que todo se pueda cargar, modificar, listar y eliminar desde la pagina y luego ver tema permisos.
 
+- ABML MARCA - Listado hecho, Eliminado No, Modificado NO, CargarNuevo NO.
+- ABML USUARIOS - Listado HECHO, Eliminado NO, Modificado NO, ¿Cargar nuevo User admin? Hay que hacerlo
+- Pagina Carrito, CODE BEHIND SI, Falta visual (aspx)
+
+
+
 
 
 
