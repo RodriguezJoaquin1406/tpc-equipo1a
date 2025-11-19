@@ -81,10 +81,11 @@ Para la primera etapa del TPC se solicita:
 
 -- CORRECCIONES PENDIENTES SEGUNDA REVISION
 
-- Hacer listado para administrador de productos (uno con mas facil acceso a modificar).
-- Falta verificar Borrado de productos .
+- Hacer listado para administrador de productos------------------------------------ HECHO
+(Se podria cambiar y hacer que se puedan modificar algunos campos sin tener que ir a otra pagina)
+- Falta verificar Borrado de productos .------------------------------------------- HECHO Y VERIFICADO
 - Paginas ABML de marca, categoria, y usuarios.
-- Hacer una constante para tipo de usuario administrador.
+- Hacer una constante para tipo de usuario administrador. ------------------------- HECHO
 
 *Pd no preocuparnos tanto por tema permisos, primero hacer que todo en la aplicacion funcione.
 que todo se pueda cargar, modificar, listar y eliminar desde la pagina y luego ver tema permisos.
