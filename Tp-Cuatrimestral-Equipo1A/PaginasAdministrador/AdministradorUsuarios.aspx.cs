@@ -13,8 +13,9 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-			try
-			{
+            // falta validar si es admin
+            try
+            {
 				UsuarioNegocio negocio = new UsuarioNegocio();
                 dgvUsuarios.DataSource = negocio.listar();
                 dgvUsuarios.DataBind();

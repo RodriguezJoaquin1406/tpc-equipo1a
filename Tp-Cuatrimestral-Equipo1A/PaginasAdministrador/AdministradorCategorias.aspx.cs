@@ -14,6 +14,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+			// Validacion Administrador
 			try
 			{
 				CategoriaNegocio negocio = new CategoriaNegocio();
