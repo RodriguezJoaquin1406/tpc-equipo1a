@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
+using Dominio;
+using Negocio;
 
 namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 {
@@ -11,6 +14,17 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+			try
+			{
+				CategoriaNegocio negocio = new CategoriaNegocio();
+				dgvCategorias.DataSource = negocio.listar();
+				dgvCategorias.DataBind();
+            }
+			catch (Exception ex)
+			{
+
+				throw ex;
+			}
 
         }
     }

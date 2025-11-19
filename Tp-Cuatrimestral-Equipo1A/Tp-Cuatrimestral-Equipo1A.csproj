@@ -121,7 +121,7 @@
     <Content Include="Default.aspx" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
-    <Content Include="PaginasAdministrador\AdministradorMarcas.aspx" />
+    <Content Include="PaginasAdministrador\AdministradorCategorias.aspx" />
     <Content Include="PaginasAdministrador\AdministradorProducto.aspx" />
     <Content Include="PaginasAdministrador\AdministradorUsuarios.aspx" />
     <Content Include="PaginasAdministrador\CatalogoAdministrador.aspx" />
@@ -229,12 +229,12 @@
     <Compile Include="Main.Master.designer.cs">
       <DependentUpon>Main.Master</DependentUpon>
     </Compile>
-    <Compile Include="PaginasAdministrador\AdministradorMarcas.aspx.cs">
-      <DependentUpon>AdministradorMarcas.aspx</DependentUpon>
+    <Compile Include="PaginasAdministrador\AdministradorCategorias.aspx.cs">
+      <DependentUpon>AdministradorCategorias.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
     </Compile>
-    <Compile Include="PaginasAdministrador\AdministradorMarcas.aspx.designer.cs">
-      <DependentUpon>AdministradorMarcas.aspx</DependentUpon>
+    <Compile Include="PaginasAdministrador\AdministradorCategorias.aspx.designer.cs">
+      <DependentUpon>AdministradorCategorias.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasAdministrador\AdministradorProducto.aspx.cs">
       <DependentUpon>AdministradorProducto.aspx</DependentUpon>
