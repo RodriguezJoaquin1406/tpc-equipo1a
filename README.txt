@@ -125,6 +125,22 @@ Para la segunda etapa del TPC se solicita:
 
 ---
 
+
+
+QUE NOS FALTA TERMINAR ANTES DE ETAPA 3
+
+-- Hacer que los productos se carguen al carrito (teniendo sesión inciada) y sin sesión iniciada guardándolo en sesión 
+	(después hacer que ese carrito temporal se cargue a BD o se concatene si ya tiene uno)
+
+-- Borrado, Modificado y Cargado de marcas Desde el front. en el back-end ya están el ABML negocio de marca pero no en el front.
+	(listado ya está terminado falta Borrado, Modificado y Cargado )
+
+-- Borrado, Modificado de usuarios Desde el front. en el back-end ya están el ABML negocio de usuarios pero no en el front.
+	(listado ya está terminado falta Borrado y Modificado)
+
+
+
+
 ## ___________________________________________ Etapa 3 - Funcionalidad Core ____________________________________
 
 Para la tercera etapa del TPC deberán construir:
