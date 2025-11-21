@@ -1,5 +1,4 @@
-﻿using Dominio;
-using Domio;
+﻿using Domio;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Negocio
 {
-    internal class ItemCarritoNegocio
+    public class ItemCarritoNegocio
     {
         public List<ItemCarrito> listarCarrito (int idUsuario)
         {
@@ -16,16 +15,33 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta(@"SELECT P.Id AS IdProducto, P.Nombre, P.Precio, P.Imagen, IC.Cantidad
-                                    FROM ItemCarrito IC
-                                    JOIN Productos P ON IC.IdProducto = P.Id
-                                    WHERE IC.IdUsuario = @idUsuario");
+                datos.setConsulta(@"
+
+SELECT 
+    P.Id, 
+    P.Nombre, 
+    P.PrecioBase AS Precio, 
+    (SELECT TOP 1 UrlImagen FROm Imagenes WHERE IdProducto = P.Id) AS Imagen, 
+    C.Cantidad
+
+FROM 
+    Carrito C
+INNER JOIN 
+    Productos P ON C.IdProducto = P.Id
+WHERE 
+    C.IdUsuario = @idUsuario
+
+");
+
                 datos.setearParametro("@idUsuario", idUsuario);
                 datos.ejecutarLectura();
+
                 while (datos.Lector.Read())
                 {
+
                     ItemCarrito item = new ItemCarrito();
-                    item.IdProducto = (int)datos.Lector["IdProducto"];
+
+                    item.IdProducto = (int)datos.Lector["Id"];
                     item.nombre = datos.Lector["Nombre"].ToString();
                     item.precio = (decimal)datos.Lector["Precio"];
                     item.imagen = datos.Lector["Imagen"].ToString();
@@ -34,9 +50,9 @@ namespace Negocio
                 }
                 return lista;
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw ;
             }
             finally
             {

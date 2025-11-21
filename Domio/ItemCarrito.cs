@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Domio
 {
-    public class CarritoProducto
+    public class ItemCarrito
     {
         public int IdProducto { get; set; }
         public string nombre { get; set; }  

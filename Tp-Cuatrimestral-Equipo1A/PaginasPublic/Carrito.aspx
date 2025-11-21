@@ -7,70 +7,83 @@
 
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
-    <div class="container py-5"> 
-    
-    <div class="row g-4">
+    <div class="container py-5">
 
-        <div class="col-md-8">
-            
-            <div class="card shadow-sm border-0"> 
-                <div class="card-header bg-white border-bottom py-3">
-                    <h4 class="mb-0">Productos</h4>
-                </div>
-                <div class="card-body">
-                    
-                    <div class="d-flex align-items-center mb-3">
-                        <img src="https://via.placeholder.com/80" class="img-fluid rounded me-3" alt="Producto">
-                        <div>
-                            <h5 class="mb-1">titulo producto</h5>
-                            <p class="text-muted mb-0 small">Talle</p>
-                            <a href="#" class="btn btn-danger" style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .70rem;">Eliminar</a>
-                        </div>
-                        <div class="ms-auto fw-bold">
-                            $$precio
-                        </div>
+        <div class="row g-4">
+
+            <div class="col-md-8">
+
+                <div class="card shadow-sm border-0">
+                    <div class="card-header bg-white border-bottom py-3">
+                        <h4 class="mb-0">Productos</h4>
                     </div>
-                    
-                    <hr class="text-muted" />
+                    <div class="card-body">
 
-                    
+                        <asp:Repeater runat="server" ID="rptCarrito" >
+                            <ItemTemplate>
+                                <div class="d-flex align-items-center mb-3">
+                                    <img src="<%# Eval("Imagen") %>" class="img-fluid rounded me-3" alt="Producto" style="height: 15rem; width: 12rem;">
+                                    <div>
+                                        <h5 class="mb-1"><%# Eval("Nombre") %></h5>
+                                        <p class="text-muted mb-0 small"> Cantidad :  <%# Eval("Cantidad") %></p>
+                                        <a href="#" class="btn btn-danger" style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .70rem;">Eliminar</a>
+                                    </div>
+                                    <div class="ms-auto fw-bold">
+                                        <%# Eval("Precio") %>
+                                    </div>
+                                </div>
 
+                                <hr class="text-muted" />
+
+                            </ItemTemplate>
+                        </asp:Repeater>
+
+                    </div>
                 </div>
+
             </div>
-        </div>
 
-        <div class="col-md-4">
-            
-            <div class="card shadow-sm border-0">
-                <div class="card-body">
-                    <h5 class="card-title mb-4">Resumen de compra</h5>
-                    
-                    <div class="d-flex justify-content-between mb-2">
-                        <span class="text-muted">Productos (2)</span>
-                        <span>$60.000</span>
-                    </div>
-                    <div class="d-flex justify-content-between mb-4">
-                        <span class="text-muted">Envío</span>
-                        <span class="text-success">$$$$</span>
-                    </div>
+            <div class="col-md-4">
 
-                    <hr />
+                <div class="card shadow-sm border-0">
+                    <div class="card-body">
+                        <h5 class="card-title mb-4">Resumen de compra</h5>
+                        <asp:Label Text="text" runat="server" ID="lblMensajeCarrito"/>
 
-                    <div class="d-flex justify-content-between mb-4">
-                        <span class="h5">Total</span>
-                        <span class="h5">$60.000</span>
-                    </div>
+                        <div class="d-flex justify-content-between mb-2">
+                            <span class="text-muted">
+                                Cantidad:
+                                <asp:Literal ID="litCantidad" Text="" runat="server" />
+                            </span>
+                            
+                        </div>
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="text-muted">
+                                Envío
+                                <asp:Literal ID="litEnvio" Text="" runat="server" />
+                            </span>
+                        </div>
 
-                    <div class="d-grid gap-2">
-                        <asp:Button ID="btnComprar" runat="server" Text="Comprar" CssClass="btn btn-warning btn-lg" />
+                        <hr />
+
+                        <div class="d-flex justify-content-between mb-4">
+                            <span class="h5">
+                                Total
+                                <asp:Literal ID="litTotal" Text="" runat="server"/>
+                            </span>
+                            
+                        </div>
+
+                        <div class="d-grid gap-2">
+                            <asp:Button ID="btnComprar" runat="server" Text="Comprar" CssClass="btn btn-warning btn-lg" />
+                        </div>
                     </div>
                 </div>
+
+
             </div>
-            
 
         </div>
-
     </div>
-</div>
 
 </asp:Content>
