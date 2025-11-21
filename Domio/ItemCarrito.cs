@@ -9,6 +9,13 @@ namespace Domio
     public class CarritoProducto
     {
         public int IdProducto { get; set; }
+        public string nombre { get; set; }  
+        public decimal precio { get; set; }
+        public string imagen { get; set; }
         public int cantidad { get; set; }
+        public decimal Subtotal
+        {
+            get { return precio * cantidad; }
+        }
     }
 }
