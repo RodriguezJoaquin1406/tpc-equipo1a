@@ -51,9 +51,12 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
                 if (listaProductos.Count > 0 && listaProductos != null)
                 {
+                    // Confirmado usuario tiene un carrito existente entonces cargamos repeater
                     rptCarrito.DataSource = listaProductos;
                     rptCarrito.DataBind();
                     lblMensajeCarrito.Visible = false;
+
+
                     litCantidad.Text = listaProductos.Count().ToString();
                     litTotal.Text = listaProductos.Sum(x => x.Subtotal).ToString("C2");
                 }
@@ -63,6 +66,8 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                     lblMensajeCarrito.Visible = true;
                 }
 
+                upModal.Update();
+
             }
             catch (Exception)
             {
@@ -71,6 +76,61 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             }
 
             
+        }
+
+        public void btn_EliminarClick(object sender, EventArgs e)
+        {
+            // Mandamos dos valores en el boton entonces hacemos un vector y lo spliteamos por ";"
+            string[] valores = (((Button)sender).CommandArgument).Split(';');
+            // Separamos los valores
+            int idProducto = int.Parse(valores[0]);
+            int cantidad = int.Parse(valores[1]);
+            // Hidden Field para poder capturar valores
+            hfIdProductoAEliminar.Value = idProducto.ToString();
+            hfCantidadProducto.Value = cantidad.ToString();
+
+            ddlCantidadEliminar.Items.Clear();
+            ddlCantidadEliminar.Items.Add(new ListItem("Todo (" + cantidad + ")", cantidad.ToString()));
+
+            for (int i = 1; i < cantidad; i++)
+            {
+                ddlCantidadEliminar.Items.Add(new ListItem(i.ToString(), i.ToString()));
+            }
+
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "abrir", "$('#modalEliminar').modal('show');", true);
+        }
+
+        public void btn_ConfirmarEliminarClick(object sender, EventArgs e)
+        {
+            try
+            {
+                int idProducto = int.Parse(hfIdProductoAEliminar.Value);
+                int cantidadAEliminar = int.Parse(ddlCantidadEliminar.SelectedValue);
+                int cantTotalProducto = int.Parse(hfCantidadProducto.Value);
+
+                ItemCarritoNegocio carritoNegocio = new ItemCarritoNegocio();
+
+                if (cantidadAEliminar == cantTotalProducto) { carritoNegocio.eliminarDelCarrito(UsuarioLogueado.Id, idProducto); }
+
+                if (cantidadAEliminar != cantTotalProducto)
+                {
+                    int cantFinal = (cantTotalProducto > cantidadAEliminar) ? cantTotalProducto - cantidadAEliminar : 0;
+                    if (cantFinal != 0) { carritoNegocio.actualizarCantidad(UsuarioLogueado.Id, idProducto, cantFinal ); }
+                }
+
+
+
+
+                ScriptManager.RegisterStartupScript(Page, Page.GetType(), "cerrarModal", "$('#modalEliminar').modal('hide');", true);
+
+
+                CargarCarrito();
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
         }
     }
 }

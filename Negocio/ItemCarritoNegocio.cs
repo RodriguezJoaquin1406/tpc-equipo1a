@@ -9,7 +9,7 @@ namespace Negocio
 {
     public class ItemCarritoNegocio
     {
-        public List<ItemCarrito> listarCarrito (int idUsuario)
+        public List<ItemCarrito> listarCarrito(int idUsuario)
         {
             List<ItemCarrito> lista = new List<ItemCarrito>();
             AccesoDatos datos = new AccesoDatos();
@@ -52,7 +52,69 @@ WHERE
             }
             catch (Exception)
             {
-                throw ;
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void eliminarDelCarrito(int idUsuario, int idProducto)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM Carrito WHERE IdUsuario = @idUsuario AND IdProducto = @idProducto");
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void agregarAlCarrito(int idUsuario, int idProducto, int cantidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("INSERT INTO Carrito (IdUsuario, IdProducto, Cantidad) VALUES (@idUsuario, @idProducto, @cantidad)");
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.setearParametro("@cantidad", cantidad);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void actualizarCantidad(int idUsuario, int idProducto, int nuevaCantidad)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE Carrito SET Cantidad = @nuevaCantidad WHERE IdUsuario = @idUsuario AND IdProducto = @idProducto");
+                datos.setearParametro("@nuevaCantidad", nuevaCantidad);
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
             }
             finally
             {
