@@ -5,6 +5,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <h2>Lista Usuarios</h2>
 
+
+
     <div>
         <asp:GridView runat="server" ID="dgvUsuarios" AutoGenerateColumns="false" CssClass="table table-dark">
             <Columns>
@@ -14,7 +16,7 @@
                 <asp:BoundField DataField="Nombre" HeaderText="Nombre" />
                 <asp:BoundField DataField="Email" HeaderText="Correo Electrónico" />
                 <asp:BoundField DataField="Telefono" HeaderText="Telefono" />
-                <%--<asp:HyperLinkField Text="Editar" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="AdministradorProducto.aspx?Id={0}" />--%>
+                <asp:HyperLinkField Text="Editar" DataNavigateUrlFields="Id" DataNavigateUrlFormatString="ModificarUsuario.aspx?Id={0}" />
             </Columns>
         </asp:GridView>
     </div>

@@ -213,6 +213,39 @@ namespace Negocio
             }
         }
 
+        public Usuario BuscarPorID(int id) 
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("SELECT * FROM Usuarios WHERE Id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
 
+                if (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)datos.Lector["Id"];
+                    usuario.NombreUsuario = datos.Lector["NombreUsuario"].ToString();
+                    usuario.Rol = datos.Lector["Rol"].ToString();
+                    usuario.Nombre = datos.Lector["Nombre"].ToString();
+                    usuario.Email = datos.Lector["Email"].ToString();
+                    usuario.Telefono = datos.Lector["Telefono"].ToString();
+
+                    return usuario;
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

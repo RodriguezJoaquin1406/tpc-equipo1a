@@ -125,6 +125,7 @@
     <Content Include="PaginasAdministrador\AdministradorProducto.aspx" />
     <Content Include="PaginasAdministrador\AdministradorUsuarios.aspx" />
     <Content Include="PaginasAdministrador\CatalogoAdministrador.aspx" />
+    <Content Include="PaginasAdministrador\ModificarUsuario.aspx" />
     <Content Include="PaginasPublic\Carrito.aspx" />
     <Content Include="PaginasPublic\Catalogo.aspx" />
     <Content Include="PaginasPrivadas\Home.aspx" />
@@ -256,6 +257,13 @@
     </Compile>
     <Compile Include="PaginasAdministrador\CatalogoAdministrador.aspx.designer.cs">
       <DependentUpon>CatalogoAdministrador.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasAdministrador\ModificarUsuario.aspx.cs">
+      <DependentUpon>ModificarUsuario.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasAdministrador\ModificarUsuario.aspx.designer.cs">
+      <DependentUpon>ModificarUsuario.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Carrito.aspx.cs">
       <DependentUpon>Carrito.aspx</DependentUpon>
