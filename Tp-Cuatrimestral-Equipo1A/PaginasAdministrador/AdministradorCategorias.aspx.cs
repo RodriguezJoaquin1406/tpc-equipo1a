@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -14,19 +15,176 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-			// Validacion Administrador
-			try
-			{
-				CategoriaNegocio negocio = new CategoriaNegocio();
-				dgvCategorias.DataSource = negocio.listar();
-				dgvCategorias.DataBind();
+            // Validacion Administrador
+            if (!IsPostBack)
+            {
+                cargarTabla();
             }
-			catch (Exception ex)
-			{
+        }
 
-				throw ex;
-			}
+        private void cargarTabla()
+        {
+            try
+            {
+                CategoriaNegocio negocio = new CategoriaNegocio();
+                dgvCategorias.DataSource = negocio.listar();
+                dgvCategorias.DataBind();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
 
+        protected void btnEditar_Click(object sender, EventArgs e)
+        {
+            // Recuperamos el ID del botón que fue presionado
+            Button btn = (Button)sender;
+            int idCategoria = int.Parse(btn.CommandArgument);
+
+            // Buscamos los datos originales en la BD
+            CategoriaNegocio negocio = new CategoriaNegocio();
+            // Usamos Find para buscar en memoria o creas un método "ObtenerPorId(id)"
+            List<Categoria> lista = negocio.listar();
+            Categoria seleccionada = lista.Find(x => x.Id == idCategoria);
+
+            // Pre-cargamos los datos en el Modal (TextBox y HiddenField)
+            txtNombreEditar.Text = seleccionada.Nombre;
+            hfIdCategoria.Value = idCategoria.ToString();
+
+            // Este script se ejecuta apenas termina el postback parcial
+            string script = "$('#modalEdicion').modal('show');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", script, true);
+
+        }
+
+        protected void btnGuardar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // Recuperamos los datos del modal
+                Categoria categoriaModificada = new Categoria();
+                categoriaModificada.Id = int.Parse(hfIdCategoria.Value);
+                categoriaModificada.Nombre = txtNombreEditar.Text;
+
+                // Llamamos al negocio para actualizar
+                CategoriaNegocio negocio = new CategoriaNegocio();
+                negocio.modificar(categoriaModificada);
+
+                // Cerramos el modal via JS
+                string script = "$('#modalEdicion').modal('hide');";
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModal", script, true);
+
+                cargarTabla();
+
+                System.Text.StringBuilder scr = new System.Text.StringBuilder();
+
+                scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalEdicion'));");
+                scr.Append("if (modal) { modal.hide(); }"); // Intenta cerrar suavemente
+
+                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
+                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
+
+                scr.Append("document.body.classList.remove('modal-open');");
+                scr.Append("document.body.style = '';");
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalFix", scr.ToString(), true);
+
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+            }
+
+        }
+
+        protected void btnEliminar_Click(object sender, EventArgs e)
+        {
+            // A. Recuperar el ID del botón
+            Button btn = (Button)sender;
+            int idCategoria = int.Parse(btn.CommandArgument);
+
+            hfIdEliminar.Value = idCategoria.ToString();
+
+            CategoriaNegocio negocio = new CategoriaNegocio();
+            List<Categoria> lista = negocio.listar();
+            Categoria seleccionada = lista.Find(x => x.Id == idCategoria);
+
+            lblMensajeEliminar.Text = "¿Estás seguro que deseas eliminar la categoría <b>" + seleccionada.Nombre + "</b>?";
+
+            string script = "$('#modalConfirmaEliminar').modal('show');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModalEliminar", script, true);
+        }
+
+        protected void btnConfirmaEliminar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                // A. Recuperar el ID guardado
+                int idCategoria = int.Parse(hfIdEliminar.Value);
+
+                // B. Llamar a la capa de Negocio
+                CategoriaNegocio negocio = new CategoriaNegocio();
+                negocio.eliminar(idCategoria); // Asumo que tienes este método void Eliminar(int id)
+
+                // C. Recargar la grilla
+                cargarTabla();
+
+                // D. Cerrar Modal y borrar Backdrop (Usando el script robusto)
+                System.Text.StringBuilder scr = new System.Text.StringBuilder();
+                scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirmaEliminar'));");
+                scr.Append("if (modal) { modal.hide(); }");
+                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
+                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
+                scr.Append("document.body.classList.remove('modal-open');");
+                scr.Append("document.body.style = '';");
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalEliminar", scr.ToString(), true);
+            }
+            catch (Exception ex)
+            {
+                // Manejo de errores (ej: Integridad referencial en SQL si hay productos con esa categoría)
+                Session.Add("error", "No se pudo eliminar: " + ex.Message);
+                // Redirigir a error o mostrar alerta
+            }
+        }
+
+
+        protected void btnNuevaCategoria_Click(object sender, EventArgs e)
+        {
+            txtNombreNuevo.Text = string.Empty;
+
+            string script = "$('#modalNuevo').modal('show');";
+            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowmodalNuevo", script, true);
+        }
+
+        protected void btnGuardarNuevo_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                Categoria nueva = new Categoria();
+                nueva.Nombre = txtNombreNuevo.Text;
+
+                CategoriaNegocio negocio = new CategoriaNegocio();
+                negocio.agregar(nueva); 
+
+                cargarTabla();
+
+                System.Text.StringBuilder scr = new System.Text.StringBuilder();
+                scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalNuevo'));");
+                scr.Append("if (modal) { modal.hide(); }");
+                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
+                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
+                scr.Append("document.body.classList.remove('modal-open');");
+                scr.Append("document.body.style = '';");
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalNuevo", scr.ToString(), true);
+            }
+            catch (Exception ex)
+            {
+                Session.Add("error", ex.ToString());
+                // Redireccionar a error o mostrar alerta
+            }
         }
     }
 }

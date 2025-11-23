@@ -123,6 +123,22 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "cerrarModal", "$('#modalEliminar').modal('hide');", true);
 
+                System.Text.StringBuilder scr = new System.Text.StringBuilder();
+
+                scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalEdicion'));");
+                scr.Append("if (modal) { modal.hide(); }"); // Intenta cerrar suavemente
+
+                // FUERZA BRUTA: Elimina el fondo oscuro si quedó pegado
+                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
+                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
+
+                // Restaura el scroll de la página
+                scr.Append("document.body.classList.remove('modal-open');");
+                scr.Append("document.body.style = '';");
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalFix", scr.ToString(), true);
+
+
 
                 CargarCarrito();
             }
