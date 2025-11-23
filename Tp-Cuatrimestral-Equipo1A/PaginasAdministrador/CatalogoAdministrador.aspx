@@ -7,7 +7,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Productos Administrador</h2>
-
+    <asp:LinkButton Text="Añadir Nuevo" runat="server" href="AdministradorProducto.aspx" CssClass="btn btn-secondary" style="margin:20px;"/>
     <div>
         <asp:GridView ID="dgvProductos" runat="server" AutoGenerateColumns="false" CssClass="table table-dark">
             <Columns>
