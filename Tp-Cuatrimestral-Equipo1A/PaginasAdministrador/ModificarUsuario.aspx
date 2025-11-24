@@ -33,4 +33,3 @@
         <asp:Button ID="btnEliminar" runat="server" Text="Eliminar" CssClass="btn btn-danger" OnClick="btnEliminar_Click" />
     </asp:Panel>
 </asp:Content>
-fakiu

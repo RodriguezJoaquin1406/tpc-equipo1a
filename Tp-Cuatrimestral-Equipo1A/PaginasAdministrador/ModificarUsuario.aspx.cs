@@ -17,6 +17,8 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
         protected void Page_Load(object sender, EventArgs e)
         {
+            // Falta Validacion administrador y que venga con un id en parametro
+
             if (!IsPostBack)
             {
                 cargarRoles();
@@ -80,17 +82,23 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 return;
             }
 
-            // Si las validaciones son correctas, se procede a actualizar el usuario
-            usuario.NombreUsuario = txtNombreUsuario.Text;
-            usuario.Nombre = txtNombre.Text;
-            usuario.Email = txtEmail.Text;
-            usuario.Telefono = txtTelefono.Text;
-            usuario.Rol = ddlRol.SelectedValue;
+            Usuario modificado = new Usuario
+            {
+                Id = int.Parse(Request.QueryString["id"]),
+                NombreUsuario = txtNombreUsuario.Text,
+                Nombre = txtNombre.Text,
+                Email = txtEmail.Text,
+                Telefono = txtTelefono.Text,
+                Rol = ddlRol.SelectedValue
+            };
+
+            
 
             try
             {
-                negocio.Actualizar(usuario);
+                negocio.Actualizar(modificado);
                 userSuccess = true;
+                Response.Redirect("AdministradorUsuarios.aspx");
             }
             catch (Exception)
             {
@@ -100,13 +108,12 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
-            
-            if (usuario != null)
+            if (Request.QueryString["id"] != null)
             {
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 try
                 {
-                    negocio.Eliminar(usuario.Id);
+                    negocio.Eliminar(int.Parse(Request.QueryString["id"]));
                     Response.Redirect("AdministradorUsuarios.aspx");
                 }
                 catch (Exception ex)
