@@ -1,5 +1,7 @@
 ﻿using Dominio;
+using Negocio;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Web.UI.WebControls;
 
@@ -24,33 +26,26 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
                     if (producto != null)   
                     {
-                        // Bind data to all controls
                         lblNombreProducto.Text = producto.Nombre;
                         lblCategoria.Text = producto.Categoria?.Nombre;
                         lblPrecio.Text = producto.PrecioBase.ToString("C");
                         lblDescripcion.Text = producto.Descripcion;
 
-                        // Bind images to the carousel repeater
                         if (producto.Imagenes != null && producto.Imagenes.Any())
                         {
                             RepeaterImagenes.DataSource = producto.Imagenes;
                             RepeaterImagenes.DataBind();
                         }
                         
-                        // You can continue binding other controls here...
-                        // ddlTalle.DataSource = ...
-                        // ddlColor.DataSource = ...
                     }
                     else
                     {
                         Response.Redirect("Catalogo.aspx", false);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    // It's a good practice to log the exception
-                    // Log.Error(ex);
-                    Response.Redirect("Error.aspx", false); // Redirect to a generic error page
+                    throw;
                 }
             }
         }
@@ -58,6 +53,25 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         public void btnAgregarCarrito_Click(object sender, EventArgs e)
         {
             // Add to cart logic
+            ItemCarritoNegocio itemNegocio = new ItemCarritoNegocio();
+            // ejemplo agregarAlCarrito(int idUsuario, int idProducto, int cantidad);   
+            Usuario usuario = (Usuario)Session["usuario"];
+            int cantidad = int.Parse(txtCantidad.Text);
+            if (usuario != null && cantidad >0)
+            {
+                itemNegocio.agregarAlCarrito(usuario.Id, int.Parse(Request.QueryString["Id"]), cantidad);
+            }
         }
+
+        
+
+        protected void cargarTalles()
+        {
+            List<string> talles = new List<string>() { "S", "M", "L", "XL" };
+            ddlTalle.DataSource = talles;
+            ddlTalle.DataBind();
+        }
+
+        
     }
 }
