@@ -13,18 +13,30 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            // falta validar si es admin
+            // validar si es admin
+            //if (!IsPostBack)
+            //{
+            //    if (Session["usuario"] == null || !((Dominio.Usuario)Session["usuario"]).EsAdmin)
+            //    {
+            //        Response.Redirect("../PaginasPublic/Inicio.aspx");
+            //    }
+            //    cargarTabla();
+            //}
+            cargarTabla();
+        }
+
+        protected void cargarTabla()
+        {
             try
             {
-				UsuarioNegocio negocio = new UsuarioNegocio();
+                UsuarioNegocio negocio = new UsuarioNegocio();
                 dgvUsuarios.DataSource = negocio.listar();
                 dgvUsuarios.DataBind();
             }
-			catch (Exception ex)
-			{
-
-				throw ex;
-			}
+            catch (Exception)
+            {
+                throw;
+            }
         }
     }
 }

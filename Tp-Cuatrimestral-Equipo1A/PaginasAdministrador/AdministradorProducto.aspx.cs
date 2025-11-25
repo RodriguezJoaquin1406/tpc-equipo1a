@@ -26,46 +26,6 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected void Page_Load(object sender, EventArgs e)
         {
 
-            //*****VALIDACION PARA QUE SOLO ADMINISTRADOR PUEDA ENTRAR
-            // ESTA ROTO HAY QUE ARREGLARLO Y EN EL FUTURO HACER UNA CONSTANTE PARA VALIDAR Y NO USAR UN STRING REPETIDO
-            //string user = Session["usuario"] as string;
-            //if (user != Perfiles.Administrador)
-            //{
-            //    Session.Add("error", "Debes ser admin para ingresar");
-            //    Response.Redirect("../PaginasPublic/Inicio.aspx", false);
-            //}
-
-
-            prodError = false;
-            prodSuccess = false;
-
-            if (!IsPostBack)
-            {
-                if (productoModificar != null)
-                {
-                    txtId.Text = productoModificar.Id.ToString();
-                    txtNombre.Text = productoModificar.Nombre;
-                    txtDesc.Text = productoModificar.Descripcion;
-                    txtPrecio.Text = productoModificar.PrecioBase.ToString();
-                    txtStock.Text = productoModificar.StockActual.ToString();
-                    txtStockMinimo.Text = productoModificar.StockMinimo.ToString();
-                    ddlTalle.SelectedValue = productoModificar.Talle;
-
-                    if (productoModificar.Imagenes != null && productoModificar.Imagenes.Count > 0)
-                    {
-                        txtImagenes.Text = string.Join(",", productoModificar.Imagenes);
-                    }
-
-                    if (productoModificar.Categoria != null)
-                    {
-                        ddlCategoria.SelectedValue = productoModificar.Categoria.Id.ToString();
-                    }
-                }
-            }
-        }
-
-        protected void Page_Init(object sender, EventArgs e)
-        {
             if (!IsPostBack)
             {
                 CargarCategorias();
@@ -103,7 +63,37 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             }
 
             CreateImageTextBoxes();
+
+
+            prodError = false;
+            prodSuccess = false;
+
+            if (!IsPostBack)
+            {
+                if (productoModificar != null)
+                {
+                    txtId.Text = productoModificar.Id.ToString();
+                    txtNombre.Text = productoModificar.Nombre;
+                    txtDesc.Text = productoModificar.Descripcion;
+                    txtPrecio.Text = productoModificar.PrecioBase.ToString();
+                    txtStock.Text = productoModificar.StockActual.ToString();
+                    txtStockMinimo.Text = productoModificar.StockMinimo.ToString();
+                    ddlTalle.SelectedValue = productoModificar.Talle;
+
+                    if (productoModificar.Imagenes != null && productoModificar.Imagenes.Count > 0)
+                    {
+                        txtImagenes.Text = string.Join(",", productoModificar.Imagenes);
+                    }
+
+                    if (productoModificar.Categoria != null)
+                    {
+                        ddlCategoria.SelectedValue = productoModificar.Categoria.Id.ToString();
+                    }
+                }
+            }
         }
+
+        
 
         private void CargarCategorias()
         {

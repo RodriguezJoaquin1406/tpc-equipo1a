@@ -23,12 +23,18 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             {
                 cargarRoles();
 
-                if(Request.QueryString["id"] != null)
+                if(Request.QueryString["id"] != null && Request.QueryString["id"] != "")
                 {
-                    int id = int.Parse(Request.QueryString["id"]);
+                    int id = Request.QueryString["id"] != null ? int.Parse(Request.QueryString["id"]) : 0;
                     UsuarioNegocio negocio = new UsuarioNegocio();
+                    if (id == 0)
+                    {
+                        userError = true;
+                        Response.Redirect("../PaginasPublic/Inicio.aspx");
+                    }
                     try
                     {
+
                         usuario = negocio.BuscarPorID(id);
                         if (usuario != null)
                         {
@@ -51,6 +57,8 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 else
                 {
                     userError = true;
+                    Response.Redirect("../PaginasPublic/Inicio.aspx");
+
                 }
             }   
         }

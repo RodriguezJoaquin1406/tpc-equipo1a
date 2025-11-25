@@ -13,15 +13,29 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
+            //  Validacion de administrador
+            //if(!IsPostBack)
+            //{
+            //    if (Session["usuario"] == null || !((Dominio.Usuario)Session["usuario"]).EsAdmin)
+            //    {
+            //        Response.Redirect("../PaginasPublic/Inicio.aspx");
+            //    }
+            //    cargarTabla();
+            //}
+            cargarTabla();
+        }
+
+        protected void cargarTabla()
+        {
             try
             {
                 ProductoNegocio negocio = new ProductoNegocio();
                 dgvProductos.DataSource = negocio.listar();
                 dgvProductos.DataBind();
             }
-            catch (Exception ex)
+            catch (Exception)
             {
-                throw ex;
+                throw ;
             }
         }
     }
