@@ -109,7 +109,11 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
                 ItemCarritoNegocio carritoNegocio = new ItemCarritoNegocio();
 
-                if (cantidadAEliminar == cantTotalProducto) { carritoNegocio.eliminarDelCarrito(UsuarioLogueado.Id, idProducto); }
+                if (cantidadAEliminar == cantTotalProducto) 
+                {
+                    carritoNegocio.eliminarDelCarrito(UsuarioLogueado.Id, idProducto);
+                    CargarCarrito();
+                }
 
                 if (cantidadAEliminar != cantTotalProducto)
                 {
