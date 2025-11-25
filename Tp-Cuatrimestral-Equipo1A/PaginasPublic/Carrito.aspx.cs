@@ -6,7 +6,6 @@ using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
-using Domio;
 using Negocio;
 
 namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
