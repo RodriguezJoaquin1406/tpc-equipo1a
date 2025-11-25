@@ -130,6 +130,7 @@ INSERT INTO Productos (Nombre, Descripcion, IdCategoria, Talle, PrecioBase, Stoc
 
 -- Usuarios
 INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol, Nombre, Email, Telefono) VALUES
+('admin', 'admin', 'Administrador', 'Admin Admin', 'admin@mail.com', '1122334455'),
 ('juanperez', 'clave123', 'Cliente', 'Juan Pérez', 'juanperez@mail.com', '1122334455'),
 ('anagomez', 'clave123', 'Cliente', 'Ana Gómez', 'ana.gomez@mail.com', '1133445566'),
 ('carlosruiz', 'clave123', 'Cliente', 'Carlos Ruiz', 'carlos.ruiz@mail.com', '1144556677');

@@ -45,6 +45,15 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
+                //  longitud mínima
+                if (string.IsNullOrWhiteSpace(nueva.Nombre) || nueva.Nombre.Length < 4)
+                    throw new Exception("El nombre de la categoría debe tener al menos 4 caracteres.");
+
+                //  duplicados
+                if (ExisteCategoria(nueva.Nombre))
+                    throw new Exception("La categoría ya existe.");
+
+                // Si pasa las validaciones , agregar a la base de datos
                 datos.setConsulta("INSERT INTO Categorias (Nombre) VALUES (@Nombre)");
                 datos.setearParametro("@Nombre", nueva.Nombre);
                 datos.ejecutarAccion();
@@ -59,11 +68,26 @@ namespace Negocio
             }
         }
 
+
         public void modificar(Categoria categoria)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
+                // longitud mínima
+                if (string.IsNullOrWhiteSpace(categoria.Nombre) || categoria.Nombre.Length < 4)
+                    throw new Exception("El nombre de la categoría debe tener al menos 4 caracteres.");
+
+                // duplicados (excepto si es la misma categoría)
+                if (ExisteCategoria(categoria.Nombre))
+                {
+                    // que no sea el mismo Id
+                    var lista = listar();
+                    if (lista.Any(c => c.Nombre == categoria.Nombre && c.Id != categoria.Id))
+                        throw new Exception("Ya existe otra categoría con ese nombre.");
+                }
+
+                // Si pasa las 3 validaciones, actualiza
                 datos.setConsulta("UPDATE Categorias SET Nombre = @Nombre WHERE Id = @Id");
                 datos.setearParametro("@Nombre", categoria.Nombre);
                 datos.setearParametro("@Id", categoria.Id);
@@ -84,6 +108,10 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
+                // Validación: no permitir eliminar si hay productos asociados
+                if (TieneProductos(id))
+                    throw new Exception("No se puede eliminar la categoría porque tiene productos asociados.");
+
                 datos.setConsulta("DELETE FROM Categorias WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
@@ -91,6 +119,43 @@ namespace Negocio
             catch (Exception ex)
             {
                 throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+
+        // ------------------------------  validaciones 
+
+        public bool ExisteCategoria(string nombre)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("SELECT COUNT(*) FROM Categorias WHERE Nombre = @Nombre");
+                datos.setearParametro("@Nombre", nombre);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                return (int)datos.Lector[0] > 0;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public bool TieneProductos(int idCategoria)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("SELECT COUNT(*) FROM Productos WHERE IdCategoria = @IdCategoria");
+                datos.setearParametro("@IdCategoria", idCategoria);
+                datos.ejecutarLectura();
+                datos.Lector.Read();
+                return (int)datos.Lector[0] > 0;
             }
             finally
             {
