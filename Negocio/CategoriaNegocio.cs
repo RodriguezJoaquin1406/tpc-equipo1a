@@ -79,15 +79,10 @@ namespace Negocio
                     throw new Exception("El nombre de la categoría debe tener al menos 4 caracteres.");
 
                 // duplicados (excepto si es la misma categoría)
-                if (ExisteCategoria(categoria.Nombre))
-                {
-                    // que no sea el mismo Id
-                    var lista = listar();
-                    if (lista.Any(c => c.Nombre == categoria.Nombre && c.Id != categoria.Id))
-                        throw new Exception("Ya existe otra categoría con ese nombre.");
-                }
+                if (ExisteCategoria(categoria.Nombre, categoria.Id))
+                    throw new Exception("Ya existe otra categoría con ese nombre.");
 
-                // Si pasa las 3 validaciones, actualiza
+                // Si pasa las validaciones, actualiza
                 datos.setConsulta("UPDATE Categorias SET Nombre = @Nombre WHERE Id = @Id");
                 datos.setearParametro("@Nombre", categoria.Nombre);
                 datos.setearParametro("@Id", categoria.Id);
@@ -129,16 +124,22 @@ namespace Negocio
 
         // ------------------------------  validaciones 
 
-        public bool ExisteCategoria(string nombre)
+        public bool ExisteCategoria(string nombre, int? idActual = null)
         {
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta("SELECT COUNT(*) FROM Categorias WHERE Nombre = @Nombre");
+                datos.setConsulta("SELECT Id FROM Categorias WHERE Nombre = @Nombre");
                 datos.setearParametro("@Nombre", nombre);
                 datos.ejecutarLectura();
-                datos.Lector.Read();
-                return (int)datos.Lector[0] > 0;
+
+                while (datos.Lector.Read())
+                {
+                    int idEncontrado = (int)datos.Lector["Id"];
+                    if (idActual == null || idEncontrado != idActual.Value)
+                        return true; // existe duplicado
+                }
+                return false;
             }
             finally
             {

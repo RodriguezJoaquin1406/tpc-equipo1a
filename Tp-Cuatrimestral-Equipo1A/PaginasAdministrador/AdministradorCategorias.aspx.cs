@@ -65,37 +65,42 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 // Recuperamos los datos del modal
                 Categoria categoriaModificada = new Categoria();
                 categoriaModificada.Id = int.Parse(hfIdCategoria.Value);
-                categoriaModificada.Nombre = txtNombreEditar.Text;
+                categoriaModificada.Nombre = txtNombreEditar.Text.Trim();
 
-                // Llamamos al negocio para actualizar
+                // actualizar (lanza excepciones si hay error)
                 CategoriaNegocio negocio = new CategoriaNegocio();
                 negocio.modificar(categoriaModificada);
 
-                // Cerramos el modal via JS
-                string script = "$('#modalEdicion').modal('hide');";
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModal", script, true);
-
+                // Recargar tabla
                 cargarTabla();
 
+                // Cerrar modal y limpiar backdrop
                 System.Text.StringBuilder scr = new System.Text.StringBuilder();
-
                 scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalEdicion'));");
-                scr.Append("if (modal) { modal.hide(); }"); // Intenta cerrar suavemente
-
+                scr.Append("if (modal) { modal.hide(); }");
                 scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
                 scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
-
                 scr.Append("document.body.classList.remove('modal-open');");
                 scr.Append("document.body.style = '';");
-
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalFix", scr.ToString(), true);
-
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-            }
+                // Mostrar el mensaje en el Label dentro del modal
+                lblErrorNuevo.Text = ex.Message;
 
+                // Script para limpiar backdrop y reabrir el modal
+                System.Text.StringBuilder scr = new System.Text.StringBuilder();
+                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
+                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
+                scr.Append("document.body.classList.remove('modal-open');");
+                scr.Append("document.body.style = '';");
+
+                // Reabrir el modal
+                scr.Append("$('#modalNuevo').modal('show');");
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorNuevo", scr.ToString(), true);
+            }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
@@ -120,17 +125,16 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         {
             try
             {
-                // A. Recuperar el ID guardado
+                // Recuperar el ID guardado
                 int idCategoria = int.Parse(hfIdEliminar.Value);
 
-                // B. Llamar a la capa de Negocio
                 CategoriaNegocio negocio = new CategoriaNegocio();
-                negocio.eliminar(idCategoria); // Asumo que tienes este método void Eliminar(int id)
+                negocio.eliminar(idCategoria); // valida si tiene productos asociados
 
-                // C. Recargar la grilla
+                // Recargar la grilla
                 cargarTabla();
 
-                // D. Cerrar Modal y borrar Backdrop (Usando el script robusto)
+                // Cerrar modal y limpiar 
                 System.Text.StringBuilder scr = new System.Text.StringBuilder();
                 scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirmaEliminar'));");
                 scr.Append("if (modal) { modal.hide(); }");
@@ -138,14 +142,24 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
                 scr.Append("document.body.classList.remove('modal-open');");
                 scr.Append("document.body.style = '';");
-
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalEliminar", scr.ToString(), true);
             }
             catch (Exception ex)
             {
-                // Manejo de errores (ej: Integridad referencial en SQL si hay productos con esa categoría)
-                Session.Add("error", "No se pudo eliminar: " + ex.Message);
-                // Redirigir a error o mostrar alerta
+                // Mostrar el mensaje en el Label dentro del modal
+                lblErrorNuevo.Text = ex.Message;
+
+                // Script para limpiar backdrop y reabrir el modal
+                System.Text.StringBuilder scr = new System.Text.StringBuilder();
+                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
+                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
+                scr.Append("document.body.classList.remove('modal-open');");
+                scr.Append("document.body.style = '';");
+
+                // Reabrir el modal
+                scr.Append("$('#modalNuevo').modal('show');");
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorNuevo", scr.ToString(), true);
             }
         }
 
@@ -163,13 +177,14 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             try
             {
                 Categoria nueva = new Categoria();
-                nueva.Nombre = txtNombreNuevo.Text;
+                nueva.Nombre = txtNombreNuevo.Text.Trim();
 
                 CategoriaNegocio negocio = new CategoriaNegocio();
-                negocio.agregar(nueva); 
+                negocio.agregar(nueva);
 
                 cargarTabla();
 
+                // Cerrar modal y limpiar backdrop
                 System.Text.StringBuilder scr = new System.Text.StringBuilder();
                 scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalNuevo'));");
                 scr.Append("if (modal) { modal.hide(); }");
@@ -177,13 +192,24 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
                 scr.Append("document.body.classList.remove('modal-open');");
                 scr.Append("document.body.style = '';");
-
                 ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalNuevo", scr.ToString(), true);
             }
             catch (Exception ex)
             {
-                Session.Add("error", ex.ToString());
-                // Redireccionar a error o mostrar alerta
+                // Mostrar el mensaje en el Label dentro del modal
+                lblErrorNuevo.Text = ex.Message;
+
+                // Script para limpiar backdrop y reabrir el modal
+                System.Text.StringBuilder scr = new System.Text.StringBuilder();
+                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
+                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
+                scr.Append("document.body.classList.remove('modal-open');");
+                scr.Append("document.body.style = '';");
+
+                // Reabrir el modal
+                scr.Append("$('#modalNuevo').modal('show');");
+
+                ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorNuevo", scr.ToString(), true);
             }
         }
     }

@@ -62,9 +62,15 @@
         </p>
     </section>
 
-    <%if (Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).Rol == "Administrador" ){ %>
-        <button type="button" class="btn btn-cream"><a href="../PaginasAdministrador/AdministradorProducto.aspx">Nuevo Producto</a></button>
-    <%} %>
+  <% if (Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).Rol == "Administrador") { %>
+    <button type="button" class="btn btn-cream">
+        <a href="../PaginasAdministrador/AdministradorProducto.aspx">Nuevo Producto</a>
+    </button>
+
+    <button type="button" class="btn btn-cream">
+        <a href="../PaginasAdministrador/AdministradorCategorias.aspx">Categorías</a>
+    </button>
+<% } %>
     <section>
         <div class="d-flex flex-column flex-md-row justify-content-between align-items-center mb-4 gap-3">
             <div class="d-flex flex-wrap gap-3">

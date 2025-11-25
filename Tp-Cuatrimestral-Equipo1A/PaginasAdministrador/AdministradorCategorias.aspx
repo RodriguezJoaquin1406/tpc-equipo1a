@@ -57,9 +57,13 @@
                         <div class="modal-body">
 
                             <div class="mb-3">
-                                <label class="form-label">Nombre de la Categoría</label>
-                                <asp:TextBox ID="txtNombreEditar" runat="server" CssClass="form-control" />
-                            </div>
+    <label class="form-label">Nombre de la Categoría</label>
+    <asp:TextBox ID="txtNombreEditar" runat="server" CssClass="form-control" />
+
+    <!-- Label para mostrar errores -->
+    <asp:Label ID="lblErrorEditar" runat="server" CssClass="text-danger" />
+</div>
+
 
                             <!-- Campo oculto para guardar el ID que estamos editando -->
                             <asp:HiddenField ID="hfIdCategoria" runat="server" />
@@ -85,12 +89,13 @@
                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
+    <asp:Label ID="lblMensajeEliminar" runat="server" Text="¿Estás seguro de eliminar esta categoría?" />
+    <asp:HiddenField ID="hfIdEliminar" runat="server" />
 
-                            <asp:Label ID="lblMensajeEliminar" runat="server" Text="¿Estás seguro de eliminar esta categoría?" />
+    <!-- Label para mostrar errores -->
+    <asp:Label ID="lblErrorEliminar" runat="server" CssClass="text-danger" />
+</div>
 
-                            <asp:HiddenField ID="hfIdEliminar" runat="server" />
-
-                        </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
 
@@ -111,13 +116,17 @@
                         <div class="modal-body">
 
                             <div class="mb-3">
-                                <label class="form-label">Nombre</label>
-                                <asp:TextBox ID="txtNombreNuevo" runat="server" CssClass="form-control" />
+    <label class="form-label">Nombre</label>
+    <asp:TextBox ID="txtNombreNuevo" runat="server" CssClass="form-control" />
 
-                                <asp:RequiredFieldValidator ErrorMessage="El nombre es requerido"
-                                    ControlToValidate="txtNombreNuevo" runat="server"
-                                    Display="Dynamic" ForeColor="Red" ValidationGroup="Nuevo" />
-                            </div>
+    <asp:RequiredFieldValidator ErrorMessage="El nombre es requerido"
+        ControlToValidate="txtNombreNuevo" runat="server"
+        Display="Dynamic" ForeColor="Red" ValidationGroup="Nuevo" />
+
+    <!-- Label para mostrar errores -->
+    <asp:Label ID="lblErrorNuevo" runat="server" CssClass="text-danger" />
+</div>
+
 
                         </div>
                         <div class="modal-footer">
