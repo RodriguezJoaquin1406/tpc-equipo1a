@@ -77,6 +77,8 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             
         }
 
+
+
         public void btn_EliminarClick(object sender, EventArgs e)
         {
             // Mandamos dos valores en el boton entonces hacemos un vector y lo spliteamos por ";"

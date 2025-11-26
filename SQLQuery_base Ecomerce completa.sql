@@ -201,3 +201,7 @@ INSERT INTO MetodosPago (Nombre) VALUES
 ('Efectivo en punto de entrega');
 
 
+-- Columna del talle para el carrito
+
+ALTER TABLE Carrito
+ADD Talle VARCHAR(10) NOT NULL DEFAULT 'Único';

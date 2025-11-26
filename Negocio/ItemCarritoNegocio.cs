@@ -13,24 +13,24 @@ namespace Negocio
         {
             List<ItemCarrito> lista = new List<ItemCarrito>();
             AccesoDatos datos = new AccesoDatos();
+
             try
             {
                 datos.setConsulta(@"
+SELECT  
+    P.Id AS IdProducto,  
+    P.Nombre,  
+    P.PrecioBase AS Precio,  
+    (SELECT TOP 1 UrlImagen FROM Imagenes WHERE IdProducto = P.Id) AS Imagen,  
+    C.Cantidad,  
+    C.Talle
 
-SELECT 
-    P.Id, 
-    P.Nombre, 
-    P.PrecioBase AS Precio, 
-    (SELECT TOP 1 UrlImagen FROm Imagenes WHERE IdProducto = P.Id) AS Imagen, 
-    C.Cantidad
-
-FROM 
+FROM  
     Carrito C
-INNER JOIN 
+INNER JOIN  
     Productos P ON C.IdProducto = P.Id
-WHERE 
+WHERE  
     C.IdUsuario = @idUsuario
-
 ");
 
                 datos.setearParametro("@idUsuario", idUsuario);
@@ -38,16 +38,18 @@ WHERE
 
                 while (datos.Lector.Read())
                 {
-
                     ItemCarrito item = new ItemCarrito();
 
-                    item.IdProducto = (int)datos.Lector["Id"];
+                    item.IdProducto = (int)datos.Lector["IdProducto"];
                     item.nombre = datos.Lector["Nombre"].ToString();
                     item.precio = (decimal)datos.Lector["Precio"];
                     item.imagen = datos.Lector["Imagen"].ToString();
                     item.cantidad = (int)datos.Lector["Cantidad"];
+                    item.talle = datos.Lector["Talle"].ToString(); // lo agregue para el carrito
+
                     lista.Add(item);
                 }
+
                 return lista;
             }
             catch (Exception)
@@ -80,25 +82,46 @@ WHERE
             }
         }
 
-        public void agregarAlCarrito(int idUsuario, int idProducto, int cantidad)
+        public void agregarAlCarrito(int idUsuario, int idProducto, int cantidad, string talle)
         {
             AccesoDatos datos = new AccesoDatos();
-            try
+
+            // Verificar si ya existe ese producto con ese talle en el carrito
+            datos.setConsulta(@"SELECT Cantidad FROM Carrito WHERE IdUsuario = @idUsuario AND IdProducto = @idProducto AND Talle = @talle");
+            datos.setearParametro("@idUsuario", idUsuario);
+            datos.setearParametro("@idProducto", idProducto);
+            datos.setearParametro("@talle", talle);
+            datos.ejecutarLectura();
+
+            if (datos.Lector.Read())
             {
-                datos.setConsulta("INSERT INTO Carrito (IdUsuario, IdProducto, Cantidad) VALUES (@idUsuario, @idProducto, @cantidad)");
+                // Ya existe  actualizar cantidad
+                int cantidadActual = (int)datos.Lector["Cantidad"];
+                int nuevaCantidad = cantidadActual + cantidad;
+
+                datos.cerrarConexion();
+                datos = new AccesoDatos();
+                datos.setConsulta(@"UPDATE Carrito SET Cantidad = @cantidad WHERE IdUsuario = @idUsuario AND IdProducto = @idProducto AND Talle = @talle");
+                datos.setearParametro("@cantidad", nuevaCantidad);
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.setearParametro("@idProducto", idProducto);
+                datos.setearParametro("@talle", talle);
+                datos.ejecutarAccion();
+            }
+            else
+            {
+                // No existe, insertar nuevo
+                datos.cerrarConexion();
+                datos = new AccesoDatos();
+                datos.setConsulta(@"INSERT INTO Carrito (IdUsuario, IdProducto, Cantidad, Talle) VALUES (@idUsuario, @idProducto, @cantidad, @talle)");
                 datos.setearParametro("@idUsuario", idUsuario);
                 datos.setearParametro("@idProducto", idProducto);
                 datos.setearParametro("@cantidad", cantidad);
+                datos.setearParametro("@talle", talle);
                 datos.ejecutarAccion();
             }
-            catch (Exception)
-            {
-                throw;
-            }
-            finally
-            {
-                datos.cerrarConexion();
-            }
+
+            datos.cerrarConexion();
         }
 
         public void actualizarCantidad(int idUsuario, int idProducto, int nuevaCantidad)

@@ -31,6 +31,7 @@
                                             <div>
                                                 <h5 class="mb-1"><%# Eval("Nombre") %></h5>
                                                 <p class="text-muted mb-0 small">Cantidad :  <%# Eval("Cantidad") %></p>
+                                                <p class="text-muted mb-0 small">Talle: <%# Eval("Talle") %></p>
                                                 <%--<a href="#" class="btn btn-danger" style="">Eliminar</a>--%>
                                                 <asp:Button Text="Eliminar" runat="server" CssClass="btn btn-danger"
                                                     Style="--bs-btn-padding-y: .20rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .70rem;"

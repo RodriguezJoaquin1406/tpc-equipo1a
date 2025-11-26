@@ -13,6 +13,8 @@ namespace Dominio
         public decimal precio { get; set; }
         public string imagen { get; set; }
         public int cantidad { get; set; }
+        public string talle { get; set; } // lo agregue para el carrito
+
         public decimal Subtotal
         {
             get { return precio * cantidad; }
