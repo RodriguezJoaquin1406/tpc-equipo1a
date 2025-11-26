@@ -23,7 +23,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             {
                 cargarRoles();
 
-                if(Request.QueryString["id"] != null && Request.QueryString["id"] != "")
+                if (Request.QueryString["id"] != null && Request.QueryString["id"] != "")
                 {
                     int id = Request.QueryString["id"] != null ? int.Parse(Request.QueryString["id"]) : 0;
                     UsuarioNegocio negocio = new UsuarioNegocio();
@@ -60,7 +60,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     Response.Redirect("../PaginasPublic/Inicio.aspx");
 
                 }
-            }   
+            }
         }
 
         protected void cargarRoles()
@@ -100,17 +100,43 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 Rol = ddlRol.SelectedValue
             };
 
-            
+
 
             try
             {
+                Usuario antesModificacion = negocio.BuscarPorID(modificado.Id);
+                if (antesModificacion.Email != modificado.Email)
+                {
+                    if (negocio.ExisteEmail(modificado.Email))
+                    {
+                        userError = true;
+                        return;
+                    }
+                    
+                }
+
+                if (antesModificacion.NombreUsuario != modificado.NombreUsuario)
+                {
+                    if (negocio.ExisteNombreUsuario(modificado.NombreUsuario))
+                    {
+                        userError = true;
+                        return;
+                    }
+
+                }
+
                 negocio.Actualizar(modificado);
                 userSuccess = true;
-                Response.Redirect("AdministradorUsuarios.aspx");
+                Response.Redirect("../PaginasAdministrador/administradorUsuarios.aspx", false);
+                Context.ApplicationInstance.CompleteRequest();
+            }
+            catch (System.Threading.ThreadAbortException)
+            {
+                // Esto ocurre debido a Response.Redirect, se puede ignorar
             }
             catch (Exception)
             {
-                throw;
+                userError = true;
             }
         }
 
@@ -118,19 +144,37 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         {
             if (Request.QueryString["id"] != null)
             {
+                int idAEliminar = int.Parse(Request.QueryString["id"]);
+
+                // Verificar que el usuario a eliminar no sea el usuario actual
+                if (Session["Usuario"] != null)
+                {
+                    Usuario usuarioActual = (Usuario)Session["Usuario"];
+
+                    if (usuarioActual.Id == idAEliminar)
+                    {
+                        userError = true;
+                        // Aquí puedes mostrar un mensaje como "No puedes eliminarte a ti mismo"
+                        return;
+                    }
+                }
+
                 UsuarioNegocio negocio = new UsuarioNegocio();
                 try
                 {
-                    negocio.Eliminar(int.Parse(Request.QueryString["id"]));
-                    Response.Redirect("AdministradorUsuarios.aspx");
+                    negocio.Eliminar(idAEliminar);
+                    Response.Redirect("AdministradorUsuarios.aspx", false);
+                    Context.ApplicationInstance.CompleteRequest();
                 }
+               
                 catch (Exception ex)
                 {
-                    throw ex;
+                    userError = true;
+                    // Manejo de errores de eliminación
                 }
             }
         }
 
-        
+
     }
 }
