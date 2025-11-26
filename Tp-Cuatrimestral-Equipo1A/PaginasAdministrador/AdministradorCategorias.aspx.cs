@@ -8,6 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
+using Tp_Cuatrimestral_Equipo1A.Helpers;
 
 namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 {
@@ -53,8 +54,10 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             hfIdCategoria.Value = idCategoria.ToString();
 
             // Este script se ejecuta apenas termina el postback parcial
-            string script = "$('#modalEdicion').modal('show');";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", script, true);
+            //string script = "$('#modalEdicion').modal('show');";
+            //ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModal", script, true);
+
+            ModalHelper.MostrarModal(this, "modalEdicion");
 
         }
 
@@ -74,38 +77,22 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 // Recargar tabla
                 cargarTabla();
 
-                // Cerrar modal y limpiar backdrop
-                System.Text.StringBuilder scr = new System.Text.StringBuilder();
-                scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalEdicion'));");
-                scr.Append("if (modal) { modal.hide(); }");
-                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
-                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
-                scr.Append("document.body.classList.remove('modal-open');");
-                scr.Append("document.body.style = '';");
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalFix", scr.ToString(), true);
+                ModalHelper.CerrarModal(this, "modalEdicion");
+                cargarTabla();
             }
             catch (Exception ex)
             {
                 // Mostrar el mensaje en el Label dentro del modal
                 lblErrorNuevo.Text = ex.Message;
 
-                // Script para limpiar backdrop y reabrir el modal
-                System.Text.StringBuilder scr = new System.Text.StringBuilder();
-                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
-                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
-                scr.Append("document.body.classList.remove('modal-open');");
-                scr.Append("document.body.style = '';");
-
-                // Reabrir el modal
-                scr.Append("$('#modalNuevo').modal('show');");
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorNuevo", scr.ToString(), true);
+                // Limpiar backdrop y reabrir el modal con error
+                ModalHelper.LimpiarBackdropYMostrarModal(this, "modalEdicion");
             }
         }
 
         protected void btnEliminar_Click(object sender, EventArgs e)
         {
-            // A. Recuperar el ID del botón
+            // Recuperar el ID del botón
             Button btn = (Button)sender;
             int idCategoria = int.Parse(btn.CommandArgument);
 
@@ -117,8 +104,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
             lblMensajeEliminar.Text = "¿Estás seguro que deseas eliminar la categoría <b>" + seleccionada.Nombre + "</b>?";
 
-            string script = "$('#modalConfirmaEliminar').modal('show');";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowModalEliminar", script, true);
+            ModalHelper.MostrarModal(this, "modalConfirmaEliminar");
         }
 
         protected void btnConfirmaEliminar_Click(object sender, EventArgs e)
@@ -133,33 +119,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
                 // Recargar la grilla
                 cargarTabla();
-
-                // Cerrar modal y limpiar 
-                System.Text.StringBuilder scr = new System.Text.StringBuilder();
-                scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalConfirmaEliminar'));");
-                scr.Append("if (modal) { modal.hide(); }");
-                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
-                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
-                scr.Append("document.body.classList.remove('modal-open');");
-                scr.Append("document.body.style = '';");
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalEliminar", scr.ToString(), true);
+                ModalHelper.CerrarModal(this, "modalConfirmaEliminar");
             }
             catch (Exception ex)
             {
                 // Mostrar el mensaje en el Label dentro del modal
                 lblErrorNuevo.Text = ex.Message;
 
-                // Script para limpiar backdrop y reabrir el modal
-                System.Text.StringBuilder scr = new System.Text.StringBuilder();
-                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
-                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
-                scr.Append("document.body.classList.remove('modal-open');");
-                scr.Append("document.body.style = '';");
-
-                // Reabrir el modal
-                scr.Append("$('#modalNuevo').modal('show');");
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorNuevo", scr.ToString(), true);
+                // Limpiar backdrop y mostrar modal de error
+                ModalHelper.LimpiarBackdropYMostrarModal(this, "modalNuevo");
             }
         }
 
@@ -168,8 +136,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         {
             txtNombreNuevo.Text = string.Empty;
 
-            string script = "$('#modalNuevo').modal('show');";
-            ScriptManager.RegisterStartupScript(this, this.GetType(), "ShowmodalNuevo", script, true);
+            ModalHelper.MostrarModal(this,"modalNuevo");
         }
 
         protected void btnGuardarNuevo_Click(object sender, EventArgs e)
@@ -184,15 +151,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
                 cargarTabla();
 
-                // Cerrar modal y limpiar backdrop
-                System.Text.StringBuilder scr = new System.Text.StringBuilder();
-                scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalNuevo'));");
-                scr.Append("if (modal) { modal.hide(); }");
-                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
-                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
-                scr.Append("document.body.classList.remove('modal-open');");
-                scr.Append("document.body.style = '';");
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "HideModalNuevo", scr.ToString(), true);
+                ModalHelper.CerrarModal(this, "modalNuevo");
             }
             catch (Exception ex)
             {
@@ -200,16 +159,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 lblErrorNuevo.Text = ex.Message;
 
                 // Script para limpiar backdrop y reabrir el modal
-                System.Text.StringBuilder scr = new System.Text.StringBuilder();
-                scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
-                scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
-                scr.Append("document.body.classList.remove('modal-open');");
-                scr.Append("document.body.style = '';");
-
-                // Reabrir el modal
-                scr.Append("$('#modalNuevo').modal('show');");
-
-                ScriptManager.RegisterStartupScript(this, this.GetType(), "ErrorNuevo", scr.ToString(), true);
+                ModalHelper.LimpiarBackdropYMostrarModal(this,"modalNuevo");
             }
         }
     }
