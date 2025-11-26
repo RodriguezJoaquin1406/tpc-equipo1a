@@ -17,10 +17,8 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         {
             if (!IsPostBack)
             {
-                var negocio = new ProductoNegocio();
-                var productos = negocio.listar();
-                RepeaterProductos.DataSource = productos;
-                RepeaterProductos.DataBind();
+                cargarFiltros();      // llena los DropDownList
+                filtrarCatalogo();    // carga los productos
             }
         }
 
@@ -39,6 +37,56 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             }
         }
 
+        private void filtrarCatalogo()
+        {
+            string categoria = category.SelectedValue;
+            string talle = size.SelectedValue;
+
+            ProductoNegocio negocio = new ProductoNegocio();
+            List<Producto> lista = negocio.listarFiltrado(categoria, talle);
+
+            if (lista != null && lista.Count > 0)
+            {
+                RepeaterProductos.DataSource = lista;
+                RepeaterProductos.DataBind();
+            }
+            else
+            {
+                RepeaterProductos.DataSource = null;
+                RepeaterProductos.DataBind();
+                //  mostrar mensaje "No se encontraron productos"???
+            }
+        }
+
+        protected void ddlCategoria_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarCatalogo();
+        }
+
+        protected void ddlTalle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarCatalogo();
+        }
+
+        private void cargarFiltros()
+        {
+            CategoriaNegocio catNegocio = new CategoriaNegocio();
+            category.DataSource = catNegocio.listar(); // devuelve List<Categoria>
+            category.DataTextField = "Nombre";
+            category.DataValueField = "Nombre";
+            category.DataBind();
+            category.Items.Insert(0, "Todos");
+
+            ProductoNegocio prodNegocio = new ProductoNegocio();
+            var talles = prodNegocio.listar()
+                .Select(p => p.Talle)
+                .Distinct()
+                .ToList();
+
+            size.DataSource = talles;
+            size.DataBind();
+            size.Items.Insert(0, "Todos");
+        }
 
     }
 }

@@ -76,15 +76,19 @@
             <div class="d-flex flex-wrap gap-3">
                 <div>
                     <asp:Label For="category" CssClass="form-label small fw-medium" Text="Categoría" runat="server" />
-                    <asp:DropDownList ID="category" CssClass="form-select" runat="server">
-                        <asp:ListItem>Todos</asp:ListItem>
-                    </asp:DropDownList>
+                    <asp:DropDownList ID="category" runat="server" CssClass="form-select"
+    AutoPostBack="true" OnSelectedIndexChanged="ddlCategoria_SelectedIndexChanged">
+    <asp:ListItem>Todos</asp:ListItem>
+</asp:DropDownList>
+
                 </div>
                 <div>
                     <asp:Label For="size" CssClass="form-label small fw-medium" Text="Talle" runat="server" />
-                    <asp:DropDownList ID="size" CssClass="form-select" runat="server">
-                        <asp:ListItem>Todos</asp:ListItem>
-                    </asp:DropDownList>
+                    <asp:DropDownList ID="size" runat="server" CssClass="form-select"
+    AutoPostBack="true" OnSelectedIndexChanged="ddlTalle_SelectedIndexChanged">
+    <asp:ListItem>Todos</asp:ListItem>
+</asp:DropDownList>
+
                 </div>
             </div>
 

@@ -227,5 +227,66 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public List<Producto> listarFiltrado(string categoria, string talle)
+        {
+            List<Producto> lista = new List<Producto>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                string consulta = "SELECT p.Id, p.Nombre, p.Descripcion, p.Talle, p.PrecioBase, c.Nombre AS CategoriaNombre " +
+                                  "FROM Productos p INNER JOIN Categorias c ON p.IdCategoria = c.Id WHERE 1=1";
+
+                if (categoria != "Todos")
+                    consulta += " AND c.Nombre = @Categoria";
+
+                if (talle != "Todos")
+                    consulta += " AND p.Talle = @Talle";
+
+                datos.setConsulta(consulta);
+
+                if (categoria != "Todos")
+                    datos.setearParametro("@Categoria", categoria);
+
+                if (talle != "Todos")
+                    datos.setearParametro("@Talle", talle);
+
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Producto p = new Producto();
+                    p.Id = (int)datos.Lector["Id"];
+                    p.Nombre = datos.Lector["Nombre"].ToString();
+                    p.Descripcion = datos.Lector["Descripcion"].ToString();
+                    p.Talle = datos.Lector["Talle"].ToString();
+                    p.PrecioBase = (decimal)datos.Lector["PrecioBase"];
+                    p.Categoria = new Categoria { Nombre = datos.Lector["CategoriaNombre"].ToString() };
+
+                    // Cargar imágenes
+                    p.Imagenes = new List<string>();
+                    var datosImg = new AccesoDatos();
+                    datosImg.setConsulta("SELECT UrlImagen FROM Imagenes WHERE IdProducto = @id");
+                    datosImg.setearParametro("@id", p.Id);
+                    datosImg.ejecutarLectura();
+
+                    while (datosImg.Lector.Read())
+                    {
+                        p.Imagenes.Add(datosImg.Lector["UrlImagen"].ToString());
+                    }
+
+                    datosImg.cerrarConexion();
+
+                    lista.Add(p);
+                }
+
+                return lista;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
