@@ -83,7 +83,7 @@ INSERT INTO Clientes (Nombre, Email, Telefono) VALUES
 
 -- Categorías (ropa y accesorios)
 INSERT INTO Categorias (Nombre) VALUES
-('Blusas'), ('Vestidos'), ('Bolsos'), ('Joyeria'), ('Accesorios');
+('Blusas'), ('Vestidos'), ('Bolsos'), ('Joyeria'), ('Accesorios'), ('Sacos');
 
 -- Productos (sin marcas; con color, material y precio base)
 INSERT INTO Productos (Nombre, Descripcion, IdCategoria, Talle, PrecioBase, StockActual, StockMinimo) VALUES
@@ -91,7 +91,9 @@ INSERT INTO Productos (Nombre, Descripcion, IdCategoria, Talle, PrecioBase, Stoc
 ('Vestido "Arena"',   'Perfecto para un día de verano, fresco y cómodo.',     2, 'L', 48000, 30, 5),
 ('Bolso "Nómada"',    'Accesorio artesanal que complementa cualquier look.',  3, 'M', 32000, 20, 5),
 ('Pendientes "Liana"','Detalle final para un estilo bohemio y chic.',         4, 'M', 8000, 100, 20),
-('Vestido "Brisa"',   'Ligero y etéreo, ideal para ocasiones especiales.',    2, 'S', 62000, 15, 3);
+('Vestido "Brisa"',   'Ligero y etéreo, ideal para ocasiones especiales.',    2, 'S', 62000, 15, 3),
+('Saco "Primaveral"', 'Ligeramente abrigado perfecto para ir dejando atras el invierno..',    6, 'S', 42500, 25, 5),
+('Sueter "Ligero"', 'Buen sueter..',    6, 'M', 52500, 25, 5);
 
 -- Usuarios
 INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol) VALUES
@@ -117,14 +119,18 @@ INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (2, 'https://http2.mlstatic.com/D_NQ_NP_913956-MLA84211306237_042025-O.webp'),
 (3, 'https://img.ltwebstatic.com/images3_spmp/2025/03/12/03/1741764251df14f0c32747d76c9efe4505dd856929_thumbnail_405x.webp'),
 (4, 'https://newswarovskiargentina.vtexassets.com/unsafe/1440x0/center/middle/https%3A%2F%2Fnewswarovskiargentina.vtexassets.com%2Farquivos%2Fids%2F653364%2Fpendientes-5705831-1.jpg%3Fv%3D638739523608530000'),
-(5, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/23/84/17453729703da87c9bc65401c1f4fc6168d7b0539a_thumbnail_560x.webp');
+(5, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/23/84/17453729703da87c9bc65401c1f4fc6168d7b0539a_thumbnail_560x.webp'),
+(6, 'https://i.pinimg.com/1200x/16/7e/c5/167ec54de1eb97376ccda3bf34e6a3ce.jpg'),
+(7, 'https://i.pinimg.com/736x/1f/56/6b/1f566b32c4fa0d73331b5148a21d6d7d.jpg');
 
 --30/10
 --mas imagenes para el carrusel
 INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
-(1, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/15/ec/1744695942740c0ebd017afb104141f95abb9c156d_thumbnail_405x.webp'),
-(2, 'https://http2.mlstatic.com/D_NQ_NP_913956-MLA84211306237_042025-O.webp'),
-(3, 'https://img.ltwebstatic.com/images3_spmp/2025/03/12/03/1741764251df14f0c32747d76c9efe4505dd856929_thumbnail_405x.webp'),
-(4, 'https://newswarovskiargentina.vtexassets.com/unsafe/1440x0/center/middle/https%3A%2F%2Fnewswarovskiargentina.vtexassets.com%2Farquivos%2Fids%2F653364%2Fpendientes-5705831-1.jpg%3Fv%3D638739523608530000'),
-(5, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/23/84/17453729703da87c9bc65401c1f4fc6168d7b0539a_thumbnail_560x.webp');
+(1, 'https://i.pinimg.com/736x/4b/46/5c/4b465c16ae630ef26dc96e6f9460826e.jpg'),
+(2, 'https://i.pinimg.com/1200x/ab/ab/0e/abab0e96ac0ce40f91da54d5629e2d09.jpg'),
+(3, 'https://i.pinimg.com/1200x/2f/d7/69/2fd769462b00d7f9b410baaf9711c542.jpg'),
+(4, 'https://i.pinimg.com/736x/30/be/42/30be42beb6248717f72d30e38ae75e19.jpg'),
+(5, 'https://i.pinimg.com/736x/35/ce/04/35ce047e1224f17d95f92be262d165bf.jpg'),
+(6, 'https://i.pinimg.com/1200x/4c/8c/4a/4c8c4ae97542465607123a4ad68839ce.jpg'),
+(7, 'https://i.pinimg.com/736x/c9/98/c6/c998c685fc3b9dd27f9a56c68a82cb38.jpg');
 
