@@ -37,15 +37,12 @@
 
         .muted-accent {
             color: #7d715d;
-            
         }
 
         .divider {
             height: 1px;
             background-color: rgba(191,174,152,0.25);
         }
-
-
     </style>
 
 </asp:Content>
@@ -55,7 +52,17 @@
     <div class="d-flex align-items-center justify-content-center min-vh-100 py-5">
         <div class="w-100" style="max-width: 960px;">
             <div class="row justify-content-center">
+
+
+
                 <div class="col-12 col-md-8 col-lg-6">
+
+                    <%--// Cartel alerta de bootstrap "escondido" para usuario que intente cargar productos a su carrito sin haber iniciado sesion.--%>
+                    <asp:Panel ID="pnlAlerta" runat="server" Visible="false" CssClass="alert alert-warning alert-dismissible fade show" role="alert">
+                        <p><strong>Tenes que iniciar sesion</strong>  para cargar productos al carrito. </p>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </asp:Panel>
+
                     <div class="card login-card mx-auto">
                         <div class="card-body">
                             <div class="text-center mb-4">
@@ -89,7 +96,7 @@
                             </div>
 
                             <div class="text-center">
-                                <p class="mb-0 small" style="color: rgba(0,0,0,0.8);" >¿Aún no tienes una cuenta?</p>
+                                <p class="mb-0 small" style="color: rgba(0,0,0,0.8);">¿Aún no tienes una cuenta?</p>
                                 <p class="mb-0 small">
                                     <asp:HyperLink ID="hlRegister" NavigateUrl="~/PaginasPublic/Registro.aspx" runat="server" CssClass="fw-medium text-decoration-underline muted-accent">Crear una</asp:HyperLink>
                                 </p>

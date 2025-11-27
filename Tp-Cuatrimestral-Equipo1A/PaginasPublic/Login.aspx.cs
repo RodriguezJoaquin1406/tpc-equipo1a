@@ -13,7 +13,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            if (!IsPostBack)
+            {
+                if (Request.QueryString["origen"] == "carrito")
+                {
+                    pnlAlerta.Visible = true; 
+                }
+            }
         }
         protected void btnLogin_Click(object sender, EventArgs e)
         {

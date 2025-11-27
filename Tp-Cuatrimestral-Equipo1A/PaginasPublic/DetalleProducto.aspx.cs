@@ -67,7 +67,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         {
             if (Session["usuario"] == null)
             {
-                Response.Redirect("../Login.aspx", false);
+                Response.Redirect("~/PaginasPublic/Login.aspx?origen=carrito", false);
                 return;
             }
 
