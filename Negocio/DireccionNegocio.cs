@@ -51,8 +51,10 @@ namespace Negocio
             AccesoDatos datos = new AccesoDatos();
             try
             {
-                datos.setConsulta(@"INSERT INTO Direcciones (Calle, Numero, Ciudad, Provincia, CodigoPostal)
-                                VALUES (@Calle, @Numero, @Ciudad, @Provincia, @CodigoPostal)");
+                datos.setConsulta(@"INSERT INTO Direcciones (IdUsuario, Calle, Numero, Ciudad, Provincia, CodigoPostal)
+                            VALUES (@IdUsuario, @Calle, @Numero, @Ciudad, @Provincia, @CodigoPostal)");
+
+                datos.setearParametro("@IdUsuario", nueva.IdUsuario);
                 datos.setearParametro("@Calle", nueva.Calle);
                 datos.setearParametro("@Numero", nueva.Numero);
                 datos.setearParametro("@Ciudad", nueva.Ciudad);

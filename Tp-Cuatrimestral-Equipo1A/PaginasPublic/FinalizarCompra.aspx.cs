@@ -11,6 +11,25 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
     public partial class FinalizarCompra : System.Web.UI.Page
     {
         private Usuario _usuarioLogueado;
+
+        protected void Page_Load(object sender, EventArgs e)
+        {
+            _usuarioLogueado = (Usuario)Session["usuario"];
+
+            if (!IsPostBack)
+            {
+                if (_usuarioLogueado == null)
+                {
+                    Response.Redirect("../Login.aspx", false);
+                    return;
+                }
+
+                cargarDatosUsuario();
+                cargarDirecciones();
+                cargarMetodoPago();
+                cargarResumen();
+            }
+        }
         private void cargarDatosUsuario()
         {
             lblNombre.Text = _usuarioLogueado.Nombre;
@@ -44,38 +63,18 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             get { return _usuarioLogueado; }
         }
 
-        protected void Page_Load(object sender, EventArgs e)
-        {
-            _usuarioLogueado = (Usuario)Session["usuario"];
-
-            if (!IsPostBack)
-            {
-                if (_usuarioLogueado == null)
-                {
-                    Response.Redirect("../Login.aspx", false);
-                    return;
-                }
-
-                cargarDatosUsuario();
-                cargarDirecciones();
-                cargarMetodoPago();
-                cargarResumen();
-            }
-        }
-
-
         private void mostrarDatosUsuario()
         {
-            lblNombre.Text = UsuarioLogueado.Nombre;
-            lblNombreUsuario.Text = UsuarioLogueado.NombreUsuario;
-            lblEmail.Text = UsuarioLogueado.Email;
-            lblTelefono.Text = UsuarioLogueado.Telefono;
+            lblNombre.Text = _usuarioLogueado.Nombre;
+            lblNombreUsuario.Text = _usuarioLogueado.NombreUsuario;
+            lblEmail.Text = _usuarioLogueado.Email;
+            lblTelefono.Text = _usuarioLogueado.Telefono;
         }
 
         private void cargarDirecciones()
         {
             DireccionNegocio dirNegocio = new DireccionNegocio();
-            var direcciones = dirNegocio.ListarPorUsuario(UsuarioLogueado.Id);
+            var direcciones = dirNegocio.ListarPorUsuario(_usuarioLogueado.Id);
 
             if (direcciones == null || direcciones.Count == 0)
             {
@@ -93,7 +92,8 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                 ddlDireccion.DataSource = direcciones.Select(d => new
                 {
                     Id = d.Id,
-                    Texto = $"{d.Calle} {d.Numero}, {d.Ciudad}"
+                    Texto = $"{d.Calle}, {d.Numero}, {d.Ciudad}, {d.Provincia}, CP {d.CodigoPostal}"
+
                 }).ToList();
 
                 ddlDireccion.DataTextField = "Texto";
@@ -114,7 +114,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         private void cargarResumenCarrito()
         {
             ItemCarritoNegocio carritoNegocio = new ItemCarritoNegocio();
-            List<ItemCarrito> carrito = carritoNegocio.listarCarrito(UsuarioLogueado.Id);
+            List<ItemCarrito> carrito = carritoNegocio.listarCarrito(_usuarioLogueado.Id);
 
             rptResumen.DataSource = carrito;
             rptResumen.DataBind();
@@ -129,11 +129,17 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
         protected void btnConfirmarDireccion_Click(object sender, EventArgs e)
         {
+            if (_usuarioLogueado == null)
+            {
+                Response.Redirect("../Login.aspx", false);
+                return;
+            }
+
             try
             {
                 Direccion nueva = new Direccion
                 {
-                    IdUsuario = UsuarioLogueado.Id,
+                    IdUsuario = _usuarioLogueado.Id,
                     Calle = txtCalle.Text.Trim(),
                     Numero = txtNumero.Text.Trim(),
                     Ciudad = txtCiudad.Text.Trim(),
@@ -144,11 +150,12 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                 DireccionNegocio dirNegocio = new DireccionNegocio();
                 dirNegocio.agregar(nueva);
 
-                // Recarga direcciones
-                cargarDirecciones();
+                // Guardo un flag
+                Session["direccionAgregada"] = true;
 
-                // Cierro el modal 
-                ModalHelper.CerrarModal(this, "modalDireccion");
+                // Redirigís al mismo endpoint, pero ahora en GET
+                Response.Redirect(Request.RawUrl, false);
+
             }
             catch (Exception ex)
             {
