@@ -81,7 +81,9 @@
                                 </div>
 
                                 <div class="d-grid gap-2">
-                                    <asp:Button ID="btnComprar" runat="server" Text="Comprar" CssClass="btn btn-warning btn-lg" />
+                                    <asp:Button ID="btnComprar" runat="server" Text="Comprar" CssClass="btn btn-warning btn-lg"
+                                        OnClick="btnComprar_Click" />
+
                                 </div>
                             </div>
                         </div>

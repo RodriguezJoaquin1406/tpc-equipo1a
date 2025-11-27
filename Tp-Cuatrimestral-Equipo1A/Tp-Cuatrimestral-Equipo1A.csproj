@@ -130,8 +130,10 @@
     <Content Include="PaginasPublic\Catalogo.aspx" />
     <Content Include="PaginasPrivadas\Home.aspx" />
     <Content Include="PaginasPublic\DetalleProducto.aspx" />
+    <Content Include="PaginasPublic\FinalizarCompra.aspx" />
     <Content Include="PaginasPublic\Inicio.aspx" />
     <Content Include="PaginasPublic\Login.aspx" />
+    <Content Include="PaginasPublic\MisCompras.aspx" />
     <Content Include="PaginasPublic\Registro.aspx" />
     <Content Include="PaginasPublic\Ubicaciones.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -294,6 +296,13 @@
     <Compile Include="PaginasPublic\DetalleProducto.aspx.designer.cs">
       <DependentUpon>DetalleProducto.aspx</DependentUpon>
     </Compile>
+    <Compile Include="PaginasPublic\FinalizarCompra.aspx.cs">
+      <DependentUpon>FinalizarCompra.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPublic\FinalizarCompra.aspx.designer.cs">
+      <DependentUpon>FinalizarCompra.aspx</DependentUpon>
+    </Compile>
     <Compile Include="PaginasPublic\Inicio.aspx.cs">
       <DependentUpon>Inicio.aspx</DependentUpon>
       <SubType>ASPXCodeBehind</SubType>
@@ -307,6 +316,13 @@
     </Compile>
     <Compile Include="PaginasPublic\Login.aspx.designer.cs">
       <DependentUpon>Login.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasPublic\MisCompras.aspx.cs">
+      <DependentUpon>MisCompras.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPublic\MisCompras.aspx.designer.cs">
+      <DependentUpon>MisCompras.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Registro.aspx.cs">
       <DependentUpon>Registro.aspx</DependentUpon>

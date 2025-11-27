@@ -101,7 +101,7 @@
         <!-- Mensaje de error/éxito -->
         <asp:Panel ID="pnlMensaje" runat="server" Visible="false" CssClass="mb-4">
             <div class="alert alert-custom" role="alert">
-                <asp:Label ID="lblMensaje" runat="server"></asp:Label>
+                <asp:Label ID="lblMensaje" runat="server" CssClass="fw-bold text-danger fs-4"></asp:Label>
             </div>
         </asp:Panel>
 

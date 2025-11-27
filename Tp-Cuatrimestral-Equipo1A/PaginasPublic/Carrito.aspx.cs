@@ -78,8 +78,6 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             
         }
 
-
-
         public void btn_EliminarClick(object sender, EventArgs e)
         {
             // Mandamos dos valores en el boton entonces hacemos un vector y lo spliteamos por ";"
@@ -124,9 +122,6 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                     if (cantFinal != 0) { carritoNegocio.actualizarCantidad(UsuarioLogueado.Id, idProducto, cantFinal ); }
                 }
 
-
-
-
                 ScriptManager.RegisterStartupScript(Page, Page.GetType(), "cerrarModal", "$('#modalEliminar').modal('hide');", true);
 
                 System.Text.StringBuilder scr = new System.Text.StringBuilder();
@@ -153,6 +148,29 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
                 throw;
             }
+        }
+
+        protected void btnComprar_Click(object sender, EventArgs e)
+        {
+            Usuario usuario = Session["usuario"] as Usuario;
+
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("~/PaginasPublic/Login.aspx?origen=carrito", false);
+                return;
+            }
+
+            ItemCarritoNegocio carritoNegocio = new ItemCarritoNegocio();
+            List<ItemCarrito> carrito = carritoNegocio.listarCarrito(usuario.Id);
+
+            if (carrito == null || carrito.Count == 0)
+            {
+                lblMensajeCarrito.Text = "Tu carrito está vacío.";
+                lblMensajeCarrito.CssClass = "text-danger fw-bold fs-5";
+                return;
+            }
+
+            Response.Redirect("FinalizarCompra.aspx", false);
         }
     }
 }

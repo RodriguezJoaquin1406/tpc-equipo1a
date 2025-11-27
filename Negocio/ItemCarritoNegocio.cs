@@ -144,5 +144,52 @@ WHERE
                 datos.cerrarConexion();
             }
         }
+
+        public List<ItemResumenCompra> obtenerResumen(int idUsuario)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            List<ItemResumenCompra> lista = new List<ItemResumenCompra>();
+
+            try
+            {
+                datos.setConsulta(@"
+            SELECT 
+                P.Nombre AS NombreProducto,
+                C.Talle,
+                SUM(C.Cantidad) AS CantidadTotal,
+                SUM(C.Cantidad * P.PrecioBase) AS Subtotal
+            FROM Carrito C
+            INNER JOIN Productos P ON C.IdProducto = P.Id
+            WHERE C.IdUsuario = @idUsuario
+            GROUP BY P.Nombre, C.Talle
+        ");
+
+                datos.setearParametro("@idUsuario", idUsuario);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    ItemResumenCompra item = new ItemResumenCompra
+                    {
+                        Nombre = datos.Lector["NombreProducto"].ToString(),
+                        Talle = datos.Lector["Talle"].ToString(),
+                        Cantidad = Convert.ToInt32(datos.Lector["CantidadTotal"]),
+                        Subtotal = Convert.ToDecimal(datos.Lector["Subtotal"])
+                    };
+
+                    lista.Add(item);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
