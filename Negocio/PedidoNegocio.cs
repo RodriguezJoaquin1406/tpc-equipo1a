@@ -143,6 +143,148 @@ namespace Negocio
             }
         }
 
+        public int crearPedido(Pedido pedido)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"
+            INSERT INTO Pedidos (IdUsuario, Fecha, IdDireccion, IdMetodoPago, Total, Estado)
+            OUTPUT INSERTED.Id
+            VALUES (@IdUsuario, @Fecha, @IdDireccion, @IdMetodoPago, @Total, @Estado)
+        ");
+
+                datos.setearParametro("@IdUsuario", pedido.IdUsuario);
+                datos.setearParametro("@Fecha", pedido.Fecha);
+                datos.setearParametro("@IdDireccion", pedido.IdDireccion);
+                datos.setearParametro("@IdMetodoPago", pedido.IdMetodoPago);
+                datos.setearParametro("@Total", pedido.Total);
+                datos.setearParametro("@Estado", pedido.Estado);
+
+                return (int)datos.ejecutarEscalar(); // devuelve el Id generado
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<Pedido> listarPorUsuario(int idUsuario)
+        {
+            List<Pedido> lista = new List<Pedido>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta(@"
+            SELECT P.Id, P.Fecha, P.Estado, P.Total
+            FROM Pedidos P
+            WHERE P.IdUsuario = @IdUsuario
+            ORDER BY P.Fecha DESC
+        ");
+
+                datos.setearParametro("@IdUsuario", idUsuario);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    Pedido pedido = new Pedido
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        Fecha = (DateTime)datos.Lector["Fecha"],
+                        Estado = datos.Lector["Estado"].ToString(),
+                        Total = (decimal)datos.Lector["Total"],
+                        IdUsuario = idUsuario
+                    };
+
+                    lista.Add(pedido);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public void actualizarEstado(int idPedido, string nuevoEstado)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("UPDATE Pedidos SET Estado = @Estado WHERE Id = @IdPedido");
+                datos.setearParametro("@Estado", nuevoEstado);
+                datos.setearParametro("@IdPedido", idPedido);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public List<DetallePedido> listarDetalles(int idPedido)
+        {
+            List<DetallePedido> lista = new List<DetallePedido>();
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                datos.setConsulta(@"
+            SELECT DP.Id, DP.IdPedido, DP.IdProducto, DP.Talle, DP.Cantidad, DP.PrecioUnitario,
+                   PR.Nombre AS NombreProducto
+            FROM DetallePedido DP
+            INNER JOIN Productos PR ON DP.IdProducto = PR.Id
+            WHERE DP.IdPedido = @IdPedido
+        ");
+
+                datos.setearParametro("@IdPedido", idPedido);
+                datos.ejecutarLectura();
+
+                while (datos.Lector.Read())
+                {
+                    DetallePedido detalle = new DetallePedido
+                    {
+                        Id = (int)datos.Lector["Id"],
+                        IdPedido = (int)datos.Lector["IdPedido"],
+                        IdProducto = (int)datos.Lector["IdProducto"],
+                        Talle = datos.Lector["Talle"].ToString(),
+                        Cantidad = (int)datos.Lector["Cantidad"],
+                        PrecioUnitario = (decimal)datos.Lector["PrecioUnitario"],
+                        Producto = new Producto
+                        {
+                            Nombre = datos.Lector["NombreProducto"].ToString()
+                        }
+                    };
+
+                    lista.Add(detalle);
+                }
+
+                return lista;
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
     }
 
 }

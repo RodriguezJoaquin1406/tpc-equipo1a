@@ -205,3 +205,9 @@ INSERT INTO MetodosPago (Nombre) VALUES
 
 ALTER TABLE Carrito
 ADD Talle VARCHAR(10) NOT NULL DEFAULT 'Único';
+
+ALTER TABLE Direcciones
+ADD Numero NVARCHAR(50) NULL;
+
+ALTER TABLE DetallePedido
+ADD Talle VARCHAR(10) NOT NULL DEFAULT 'Único';

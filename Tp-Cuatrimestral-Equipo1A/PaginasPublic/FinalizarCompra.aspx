@@ -60,8 +60,17 @@
         </div>
 
         <!-- Botón confirmar -->
-        <asp:Button ID="btnConfirmarCompra" runat="server" Text="Confirmar compra" CssClass="btn btn-success" OnClick="btnConfirmarCompra_Click" />
+        <asp:Button ID="btnConfirmarCompra" runat="server" 
+                    Text="Confirmar compra" 
+                    CssClass="btn btn-success" 
+                    OnClick="btnConfirmarCompra_Click" />
+
+        <!-- Mensaje de error -->
+        <asp:Label ID="lblErrorCompra" runat="server" 
+                   CssClass="text-danger fw-bold mt-3 d-block" 
+                   Visible="false" />
     </div>
+
 
     <!-- Modal para agregar dirección -->
    <div class="modal fade" id="modalDireccion" tabindex="-1" aria-hidden="true">

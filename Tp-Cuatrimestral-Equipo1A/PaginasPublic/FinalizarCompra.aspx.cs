@@ -153,7 +153,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                 // Guardo un flag
                 Session["direccionAgregada"] = true;
 
-                // Redirigís al mismo endpoint, pero ahora en GET
+                //  mismo endpoint, pero ahora en GET, sino cuando apreto f5 me vuelve a cargar la dirección otra vez
                 Response.Redirect(Request.RawUrl, false);
 
             }
@@ -168,8 +168,83 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 
         protected void btnConfirmarCompra_Click(object sender, EventArgs e)
         {
-            // Este será el Paso 3: crearPedido()
-            // Lo dejamos para el siguiente paso
+            try
+            {
+                // Validar sesión
+                if (_usuarioLogueado == null)
+                {
+                    Response.Redirect("../Login.aspx", false);
+                    return;
+                }
+
+                // Validar selección de dirección y método de pago
+                if (ddlDireccion.SelectedItem == null || ddlMetodoPago.SelectedItem == null)
+                {
+                    lblErrorCompra.Text = "Debés seleccionar una dirección y un método de pago.";
+                    lblErrorCompra.Visible = true;
+                    return;
+                }
+
+                int idDireccion = int.Parse(ddlDireccion.SelectedValue);
+                int idMetodoPago = int.Parse(ddlMetodoPago.SelectedValue);
+
+                // Obtener ítems del carrito
+                ItemCarritoNegocio carritoNegocio = new ItemCarritoNegocio();
+                List<ItemCarrito> carrito = carritoNegocio.listarCarrito(_usuarioLogueado.Id);
+
+                if (carrito == null || carrito.Count == 0)
+                {
+                    lblErrorCompra.Text = "Tu carrito está vacío. No se puede confirmar la compra.";
+                    lblErrorCompra.Visible = true;
+                    return;
+                }
+
+                // Calcular total
+                decimal total = carrito.Sum(item => item.Subtotal);
+
+                // Crear pedido
+                Pedido pedido = new Pedido
+                {
+                    IdUsuario = _usuarioLogueado.Id,
+                    Fecha = DateTime.Now,
+                    IdDireccion = idDireccion,
+                    IdMetodoPago = idMetodoPago,
+                    Total = total,
+                    Estado = "Pendiente",
+
+                };
+
+                PedidoNegocio pedidoNegocio = new PedidoNegocio();
+                int idPedido = pedidoNegocio.crearPedido(pedido); // devuelve el ID generado
+
+                // Crear detalle de pedido
+                DetallePedidoNegocio detalleNegocio = new DetallePedidoNegocio();
+                foreach (var item in carrito)
+                {
+                    DetallePedido detalle = new DetallePedido
+                    {
+                        IdPedido = idPedido,
+                        IdProducto = item.IdProducto,
+                        Talle = item.talle,
+                        Cantidad = item.cantidad,
+                        PrecioUnitario = item.precio
+                    };
+
+                    detalleNegocio.agregar(detalle);
+                }
+
+                // Vaciar carrito
+                carritoNegocio.vaciarCarrito(_usuarioLogueado.Id);
+
+                // Redirigir
+                Response.Redirect("MisCompras.aspx", false);
+            }
+            catch (Exception ex)
+            {
+                lblErrorCompra.Text = "Error al confirmar la compra: " + ex.Message;
+                lblErrorCompra.Visible = true;
+            }
         }
+
     }
 }

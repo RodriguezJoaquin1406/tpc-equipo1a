@@ -55,5 +55,32 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+        public void agregar(DetallePedido detalle)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"INSERT INTO DetallePedido 
+                            (IdPedido, IdProducto, Cantidad, PrecioUnitario, Talle)
+                            VALUES (@IdPedido, @IdProducto, @Cantidad, @PrecioUnitario, @Talle)");
+
+                datos.setearParametro("@IdPedido", detalle.IdPedido);
+                datos.setearParametro("@IdProducto", detalle.IdProducto);
+                datos.setearParametro("@Cantidad", detalle.Cantidad);
+                datos.setearParametro("@PrecioUnitario", detalle.PrecioUnitario);
+                datos.setearParametro("@Talle", detalle.Talle);
+
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }

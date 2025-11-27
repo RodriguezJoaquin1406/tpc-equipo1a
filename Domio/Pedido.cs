@@ -20,5 +20,7 @@ namespace Dominio
         public Usuario Usuario { get; set; }
         public Direccion Direccion { get; set; }
         public MetodoPago MetodoPago { get; set; }
+
+        public List<DetallePedido> Detalles { get; set; }
     }
 }

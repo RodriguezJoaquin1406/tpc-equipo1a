@@ -13,8 +13,12 @@ namespace Dominio
         public int IdProducto { get; set; }
         public int Cantidad { get; set; }
         public decimal PrecioUnitario { get; set; }
-
-        // Objetos relacionados (para mostrar los detalles del producto)
+        public string Talle { get; set; } 
         public Producto Producto { get; set; }
+
+        public decimal Subtotal
+        {
+            get { return PrecioUnitario * Cantidad; }
+        }
     }
 }
