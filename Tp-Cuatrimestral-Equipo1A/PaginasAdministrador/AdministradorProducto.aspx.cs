@@ -262,13 +262,21 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     // Modificar producto existente
                     producto.Id = int.Parse(txtId.Text);
                     negocio.modificar(producto);
+                    foreach (var imagen in producto.Imagenes)
+                    {
+                        negocio.agregarImagen(producto.Id, imagen);
+                    }
                     prodSuccess = true;
                     lblSuccess.Text = "Producto modificado exitosamente.";
                 }
                 else
                 {
                     // Agregar nuevo producto
-                    negocio.agregar(producto);
+                    int idNuevo = negocio.agregar(producto);
+                    foreach (var imagen in producto.Imagenes)
+                    {
+                        negocio.agregarImagen(idNuevo, imagen);
+                    }
                     prodSuccess = true;
                     lblSuccess.Text = "Producto agregado exitosamente.";
                     LimpiarFormulario();

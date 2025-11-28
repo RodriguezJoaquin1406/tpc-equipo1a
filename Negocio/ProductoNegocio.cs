@@ -153,13 +153,14 @@ namespace Negocio
             }
         }
 
-        public void agregar(Producto nuevo)
+        public int agregar(Producto nuevo)
         {
             var datos = new AccesoDatos();
             try
             {
                 datos.setConsulta(@"INSERT INTO Productos (Nombre, Descripcion, Talle, PrecioBase, StockActual, StockMinimo, IdCategoria)
-                            VALUES (@Nombre, @Descripcion, @Talle, @PrecioBase, @StockActual, @StockMinimo, @IdCategoria)");
+                            VALUES (@Nombre, @Descripcion, @Talle, @PrecioBase, @StockActual, @StockMinimo, @IdCategoria);
+                            SELECT SCOPE_IDENTITY();");
                 datos.setearParametro("@Nombre", nuevo.Nombre);
                 datos.setearParametro("@Descripcion", nuevo.Descripcion);
                 datos.setearParametro("@Talle", nuevo.Talle); // Agregar este parámetro
@@ -168,7 +169,8 @@ namespace Negocio
                 datos.setearParametro("@StockMinimo", nuevo.StockMinimo); // Nuevo campo
                 datos.setearParametro("@IdCategoria", nuevo.Categoria.Id);
 
-                datos.ejecutarAccion();
+                object resultado = datos.ejecutarEscalar();
+                return Convert.ToInt32(resultado);
             }
             catch (Exception ex)
             {
@@ -309,6 +311,56 @@ namespace Negocio
             }
         }
 
-        
+        public void agregarImagen(int idproducto, string url)
+        {
+            try
+            {
+                // Verificar que la URL no esté vacía
+                if (string.IsNullOrEmpty(url?.Trim()))
+                    return;
+
+                // Verificar que no exista ya esta imagen para este producto
+                var datosVerificar = new AccesoDatos();
+                try
+                {
+                    datosVerificar.setConsulta("SELECT COUNT(*) FROM Imagenes WHERE IdProducto = @IdProducto AND UrlImagen = @Url");
+                    datosVerificar.setearParametro("@IdProducto", idproducto);
+                    datosVerificar.setearParametro("@Url", url.Trim());
+                    datosVerificar.ejecutarLectura();
+
+                    bool existeImagen = false;
+                    if (datosVerificar.Lector.Read())
+                    {
+                        existeImagen = (int)datosVerificar.Lector[0] > 0;
+                    }
+                    datosVerificar.cerrarConexion();
+
+                    // Si la imagen no existe, agregarla
+                    if (!existeImagen)
+                    {
+                        var datosInsertar = new AccesoDatos();
+                        try
+                        {
+                            datosInsertar.setConsulta("INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES (@IdProducto, @Url)");
+                            datosInsertar.setearParametro("@IdProducto", idproducto);
+                            datosInsertar.setearParametro("@Url", url.Trim());
+                            datosInsertar.ejecutarAccion();
+                        }
+                        finally
+                        {
+                            datosInsertar.cerrarConexion();
+                        }
+                    }
+                }
+                finally
+                {
+                    datosVerificar.cerrarConexion();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+        }
     }
 }
