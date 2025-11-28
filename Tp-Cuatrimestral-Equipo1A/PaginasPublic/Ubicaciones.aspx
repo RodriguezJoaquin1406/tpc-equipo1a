@@ -1,4 +1,5 @@
-﻿
+﻿<%@ Page Title="Ubicaciones" Language="C#" MasterPageFile="~/Main.Master" AutoEventWireup="true" CodeBehind="Ubicaciones.aspx.cs" Inherits="Tp_Cuatrimestral_Equipo1A.PaginasPublic.Ubicaciones" %>
+
 <asp:Content ID="Content1" ContentPlaceHolderID="head" runat="server">
     <style>
         #mapa-personalizado {
@@ -31,7 +32,7 @@
             const ubiLocalPacheco = { lat: -34.456768, lng: -58.641937 };
 
             const map = new google.maps.Map(document.getElementById("mapa-personalizado"), {
-                zoom: 13, 
+                zoom: 13,
                 center: puntoMedio,
                 mapId: "DEMO_MAP_ID"
             });
@@ -55,7 +56,7 @@
                 '<a href="https://www.instagram.com/boutique.misueno/" target="_blank" style="color:black; text-decoration:none;">' +
                 /*'<img src="https://i.pinimg.com/1200x/58/70/c8/5870c8c46e727d99d4fd828beadfe28f.jpg" alt="icon mi sueno" style="width:30%; height:auto;">' +*/
                 '<h4>Local Puerto De Frutos</h4>' +
-                    '<p>Sarmiento 15, Galeria Eucalipto</p>' +
+                '<p>Sarmiento 15, Galeria Eucalipto</p>' +
                 '</a>' +
                 '</div>';
 
