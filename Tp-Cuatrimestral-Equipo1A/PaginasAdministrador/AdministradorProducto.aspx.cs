@@ -75,7 +75,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     txtId.Text = productoModificar.Id.ToString();
                     txtNombre.Text = productoModificar.Nombre;
                     txtDesc.Text = productoModificar.Descripcion;
-                    txtPrecio.Text = productoModificar.PrecioBase.ToString();
+                    txtPrecio.Text = productoModificar.PrecioBase.ToString(System.Globalization.CultureInfo.InvariantCulture);
                     txtStock.Text = productoModificar.StockActual.ToString();
                     txtStockMinimo.Text = productoModificar.StockMinimo.ToString();
                     ddlTalle.SelectedValue = productoModificar.Talle;
@@ -118,19 +118,27 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         private void CreateImageTextBoxes()
         {
             phImagenes.Controls.Clear();
-            var initial = ViewState["InitialImages"] as System.Collections.Generic.List<string>;
+            var initial = ViewState["InitialImages"] as List<string>;
+            var current = ViewState["CurrentImageValues"] as List<string>;
 
             for (int i = 0; i < ImagenCount; i++)
             {
-                var tb = new System.Web.UI.WebControls.TextBox
+                var tb = new TextBox
                 {
                     ID = "img_" + i,
                     CssClass = "form-control img-input img-url mb-2"
                 };
                 tb.Attributes["placeholder"] = "URL de imagen " + (i + 1);
 
-                if (!IsPostBack && initial != null && i < initial.Count)
+                // Priorizar valores actuales guardados, luego iniciales
+                if (current != null && i < current.Count && !string.IsNullOrEmpty(current[i]))
+                {
+                    tb.Text = current[i];
+                }
+                else if (!IsPostBack && initial != null && i < initial.Count)
+                {
                     tb.Text = initial[i];
+                }
 
                 phImagenes.Controls.Add(tb);
             }
@@ -138,8 +146,34 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
         protected void btnAgregarImagen_Click(object sender, EventArgs e)
         {
+            // Guardar los valores actuales antes de incrementar el contador
+            GuardarValoresImagenes();
+
             ImagenCount = ImagenCount + 1;
             CreateImageTextBoxes();
+        }
+
+
+        private void GuardarValoresImagenes()
+        {
+            List<string> valoresActuales = new List<string>();
+
+            // Obtener los valores de los TextBox actuales
+            for (int i = 0; i < ImagenCount; i++)
+            {
+                var tb = phImagenes.FindControl("img_" + i) as TextBox;
+                if (tb != null)
+                {
+                    valoresActuales.Add(tb.Text ?? string.Empty);
+                }
+                else
+                {
+                    valoresActuales.Add(string.Empty);
+                }
+            }
+
+            // Guardar en ViewState
+            ViewState["CurrentImageValues"] = valoresActuales;
         }
 
         protected void btnAceptar_Click(object sender, EventArgs e)
@@ -172,7 +206,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 }
 
                 decimal precio;
-                if (!decimal.TryParse(txtPrecio.Text, out precio) || precio < 0)
+                if (!decimal.TryParse(txtPrecio.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out precio) || precio < 0)
                 {
                     prodError = true;
                     lblError.Text = "El precio debe ser un número válido mayor o igual a 0.";
