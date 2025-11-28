@@ -11,7 +11,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 {
 
 
-    public partial class Registro
+    public partial class RecuperarContrasena
     {
 
         /// <summary>
@@ -24,31 +24,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         protected global::System.Web.UI.WebControls.Label lblError;
 
         /// <summary>
-        /// txtUsuario control.
+        /// lblMensaje control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtUsuario;
-
-        /// <summary>
-        /// txtContrasena control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtContrasena;
-
-        /// <summary>
-        /// txtNombre control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtNombre;
+        protected global::System.Web.UI.WebControls.Label lblMensaje;
 
         /// <summary>
         /// txtEmail control.
@@ -60,21 +42,21 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         protected global::System.Web.UI.WebControls.TextBox txtEmail;
 
         /// <summary>
-        /// txtTelefono control.
+        /// regexEmail control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox txtTelefono;
+        protected global::System.Web.UI.WebControls.RegularExpressionValidator regexEmail;
 
         /// <summary>
-        /// btnRegistrar control.
+        /// btnReiniciar control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button btnRegistrar;
+        protected global::System.Web.UI.WebControls.Button btnReiniciar;
     }
 }

@@ -136,6 +136,7 @@
     <Content Include="PaginasPublic\Inicio.aspx" />
     <Content Include="PaginasPublic\Login.aspx" />
     <Content Include="PaginasPublic\MisCompras.aspx" />
+    <Content Include="PaginasPublic\RecuperarContrasena.aspx" />
     <Content Include="PaginasPublic\Registro.aspx" />
     <Content Include="PaginasPublic\Ubicaciones.aspx" />
     <Content Include="Scripts\bootstrap.bundle.js" />
@@ -339,6 +340,13 @@
     </Compile>
     <Compile Include="PaginasPublic\MisCompras.aspx.designer.cs">
       <DependentUpon>MisCompras.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasPublic\RecuperarContrasena.aspx.cs">
+      <DependentUpon>RecuperarContrasena.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasPublic\RecuperarContrasena.aspx.designer.cs">
+      <DependentUpon>RecuperarContrasena.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasPublic\Registro.aspx.cs">
       <DependentUpon>Registro.aspx</DependentUpon>

@@ -249,5 +249,83 @@ namespace Negocio
                 datos.cerrarConexion();
             }
         }
+
+
+        public Usuario BuscarPorMail(string mail)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("SELECT * FROM Usuarios WHERE Email = @mail");
+                datos.setearParametro("@mail", mail);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Usuario usuario = new Usuario();
+                    usuario.Id = (int)datos.Lector["Id"];
+                    usuario.NombreUsuario = datos.Lector["NombreUsuario"].ToString();
+                    usuario.Rol = datos.Lector["Rol"].ToString();
+                    usuario.Nombre = datos.Lector["Nombre"].ToString();
+                    usuario.Email = datos.Lector["Email"].ToString();
+                    usuario.Telefono = datos.Lector["Telefono"].ToString();
+
+                    return usuario;
+                }
+
+                return null;
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        
+        }
+
+        public void ReiniciarContraseña(int id) 
+        {
+            AccesoDatos datos = new AccesoDatos();
+
+            try
+            {
+                // Primero obtenemos el teléfono del usuario
+                datos.setConsulta("SELECT Telefono FROM Usuarios WHERE Id = @id");
+                datos.setearParametro("@id", id);
+                datos.ejecutarLectura();
+
+                string telefono = "";
+                if (datos.Lector.Read())
+                {
+                    telefono = datos.Lector["Telefono"].ToString();
+                }
+                datos.cerrarConexion();
+
+                // Validamos que el usuario tenga teléfono registrado
+                if (string.IsNullOrEmpty(telefono))
+                {
+                    throw new Exception("El usuario no tiene un teléfono registrado.");
+                }
+
+                // Actualizamos la contraseña con el teléfono
+                datos = new AccesoDatos();
+                datos.setConsulta("UPDATE Usuarios SET Contrasena = @telefono WHERE Id = @id");
+                datos.setearParametro("@telefono", telefono);
+                datos.setearParametro("@id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
     }
 }
