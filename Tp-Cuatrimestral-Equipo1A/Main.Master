@@ -157,9 +157,11 @@
                         <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrador
         </a>
                         <ul class="dropdown-menu">
-                            <li><a class="dropdown-item" href="../PaginasAdministrador/CatalogoAdministrador.aspx">Tabla productos</a></li>
+                            <li><a class="dropdown-item" href="../PaginasAdministrador/CatalogoAdministrador.aspx">Productos</a></li>
                             <li><a class="dropdown-item" href="../PaginasAdministrador/AdministradorCategorias.aspx">Categorías</a></li>
-                            <li><a class="dropdown-item" href="../PaginasAdministrador/AdministradorUsuarios.aspx">Tabla Usuarios</a></li>
+                            <li><a class="dropdown-item" href="../PaginasAdministrador/AdministradorUsuarios.aspx">Usuarios</a></li>
+                            <li><a class="dropdown-item" href="../PaginasAdministrador/AdministradorPedidos.aspx">Pedidos</a></li>
+                            <li><a class="dropdown-item" href="../PaginasAdministrador/AdministradorVentas.aspx">Ventas</a></li>
 
                             
                         </ul>
