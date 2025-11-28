@@ -201,4 +201,11 @@ INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (4, 'https://newswarovskiargentina.vtexassets.com/unsafe/1440x0/center/middle/https%3A%2F%2Fnewswarovskiargentina.vtexassets.com%2Farquivos%2Fids%2F653364%2Fpendientes-5705831-1.jpg%3Fv%3D638739523608530000'),
 (5, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/23/84/17453729703da87c9bc65401c1f4fc6168d7b0539a_thumbnail_560x.webp'),
 (6, 'https://i.pinimg.com/1200x/16/7e/c5/167ec54de1eb97376ccda3bf34e6a3ce.jpg'),
-(7, 'https://i.pinimg.com/736x/1f/56/6b/1f566b32c4fa0d73331b5148a21d6d7d.jpg');
+(7, 'https://i.pinimg.com/736x/1f/56/6b/1f566b32c4fa0d73331b5148a21d6d7d.jpg'),
+(1, 'https://i.pinimg.com/736x/4b/46/5c/4b465c16ae630ef26dc96e6f9460826e.jpg'),
+(2, 'https://i.pinimg.com/1200x/ab/ab/0e/abab0e96ac0ce40f91da54d5629e2d09.jpg'),
+(3, 'https://i.pinimg.com/1200x/2f/d7/69/2fd769462b00d7f9b410baaf9711c542.jpg'),
+(4, 'https://i.pinimg.com/736x/30/be/42/30be42beb6248717f72d30e38ae75e19.jpg'),
+(5, 'https://i.pinimg.com/736x/35/ce/04/35ce047e1224f17d95f92be262d165bf.jpg'),
+(6, 'https://i.pinimg.com/1200x/4c/8c/4a/4c8c4ae97542465607123a4ad68839ce.jpg'),
+(7, 'https://i.pinimg.com/736x/c9/98/c6/c998c685fc3b9dd27f9a56c68a82cb38.jpg');
