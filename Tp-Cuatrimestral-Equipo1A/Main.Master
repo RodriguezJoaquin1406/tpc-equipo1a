@@ -63,10 +63,10 @@
             transition: color 0.3s ease;
         }
 
-        .title-link:hover {
-            color: #C6AC8F;
-            text-decoration: none;
-        }
+            .title-link:hover {
+                color: #C6AC8F;
+                text-decoration: none;
+            }
 
         .card-img-top {
             width: 100%;
@@ -150,7 +150,21 @@
                     <asp:HyperLink NavigateUrl="~/PaginasPublic/Inicio.aspx" CssClass="nav-link text-dark" Text="Inicio" runat="server" />
                     <asp:HyperLink NavigateUrl="~/PaginasPublic/Catalogo.aspx" CssClass="nav-link text-dark" Text="Catálogo" runat="server" />
                     <asp:HyperLink NavigateUrl="~/PaginasPublic/Ubicaciones.aspx" CssClass="nav-link text-dark" Text="Ubicaciones" runat="server" />
-                    
+
+                    <% if (Session["usuario"] != null && ((Dominio.Usuario)Session["usuario"]).Rol == "Administrador")
+                        { %>
+                    <div class="dropdown">
+                        <a class="nav-link text-dark dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">Administrador
+        </a>
+                        <ul class="dropdown-menu">
+                            <li><a class="dropdown-item" href="../PaginasAdministrador/CatalogoAdministrador.aspx">Tabla productos</a></li>
+                            <li><a class="dropdown-item" href="../PaginasAdministrador/AdministradorCategorias.aspx">Categorías</a></li>
+                            <li><a class="dropdown-item" href="../PaginasAdministrador/AdministradorUsuarios.aspx">Tabla Usuarios</a></li>
+
+                            
+                        </ul>
+                    </div>
+                    <% } %>
                 </nav>
                 <div class="d-flex align-items-center gap-3">
                     <asp:Label ID="lblSaludoMaster" runat="server" CssClass="text-dark me-2" />
