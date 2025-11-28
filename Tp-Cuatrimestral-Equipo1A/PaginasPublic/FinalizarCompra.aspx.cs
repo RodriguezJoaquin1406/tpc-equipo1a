@@ -233,6 +233,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                     detalleNegocio.agregar(detalle);
                 }
 
+                // Descontar Stock
+                foreach (var item in carrito)
+                {
+                    ProductoNegocio productoNegocio = new ProductoNegocio();
+                    productoNegocio.descontarStock(item.IdProducto, item.cantidad);
+                }
+
                 // Vaciar carrito
                 carritoNegocio.vaciarCarrito(_usuarioLogueado.Id);
 
