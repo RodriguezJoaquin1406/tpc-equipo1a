@@ -1,0 +1,19 @@
+-- 🔧 DETALLEPEDIDO: Agregar talle y precio unitario
+
+ALTER TABLE DetallePedido ADD Talle VARCHAR(20);
+ALTER TABLE DetallePedido ADD PrecioUnitario DECIMAL(10,2);
+
+-- 📦 PEDIDO: Agregar estado, dirección y método de pago
+
+ALTER TABLE Pedido ADD Estado VARCHAR(50);
+ALTER TABLE Pedido ADD IdDireccion INT;
+ALTER TABLE Pedido ADD IdMetodoPago INT;
+
+-- 🔗 PEDIDO: Agregar claves foráneas
+
+ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_Direccion FOREIGN KEY (IdDireccion) REFERENCES Direccion(Id);
+ALTER TABLE Pedido ADD CONSTRAINT FK_Pedido_MetodoPago FOREIGN KEY (IdMetodoPago) REFERENCES MetodoPago(Id);
+
+-- 🛒 CARRITOPRODUCTO: (si usás talle y precio en el carrito también)
+
+ALTER TABLE Carrito ADD Talle VARCHAR(20);

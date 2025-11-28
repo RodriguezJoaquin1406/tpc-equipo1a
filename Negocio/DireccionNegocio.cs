@@ -16,7 +16,7 @@ namespace Negocio
 
             try
             {
-                datos.setConsulta(@"SELECT Id, IdUsuario, Calle, Ciudad, CodigoPostal, Provincia
+                datos.setConsulta(@"SELECT Id, IdUsuario, Calle, Numero, Ciudad, CodigoPostal, Provincia
                                 FROM Direcciones
                                 WHERE IdUsuario = @idUsuario");
                 datos.setearParametro("@idUsuario", idUsuario);
@@ -28,6 +28,7 @@ namespace Negocio
                     dir.Id = (int)datos.Lector["Id"];
                     dir.IdUsuario = (int)datos.Lector["IdUsuario"];
                     dir.Calle = datos.Lector["Calle"].ToString();
+                    dir.Numero = datos.Lector["Numero"].ToString();
                     dir.Ciudad = datos.Lector["Ciudad"].ToString();
                     dir.CodigoPostal = datos.Lector["CodigoPostal"].ToString();
                     dir.Provincia = datos.Lector["Provincia"].ToString();
@@ -108,6 +109,43 @@ namespace Negocio
                 datos.setConsulta("DELETE FROM Direcciones WHERE Id = @Id");
                 datos.setearParametro("@Id", id);
                 datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
+        public Direccion ObtenerPorId(int id)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"SELECT Id, IdUsuario, Calle, Numero, Ciudad, CodigoPostal, Provincia
+                            FROM Direcciones
+                            WHERE Id = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarLectura();
+
+                if (datos.Lector.Read())
+                {
+                    Direccion dir = new Direccion();
+                    dir.Id = (int)datos.Lector["Id"];
+                    dir.IdUsuario = (int)datos.Lector["IdUsuario"];
+                    dir.Calle = datos.Lector["Calle"].ToString();
+                    dir.Numero = datos.Lector["Numero"].ToString();
+                    dir.Ciudad = datos.Lector["Ciudad"].ToString();
+                    dir.CodigoPostal = datos.Lector["CodigoPostal"].ToString();
+                    dir.Provincia = datos.Lector["Provincia"].ToString();
+
+                    return dir;
+                }
+
+                return null;
             }
             catch (Exception ex)
             {

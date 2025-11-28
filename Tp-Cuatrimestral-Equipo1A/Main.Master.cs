@@ -22,6 +22,7 @@ namespace Tp_Cuatrimestral_Equipo1A
                     hlRegistroMaster.Visible = false;
                     hlPerfilMaster.Visible = true;
                     btnCerrarSesionMaster.Visible = true;
+                    hlMisComprasMaster.Visible = true;
                 }
                 else
                 {
@@ -30,6 +31,7 @@ namespace Tp_Cuatrimestral_Equipo1A
                     hlRegistroMaster.Visible = true;
                     hlPerfilMaster.Visible = false;
                     btnCerrarSesionMaster.Visible = false;
+                    hlMisComprasMaster.Visible = false;
                 }
             }
         }

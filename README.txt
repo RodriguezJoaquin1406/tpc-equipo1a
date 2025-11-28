@@ -117,29 +117,27 @@ Para la segunda etapa del TPC se solicita:
 - ABM de Categoría (listar, agregar, modificar, eliminar) ------------------------- ✅ CREADO
 - ABM de Método de Pago (listar, agregar, modificar, eliminar) -------------------- ✅ CREADO
 - ABM de Dirección (listar, agregar, modificar, eliminar) ------------------------- ✅ CREADO
+- ABM de Marca (listar) ----------------------------------------------------------- ✅ CREADO (faltan alta, baja y modificación en front)
 
 - Campo Número agregado a la tabla Direcciones (SQL no estaba el varchar)---------- ✅ HECHO
-
 
 🔜 Próximo paso: funcionalidad core (carrito, pedido, confirmación de compra)
 
 ---
 
+### QUE NOS FALTA TERMINAR ANTES DE ETAPA 3
 
+- Hacer que los productos se carguen al carrito:
+  - Con sesión iniciada → guardar en BD.
+  - Sin sesión iniciada → guardar en sesión temporal y luego concatenar con BD si el usuario inicia sesión.
 
-QUE NOS FALTA TERMINAR ANTES DE ETAPA 3
+- ABM de Marca en el front:
+  - Borrado, Modificado y Cargado (el negocio ya está implementado en back-end, falta en front).
 
--- Hacer que los productos se carguen al carrito (teniendo sesión inciada) y sin sesión iniciada guardándolo en sesión 
-	(después hacer que ese carrito temporal se cargue a BD o se concatene si ya tiene uno)
+- ABM de Usuario en el front:
+  - Borrado y Modificado (el negocio ya está implementado en back-end, falta en front).
 
--- Borrado, Modificado y Cargado de marcas Desde el front. en el back-end ya están el ABML negocio de marca pero no en el front.
-	(listado ya está terminado falta Borrado, Modificado y Cargado )
-
--- Borrado, Modificado de usuarios Desde el front. en el back-end ya están el ABML negocio de usuarios pero no en el front.
-	(listado ya está terminado falta Borrado y Modificado)
-
-
-
+---
 
 ## ___________________________________________ Etapa 3 - Funcionalidad Core ____________________________________
 
@@ -167,7 +165,6 @@ Para la cuarta y última etapa del TPC deberán:
 🔜 A definir luego de completar el carrito y pedidos
 
 ---
-
 ## Tecnologías utilizadas
 
 - ASP.NET Web Forms  

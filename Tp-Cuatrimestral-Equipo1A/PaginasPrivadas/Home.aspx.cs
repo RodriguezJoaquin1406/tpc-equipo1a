@@ -20,34 +20,109 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPrivadas
                 return;
             }
 
+            Usuario usuario = (Usuario)Session["usuario"];
+            DireccionNegocio direccionNegocio = new DireccionNegocio();
+            List<Direccion> direcciones = direccionNegocio.ListarPorUsuario(usuario.Id);
+
             if (!IsPostBack)
             {
-                Usuario usuario = (Usuario)Session["usuario"];
+                // Datos del perfil
                 lblNombreUsuario.Text = usuario.NombreUsuario;
                 txtNombre.Text = usuario.Nombre;
                 txtEmail.Text = usuario.Email;
                 txtTelefono.Text = usuario.Telefono;
                 lblRol.Text = usuario.Rol;
 
+                // Mensaje de bienvenida si recién se registró
                 if (Session["reciénRegistrado"] != null)
                 {
                     lblBienvenida.Text = "¡Gracias por registrarte, " + usuario.NombreUsuario + "!";
                     Session.Remove("reciénRegistrado");
                 }
+
+                // Cargar direcciones en el DropDownList todo en una sola linea
+                if (direcciones != null && direcciones.Count > 0)
+                {
+                    ddlDirecciones.DataSource = direcciones;
+                    ddlDirecciones.DataTextField = "DescripcionCompleta";
+                    ddlDirecciones.DataValueField = "Id";
+                    ddlDirecciones.DataBind();
+
+                    // Mostrar la primera dirección en los campos individuales
+                    Direccion direccion = direcciones[0];
+                    txtCalle.Text = direccion.Calle;
+                    txtNumero.Text = direccion.Numero;
+                    txtCiudad.Text = direccion.Ciudad;
+                    txtCodigoPostal.Text = direccion.CodigoPostal;
+                    txtProvincia.Text = direccion.Provincia;
+                }
             }
         }
 
+
         protected void btnActualizar_Click(object sender, EventArgs e)
         {
+            // Validar sesión
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("~/PaginasPublic/Login.aspx");
+                return;
+            }
+
             Usuario usuario = (Usuario)Session["usuario"];
+
+            // Actualizar datos del perfil
             usuario.Nombre = txtNombre.Text;
             usuario.Email = txtEmail.Text;
             usuario.Telefono = txtTelefono.Text;
 
-            UsuarioNegocio negocio = new UsuarioNegocio();
-            negocio.Actualizar(usuario); 
+            UsuarioNegocio negocioUsuario = new UsuarioNegocio();
+            negocioUsuario.Actualizar(usuario);
+
+            // Validar dirección seleccionada
+            
+            if (string.IsNullOrEmpty(ddlDirecciones.SelectedValue))
+            {
+                lblResultado.Text = "Error: no se seleccionó ninguna dirección.";
+                return;
+            }
+
+            int idDireccion;
+            bool conversionOk = int.TryParse(ddlDirecciones.SelectedValue, out idDireccion);
+            if (!conversionOk || idDireccion <= 0)
+            {
+                lblResultado.Text = "Error: dirección seleccionada inválida.";
+                return;
+            }
+
+            // Crear el objetio
+            Direccion direccion = new Direccion
+            {
+                Id = idDireccion,
+                IdUsuario = usuario.Id,
+                Calle = txtCalle.Text,
+                Numero = txtNumero.Text,
+                Ciudad = txtCiudad.Text,
+                CodigoPostal = txtCodigoPostal.Text,
+                Provincia = txtProvincia.Text
+            };
+
+
+            DireccionNegocio negocioDireccion = new DireccionNegocio();
+            negocioDireccion.modificar(direccion);
 
             lblResultado.Text = "Datos actualizados correctamente.";
+
+            // Refrescar el DropDownList de direcciones porque sino aparece la vieja
+            List<Direccion> direccionesActualizadas = negocioDireccion.ListarPorUsuario(usuario.Id);
+            ddlDirecciones.DataSource = direccionesActualizadas;
+            ddlDirecciones.DataTextField = "DescripcionCompleta";
+            ddlDirecciones.DataValueField = "Id";
+            ddlDirecciones.DataBind();
+
+            // Seleccionar la dirección actualizada
+            ddlDirecciones.SelectedValue = direccion.Id.ToString();
+
         }
 
         protected void btnEliminarCuenta_Click(object sender, EventArgs e)
@@ -64,6 +139,25 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPrivadas
         {
             Session.Clear();
             Response.Redirect("~/PaginasPublic/Inicio.aspx");
+        }
+
+        protected void ddlDirecciones_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            // Tomar el Id seleccionado
+            int idSeleccionado = int.Parse(ddlDirecciones.SelectedValue);
+
+            // Traer la dirección y mostrarla
+            DireccionNegocio direccionNegocio = new DireccionNegocio();
+            Direccion direccion = direccionNegocio.ObtenerPorId(idSeleccionado);
+
+            if (direccion != null)
+            {
+                txtCalle.Text = direccion.Calle;
+                txtNumero.Text = direccion.Numero;
+                txtCiudad.Text = direccion.Ciudad;
+                txtCodigoPostal.Text = direccion.CodigoPostal;
+                txtProvincia.Text = direccion.Provincia;
+            }
         }
     }
 }

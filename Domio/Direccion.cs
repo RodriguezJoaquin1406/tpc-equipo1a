@@ -17,6 +17,15 @@ namespace Dominio
         public string CodigoPostal { get; set; }
         public string Provincia { get; set; }
 
+        public string DescripcionCompleta
+        {
+            get
+            {
+                return $"{Calle} {Numero}, {Ciudad} ({CodigoPostal}), {Provincia}";
+            }
+        }
+
+
     }
 
 }
