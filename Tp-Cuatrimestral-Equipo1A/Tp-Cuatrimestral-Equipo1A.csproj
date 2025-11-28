@@ -122,6 +122,7 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="PaginasAdministrador\AdministradorCategorias.aspx" />
+    <Content Include="PaginasAdministrador\AdministradorPedidos.aspx" />
     <Content Include="PaginasAdministrador\AdministradorProducto.aspx" />
     <Content Include="PaginasAdministrador\AdministradorUsuarios.aspx" />
     <Content Include="PaginasAdministrador\CatalogoAdministrador.aspx" />
@@ -239,6 +240,13 @@
     </Compile>
     <Compile Include="PaginasAdministrador\AdministradorCategorias.aspx.designer.cs">
       <DependentUpon>AdministradorCategorias.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="PaginasAdministrador\AdministradorPedidos.aspx.cs">
+      <DependentUpon>AdministradorPedidos.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="PaginasAdministrador\AdministradorPedidos.aspx.designer.cs">
+      <DependentUpon>AdministradorPedidos.aspx</DependentUpon>
     </Compile>
     <Compile Include="PaginasAdministrador\AdministradorProducto.aspx.cs">
       <DependentUpon>AdministradorProducto.aspx</DependentUpon>
