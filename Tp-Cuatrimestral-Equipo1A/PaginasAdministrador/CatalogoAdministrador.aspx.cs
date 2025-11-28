@@ -13,15 +13,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            //  Validacion de administrador
-            //if(!IsPostBack)
-            //{
-            //    if (Session["usuario"] == null || !((Dominio.Usuario)Session["usuario"]).EsAdmin)
-            //    {
-            //        Response.Redirect("../PaginasPublic/Inicio.aspx");
-            //    }
-            //    cargarTabla();
-            //}
+            if (!IsPostBack)
+            {
+                if (Session["usuario"] == null || !((Dominio.Usuario)Session["usuario"]).EsAdmin)
+                {
+                    Response.Redirect("../PaginasPublic/Inicio.aspx");
+                }
+            }
             cargarTabla();
         }
 

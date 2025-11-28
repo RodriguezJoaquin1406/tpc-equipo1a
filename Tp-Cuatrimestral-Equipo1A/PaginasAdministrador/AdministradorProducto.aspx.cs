@@ -28,6 +28,12 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 
             if (!IsPostBack)
             {
+
+                if (Session["usuario"] == null || !((Dominio.Usuario)Session["usuario"]).EsAdmin)
+                {
+                    Response.Redirect("../PaginasPublic/Inicio.aspx");
+                }
+
                 CargarCategorias();
 
                 if (Request.QueryString["Id"] == null)

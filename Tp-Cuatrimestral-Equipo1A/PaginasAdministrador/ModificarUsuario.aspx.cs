@@ -19,8 +19,14 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         {
             // Falta Validacion administrador y que venga con un id en parametro
 
+
             if (!IsPostBack)
             {
+                if (Session["usuario"] == null || !((Dominio.Usuario)Session["usuario"]).EsAdmin)
+                {
+                    Response.Redirect("../PaginasPublic/Inicio.aspx");
+                }
+                
                 cargarRoles();
 
                 if (Request.QueryString["id"] != null && Request.QueryString["id"] != "")

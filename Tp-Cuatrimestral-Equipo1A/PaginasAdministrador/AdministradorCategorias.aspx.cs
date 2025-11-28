@@ -19,6 +19,10 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             // Validacion Administrador
             if (!IsPostBack)
             {
+                if (Session["usuario"] == null || !((Dominio.Usuario)Session["usuario"]).EsAdmin)
+                {
+                    Response.Redirect("../PaginasPublic/Inicio.aspx");
+                }
                 cargarTabla();
             }
         }
