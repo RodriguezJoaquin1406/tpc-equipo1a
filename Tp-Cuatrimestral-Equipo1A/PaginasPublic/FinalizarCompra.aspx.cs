@@ -202,7 +202,11 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                 // Calcular total
                 decimal total = carrito.Sum(item => item.Subtotal);
 
-                // Crear pedido
+                // Obtener dirección completa
+                DireccionNegocio direccionNegocio = new DireccionNegocio();
+                Direccion direccion = direccionNegocio.ObtenerPorId(idDireccion);
+
+                // Crear pedido con copia de dirección
                 Pedido pedido = new Pedido
                 {
                     IdUsuario = _usuarioLogueado.Id,
@@ -211,7 +215,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                     IdMetodoPago = idMetodoPago,
                     Total = total,
                     Estado = "Pendiente",
-
+                    Direccion = direccion
                 };
 
                 PedidoNegocio pedidoNegocio = new PedidoNegocio();
@@ -234,9 +238,9 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                 }
 
                 // Descontar Stock
+                ProductoNegocio productoNegocio = new ProductoNegocio();
                 foreach (var item in carrito)
                 {
-                    ProductoNegocio productoNegocio = new ProductoNegocio();
                     productoNegocio.descontarStock(item.IdProducto, item.cantidad);
                 }
 

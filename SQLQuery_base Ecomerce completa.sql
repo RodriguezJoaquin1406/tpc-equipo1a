@@ -212,3 +212,31 @@ INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (5, 'https://i.pinimg.com/736x/35/ce/04/35ce047e1224f17d95f92be262d165bf.jpg'),
 (6, 'https://i.pinimg.com/1200x/4c/8c/4a/4c8c4ae97542465607123a4ad68839ce.jpg'),
 (7, 'https://i.pinimg.com/736x/c9/98/c6/c998c685fc3b9dd27f9a56c68a82cb38.jpg');
+
+--modificaciones para eliminar una direccion que esta en un pedido
+DELETE FROM DetallePedido;
+DELETE FROM Pedidos;
+
+--Hacer IdDireccion nullable
+
+ALTER TABLE Pedidos
+ALTER COLUMN IdDireccion INT NULL;
+
+--chau FK
+
+ALTER TABLE Pedidos
+DROP CONSTRAINT FK__Pedidos__IdDirec__5BE2A6F2;
+
+ALTER TABLE Pedidos
+ADD CONSTRAINT FK_Pedidos_IdDireccion
+FOREIGN KEY (IdDireccion) REFERENCES Direcciones(Id)
+ON DELETE SET NULL;
+
+
+ALTER TABLE Pedidos
+ADD DireccionCalle VARCHAR(100),
+    DireccionNumero VARCHAR(20),
+    DireccionCiudad VARCHAR(50),
+    DireccionCodigoPostal VARCHAR(20),
+    DireccionProvincia VARCHAR(50);
+
