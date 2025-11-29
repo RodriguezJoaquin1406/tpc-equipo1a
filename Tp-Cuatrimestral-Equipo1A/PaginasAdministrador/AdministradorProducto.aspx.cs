@@ -189,75 +189,69 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 Producto producto = new Producto();
                 ProductoNegocio negocio = new ProductoNegocio();
 
+
+                LimpiarErrores();
+                prodError = false;
                 // Validaciones básicas
-                if (string.IsNullOrEmpty(txtNombre.Text.Trim()))
+                if (string.IsNullOrWhiteSpace(txtNombre.Text) || txtNombre.Text.Trim().Length < 3)
                 {
-
-                    lblNombreError.Visible = true;
-                    lblNombreError.Text = "El nombre del producto es requerido.";
+                    MostrarError(lblNombreError, "El nombre debe tener al menos 3 caracteres.");
                     prodError = true;
                 }
 
-                if (string.IsNullOrEmpty(txtDesc.Text)) 
+                if (string.IsNullOrWhiteSpace(txtDesc.Text) || txtDesc.Text.Trim().Length < 10)
                 {
-                    lblDescError.Visible = true;
-                    lblDescError.Text = "La descripcion no puede estar vacia";
+                    MostrarError(lblDescError, "La descripción es muy corta o está vacía.");
                     prodError = true;
                 }
 
-                if (string.IsNullOrEmpty(ddlCategoria.SelectedValue))
+                if (string.IsNullOrEmpty(ddlCategoria.SelectedValue) || ddlCategoria.SelectedValue == "-1")
                 {
-                    lblCategoriaError.Visible = true;
-                    lblCategoriaError.Text = "Debe seleccionar una categoría.";
+                    MostrarError(lblCategoriaError, "Seleccione una categoría.");
                     prodError = true;
                 }
 
-                if (string.IsNullOrEmpty(ddlTalle.SelectedValue))
+                if (string.IsNullOrEmpty(ddlTalle.SelectedValue) || ddlTalle.SelectedValue == "-1")
                 {
-                    lblTalleError.Visible = true;
-                    lblTalleError.Text = "Debe seleccionar un talle.";
+                    MostrarError(lblTalleError, "Seleccione un talle.");
                     prodError = true;
                 }
 
                 decimal precio;
                 if (!decimal.TryParse(txtPrecio.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out precio) || precio < 0)
                 {
-                    lblPrecioError.Visible = true;
-                    lblPrecioError.Text = "El precio debe ser un número válido mayor o igual a 0.";
+                    MostrarError(lblPrecioError, "El precio debe ser un número válido mayor o igual a 0.");
                     prodError = true;
                 }
 
-                if (string.IsNullOrEmpty(txtImagenes.Text)) 
+                string urlimagen = txtImagenes.Text;
+                if (string.IsNullOrEmpty(urlimagen) || !urlimagen.ToLower().Contains("http://") && !urlimagen.ToLower().Contains("https://"))
                 {
-                    lblImagenesError.Visible = true;
-                    lblImagenesError.Text = "Debe ingresar como minimo una imagen";
+                    MostrarError(lblImagenesError, "Url no valida");
                     prodError = true;
                 }
 
                 int stock;
                 if (!int.TryParse(txtStock.Text, out stock) || stock < 0)
                 {
-                    lblStockError.Visible = true;
-                    lblStockError.Text = "El stock debe ser un número válido mayor o igual a 0.";
+                    MostrarError(lblStockError, "El stock debe ser un número válido mayor o igual a 0.");
                     prodError = true;
                 }
 
                 int stockMinimo;
                 if (!int.TryParse(txtStockMinimo.Text, out stockMinimo) || stockMinimo < 0)
                 {
-                    lblStockMinimoError.Visible = true;
-                    lblStockMinimoError.Text = "El stock mínimo debe ser un número válido mayor o igual a 0.";
+                    MostrarError(lblStockMinimoError, "El stock mínimo debe ser un número válido mayor o igual a 0.");
                     prodError = true;
                 }
 
                 if (stockMinimo > stock)
                 {
-                    lblStockMinimoError.Visible = true;
-                    lblStockMinimoError.Text = "El stock mínimo no puede ser mayor que el stock actual.";
+                    MostrarError(lblStockMinimoError, "El stock mínimo no puede ser mayor que el stock actual.");
                     prodError = true;
                 }
 
-                if(prodError== true) { return; }
+                if (prodError == true) { return; }
                 // Cargar datos del producto
                 producto.Nombre = txtNombre.Text.Trim();
                 producto.Descripcion = txtDesc.Text.Trim();
@@ -352,6 +346,24 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             CreateImageTextBoxes();
         }
 
+        private void MostrarError(Label lbl, string mensaje)
+        {
+            lbl.Text = mensaje;
+            lbl.Visible = true;
+            // Opcional: Agregar clase de Bootstrap para color rojo si no la tiene
+            lbl.CssClass = "text-danger fw-bold";
+        }
+
+        private void LimpiarErrores()
+        {
+            // Ocultamos todos los labels de error al inicio
+            lblNombreError.Visible = false;
+            lblDescError.Visible = false;
+            lblCategoriaError.Visible = false;
+            lblTalleError.Visible = false;
+            lblPrecioError.Visible = false;
+            lblImagenesError.Visible = false;
+        }
 
     }
 }
