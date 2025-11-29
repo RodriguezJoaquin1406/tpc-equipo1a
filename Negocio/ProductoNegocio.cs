@@ -230,6 +230,26 @@ namespace Negocio
             }
         }
 
+
+        public void eliminarImagenesProducto(int id)
+        {
+            var datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta("DELETE FROM Imagenes WHERE IdProducto = @Id");
+                datos.setearParametro("@Id", id);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
+        }
+
         public List<Producto> listarFiltrado(string categoria, string talle)
         {
             List<Producto> lista = new List<Producto>();

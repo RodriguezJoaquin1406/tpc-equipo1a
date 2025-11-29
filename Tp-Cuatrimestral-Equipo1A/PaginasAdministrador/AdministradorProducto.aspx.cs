@@ -305,9 +305,10 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 {
                     int id = int.Parse(Request.QueryString["Id"]);
                     ProductoNegocio negocio = new ProductoNegocio();
+                    negocio.eliminarImagenesProducto(id);
                     negocio.eliminar(id);
 
-                    Response.Redirect("../PaginasPublic/Catalogo.aspx");
+                    Response.Redirect("../PaginasAdministrador/CatalogoAdministrador.aspx");
                 }
             }
             catch (Exception ex)
