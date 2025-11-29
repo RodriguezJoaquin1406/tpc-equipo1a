@@ -159,5 +159,101 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPrivadas
                 txtProvincia.Text = direccion.Provincia;
             }
         }
+        protected void btnConfirmarAgregarDireccion_Click(object sender, EventArgs e)
+        {
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("~/PaginasPublic/Login.aspx");
+                return;
+            }
+
+            Usuario usuario = (Usuario)Session["usuario"];
+            Direccion nueva = new Direccion
+            {
+                IdUsuario = usuario.Id,
+                Calle = txtNuevaCalle.Text,
+                Numero = txtNuevoNumero.Text,
+                Ciudad = txtNuevaCiudad.Text,
+                CodigoPostal = txtNuevoCodigoPostal.Text,
+                Provincia = txtNuevaProvincia.Text
+            };
+
+            DireccionNegocio negocio = new DireccionNegocio();
+            negocio.agregar(nueva);
+
+            // Recargar el DropDownList
+            List<Direccion> direcciones = negocio.ListarPorUsuario(usuario.Id);
+            ddlDirecciones.DataSource = direcciones;
+            ddlDirecciones.DataTextField = "DescripcionCompleta";
+            ddlDirecciones.DataValueField = "Id";
+            ddlDirecciones.DataBind();
+
+            // Mostrar la nueva dirección
+            Direccion direccion = direcciones.Last();
+            ddlDirecciones.SelectedValue = direccion.Id.ToString();
+            txtCalle.Text = direccion.Calle;
+            txtNumero.Text = direccion.Numero;
+            txtCiudad.Text = direccion.Ciudad;
+            txtCodigoPostal.Text = direccion.CodigoPostal;
+            txtProvincia.Text = direccion.Provincia;
+
+            lblResultado.Text = "Dirección agregada correctamente.";
+        }
+
+        protected void btnEliminarDireccion_Click(object sender, EventArgs e)
+        {
+            if (Session["usuario"] == null)
+            {
+                Response.Redirect("~/PaginasPublic/Login.aspx");
+                return;
+            }
+
+            if (ddlDirecciones.Items.Count == 0)
+            {
+                lblResultado.Text = "No hay ninguna dirección para eliminar.";
+                return;
+            }
+
+            int idDireccion;
+            if (!int.TryParse(ddlDirecciones.SelectedValue, out idDireccion))
+            {
+                lblResultado.Text = "Error: dirección seleccionada inválida.";
+                return;
+            }
+
+            DireccionNegocio negocioDireccion = new DireccionNegocio();
+            negocioDireccion.eliminar(idDireccion);
+
+            // Recargar el DropDownList
+            Usuario usuario = (Usuario)Session["usuario"];
+            List<Direccion> direccionesActualizadas = negocioDireccion.ListarPorUsuario(usuario.Id);
+
+            ddlDirecciones.DataSource = direccionesActualizadas;
+            ddlDirecciones.DataTextField = "DescripcionCompleta";
+            ddlDirecciones.DataValueField = "Id";
+            ddlDirecciones.DataBind();
+
+            // Mostrar la primera dirección o limpiar si no hay ninguna
+            if (direccionesActualizadas.Count > 0)
+            {
+                Direccion direccion = direccionesActualizadas[0];
+                ddlDirecciones.SelectedValue = direccion.Id.ToString();
+                txtCalle.Text = direccion.Calle;
+                txtNumero.Text = direccion.Numero;
+                txtCiudad.Text = direccion.Ciudad;
+                txtCodigoPostal.Text = direccion.CodigoPostal;
+                txtProvincia.Text = direccion.Provincia;
+            }
+            else
+            {
+                txtCalle.Text = "";
+                txtNumero.Text = "";
+                txtCiudad.Text = "";
+                txtCodigoPostal.Text = "";
+                txtProvincia.Text = "";
+            }
+
+            lblResultado.Text = "Dirección eliminada correctamente.";
+        }
     }
 }

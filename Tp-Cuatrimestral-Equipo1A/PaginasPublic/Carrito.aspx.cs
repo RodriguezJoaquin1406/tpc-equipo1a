@@ -129,7 +129,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
                 scr.Append("var modal = bootstrap.Modal.getInstance(document.getElementById('modalEdicion'));");
                 scr.Append("if (modal) { modal.hide(); }"); // Intenta cerrar suavemente
 
-                // FUERZA BRUTA: Elimina el fondo oscuro si quedó pegado
+               
                 scr.Append("var backdrops = document.getElementsByClassName('modal-backdrop');");
                 scr.Append("while(backdrops[0]) { backdrops[0].parentNode.removeChild(backdrops[0]); }");
 
