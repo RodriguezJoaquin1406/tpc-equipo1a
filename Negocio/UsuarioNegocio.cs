@@ -46,13 +46,13 @@ namespace Negocio
         }
 
         // --------------------------------------- ABM ----------------------------------------
-        public void Registrar(Usuario nuevo)
+        public int Registrar(Usuario nuevo)
         {
             AccesoDatos datos = new AccesoDatos();
 
             try
             {
-                datos.setConsulta(@"INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol, Nombre, Email, Telefono)
+                datos.setConsulta(@"INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol, Nombre, Email, Telefono) OUTPUT INSERTED.Id
                             VALUES (@usuario, @clave, @rol, @nombre, @email, @telefono)");
                 datos.setearParametro("@usuario", nuevo.NombreUsuario);
                 datos.setearParametro("@clave", nuevo.Contrasena);
@@ -61,7 +61,7 @@ namespace Negocio
                 datos.setearParametro("@email", nuevo.Email);
                 datos.setearParametro("@telefono", nuevo.Telefono);
 
-                datos.ejecutarAccion();
+                return (int)datos.ejecutarEscalar();
             }
             catch (Exception ex)
             {
