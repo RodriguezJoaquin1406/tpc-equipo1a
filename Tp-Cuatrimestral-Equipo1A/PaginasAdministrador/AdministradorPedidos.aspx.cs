@@ -146,6 +146,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     ddlNuevoEstado.SelectedValue = pedidoSeleccionado.Estado;
                     lblErrorEstado.Text = "";
 
+                    if(pedidoSeleccionado.Estado.Equals("Pagado", StringComparison.OrdinalIgnoreCase) || pedidoSeleccionado.Estado.Equals("Enviado", StringComparison.OrdinalIgnoreCase))
+                    {
+                        liCancelado.Attributes["style"] = "display:none;";
+                    }
+                    else
+                    {
+                        ddlNuevoEstado.Enabled = true;
+                    }
+
                     ModalHelper.MostrarModal(this, "modalCambiarEstado");
                 }
             }

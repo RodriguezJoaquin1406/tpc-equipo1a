@@ -123,6 +123,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected global::System.Web.UI.WebControls.DropDownList ddlNuevoEstado;
 
         /// <summary>
+        /// liCancelado control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.ListItem liCancelado;
+
+        /// <summary>
         /// lblErrorEstado control.
         /// </summary>
         /// <remarks>

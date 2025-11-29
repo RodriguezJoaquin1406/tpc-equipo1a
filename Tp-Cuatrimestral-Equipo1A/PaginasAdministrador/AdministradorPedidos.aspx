@@ -142,7 +142,7 @@
                                     <asp:ListItem Value="Pendiente">Pendiente</asp:ListItem>
                                     <asp:ListItem Value="Pagado">Pagado</asp:ListItem>
                                     <asp:ListItem Value="Enviado">Enviado</asp:ListItem>
-                                    <asp:ListItem Value="Cancelado">Cancelado</asp:ListItem>
+                                    <asp:ListItem ID="liCancelado" Value="Cancelado">Cancelado</asp:ListItem>
                                 </asp:DropDownList>
                                 <asp:Label ID="lblErrorEstado" runat="server" CssClass="text-danger" />
                             </div>
