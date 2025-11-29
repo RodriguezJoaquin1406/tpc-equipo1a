@@ -192,56 +192,72 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 // Validaciones básicas
                 if (string.IsNullOrEmpty(txtNombre.Text.Trim()))
                 {
-                    lblError.Visible = true;
-                    lblError.Text = "El nombre del producto es requerido.";
-                    return;
+
+                    lblNombreError.Visible = true;
+                    lblNombreError.Text = "El nombre del producto es requerido.";
+                    prodError = true;
+                }
+
+                if (string.IsNullOrEmpty(txtDesc.Text)) 
+                {
+                    lblDescError.Visible = true;
+                    lblDescError.Text = "La descripcion no puede estar vacia";
+                    prodError = true;
                 }
 
                 if (string.IsNullOrEmpty(ddlCategoria.SelectedValue))
                 {
-                    lblError.Visible = true;
-                    lblError.Text = "Debe seleccionar una categoría.";
-                    return;
+                    lblCategoriaError.Visible = true;
+                    lblCategoriaError.Text = "Debe seleccionar una categoría.";
+                    prodError = true;
                 }
 
                 if (string.IsNullOrEmpty(ddlTalle.SelectedValue))
                 {
-                    lblError.Visible = true;
-                    lblError.Text = "Debe seleccionar un talle.";
-                    return;
+                    lblTalleError.Visible = true;
+                    lblTalleError.Text = "Debe seleccionar un talle.";
+                    prodError = true;
                 }
 
                 decimal precio;
                 if (!decimal.TryParse(txtPrecio.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out precio) || precio < 0)
                 {
-                    lblError.Visible = true;
-                    lblError.Text = "El precio debe ser un número válido mayor o igual a 0.";
-                    return;
+                    lblPrecioError.Visible = true;
+                    lblPrecioError.Text = "El precio debe ser un número válido mayor o igual a 0.";
+                    prodError = true;
+                }
+
+                if (string.IsNullOrEmpty(txtImagenes.Text)) 
+                {
+                    lblImagenesError.Visible = true;
+                    lblImagenesError.Text = "Debe ingresar como minimo una imagen";
+                    prodError = true;
                 }
 
                 int stock;
                 if (!int.TryParse(txtStock.Text, out stock) || stock < 0)
                 {
-                    lblError.Visible = true;
-                    lblError.Text = "El stock debe ser un número válido mayor o igual a 0.";
-                    return;
+                    lblStockError.Visible = true;
+                    lblStockError.Text = "El stock debe ser un número válido mayor o igual a 0.";
+                    prodError = true;
                 }
 
                 int stockMinimo;
                 if (!int.TryParse(txtStockMinimo.Text, out stockMinimo) || stockMinimo < 0)
                 {
-                    lblError.Visible = true;
-                    lblError.Text = "El stock mínimo debe ser un número válido mayor o igual a 0.";
-                    return;
+                    lblStockMinimoError.Visible = true;
+                    lblStockMinimoError.Text = "El stock mínimo debe ser un número válido mayor o igual a 0.";
+                    prodError = true;
                 }
 
                 if (stockMinimo > stock)
                 {
-                    lblError.Visible = true;
-                    lblError.Text = "El stock mínimo no puede ser mayor que el stock actual.";
-                    return;
+                    lblStockMinimoError.Visible = true;
+                    lblStockMinimoError.Text = "El stock mínimo no puede ser mayor que el stock actual.";
+                    prodError = true;
                 }
 
+                if(prodError== true) { return; }
                 // Cargar datos del producto
                 producto.Nombre = txtNombre.Text.Trim();
                 producto.Descripcion = txtDesc.Text.Trim();

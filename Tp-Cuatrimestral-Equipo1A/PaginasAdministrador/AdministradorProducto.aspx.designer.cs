@@ -33,6 +33,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected global::System.Web.UI.WebControls.TextBox txtNombre;
 
         /// <summary>
+        /// lblNombreError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblNombreError;
+
+        /// <summary>
         /// txtDesc control.
         /// </summary>
         /// <remarks>
@@ -40,6 +49,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.TextBox txtDesc;
+
+        /// <summary>
+        /// lblDescError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblDescError;
 
         /// <summary>
         /// txtPrecio control.
@@ -51,6 +69,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected global::System.Web.UI.WebControls.TextBox txtPrecio;
 
         /// <summary>
+        /// lblPrecioError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblPrecioError;
+
+        /// <summary>
         /// ddlCategoria control.
         /// </summary>
         /// <remarks>
@@ -58,6 +85,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlCategoria;
+
+        /// <summary>
+        /// lblCategoriaError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblCategoriaError;
 
         /// <summary>
         /// txtStock control.
@@ -69,6 +105,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected global::System.Web.UI.WebControls.TextBox txtStock;
 
         /// <summary>
+        /// lblStockError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStockError;
+
+        /// <summary>
         /// txtStockMinimo control.
         /// </summary>
         /// <remarks>
@@ -78,6 +123,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         protected global::System.Web.UI.WebControls.TextBox txtStockMinimo;
 
         /// <summary>
+        /// lblStockMinimoError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblStockMinimoError;
+
+        /// <summary>
         /// ddlTalle control.
         /// </summary>
         /// <remarks>
@@ -85,6 +139,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.DropDownList ddlTalle;
+
+        /// <summary>
+        /// lblTalleError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblTalleError;
 
         /// <summary>
         /// txtImagenes control.
@@ -112,6 +175,15 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Button btnAgregarImagen;
+
+        /// <summary>
+        /// lblImagenesError control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label lblImagenesError;
 
         /// <summary>
         /// lblError control.

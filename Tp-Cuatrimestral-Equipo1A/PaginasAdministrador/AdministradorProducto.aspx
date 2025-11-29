@@ -48,35 +48,42 @@
                 <div class="mb-3">
                     <label for="txtNombre" class="form-label">Nombre del Producto:</label>
                     <asp:TextBox ID="txtNombre" runat="server" CssClass="form-control" Text='' placeholder="Ingrese el nombre del producto"></asp:TextBox>
+                    <asp:Label ID="lblNombreError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                 </div>
 
                 <div class="mb-3">
                     <label for="txtDesc" class="form-label">Descripción:</label>
                     <asp:TextBox ID="txtDesc" runat="server" CssClass="form-control" TextMode="MultiLine" Rows="3" Text='' placeholder="Ingrese la descripción del producto"></asp:TextBox>
+                    <asp:Label ID="lblDescError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="txtPrecio" class="form-label">Precio Base:</label>
                         <asp:TextBox ID="txtPrecio" runat="server" CssClass="form-control" Text='' placeholder="0.00" TextMode="Number" step="0.01" min="0"></asp:TextBox>
+                        <asp:Label ID="lblPrecioError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                     </div>
                     <div class="col-md-6">
                         <label for="ddlCategoria" class="form-label">Categoría:</label>
                         <asp:DropDownList ID="ddlCategoria" runat="server" CssClass="form-select">
                             <asp:ListItem Text="Seleccione una categoría" Value="" />
                         </asp:DropDownList>
+                        <asp:Label ID="lblCategoriaError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                     </div>
+
                 </div>
 
                 <div class="row mb-3">
                     <div class="col-md-6">
                         <label for="txtStock" class="form-label">Stock Actual:</label>
                         <asp:TextBox ID="txtStock" runat="server" CssClass="form-control" Text='' placeholder="0" TextMode="Number" min="0"></asp:TextBox>
+                        <asp:Label ID="lblStockError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                     </div>
                     <div class="col-md-6">
                         <label for="txtStockMinimo" class="form-label">Stock Mínimo:</label>
                         <asp:TextBox ID="txtStockMinimo" runat="server" CssClass="form-control" Text='' placeholder="0" TextMode="Number" min="0"></asp:TextBox>
                         <div class="form-text">Cantidad mínima de stock antes de alertar por reposición</div>
+                        <asp:Label ID="lblStockMinimoError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                     </div>
                 </div>
 
@@ -89,6 +96,7 @@
                         <asp:ListItem Text="L" Value="L" />
                         <asp:ListItem Text="XL" Value="XL" />
                     </asp:DropDownList>
+                    <asp:Label ID="lblTalleError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                 </div>
 
                 <div class="mb-3">
@@ -98,6 +106,7 @@
                     <asp:PlaceHolder ID="phImagenes" runat="server" />
 
                     <asp:Button ID="btnAgregarImagen" runat="server" Text="Agregar imagen" OnClick="btnAgregarImagen_Click" CssClass="btn btn-secondary mt-2" />
+                    <asp:Label ID="lblImagenesError" runat="server" CssClass="Error" Visible="false"></asp:Label>
                 </div>
 
                 <!-- Mensajes de error y éxito -->
