@@ -163,6 +163,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 string nuevoEstado = ddlNuevoEstado.SelectedValue;
 
                 PedidoNegocio negocio = new PedidoNegocio();
+                List<Pedido> lista = negocio.Listar();
+                Pedido pedidoSeleccionado = lista.Find(x => x.Id == idPedido);
+
+                if(pedidoSeleccionado.Estado.ToString().Equals("Pagado", StringComparison.OrdinalIgnoreCase) && nuevoEstado.Equals("Cancelado", StringComparison.OrdinalIgnoreCase))
+                {
+                    throw new Exception("No se puede cambiar el estado de un pedido pagado a cancelado.");
+                }
                 negocio.actualizarEstado(idPedido, nuevoEstado);
 
                 cargarTabla(ddlFiltroEstado.SelectedValue);

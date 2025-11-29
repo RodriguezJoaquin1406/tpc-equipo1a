@@ -47,12 +47,13 @@
 
                                 <asp:Button Text="Cambiar Estado" runat="server" CssClass="btn btn-warning btn-sm me-2"
                                     CommandArgument='<%# Eval("Id") %>'
+                                    Visible='<%# Eval("Estado").ToString().Equals("Pendiente") || Eval("Estado").ToString().Equals("Pagado") %>'
                                     OnClick="btnCambiarEstado_Click" />
 
                                 <asp:Button Text="Cancelar" runat="server" CssClass="btn btn-danger btn-sm"
                                     CommandArgument='<%# Eval("Id") %>'
                                     OnClick="btnCancelar_Click"
-                                    Visible='<%# !Eval("Estado").ToString().Equals("Cancelado") && !Eval("Estado").ToString().Equals("Enviado") %>'
+                                    Visible='<%# Eval("Estado").ToString().Equals("Pendiente") %>'
                                     CausesValidation="false" />
                             </ItemTemplate>
                         </asp:TemplateField>
