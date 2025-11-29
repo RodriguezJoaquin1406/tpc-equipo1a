@@ -57,7 +57,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                         else
                         {
                             ImagenCount = 1;
-                            prodError = true;
+                            lblError.Visible = true;
                             lblError.Text = "No se pudo encontrar el producto en la base de datos";
                         }
                     }
@@ -99,7 +99,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             }
         }
 
-        
+
 
         private void CargarCategorias()
         {
@@ -192,21 +192,21 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 // Validaciones básicas
                 if (string.IsNullOrEmpty(txtNombre.Text.Trim()))
                 {
-                    prodError = true;
+                    lblError.Visible = true;
                     lblError.Text = "El nombre del producto es requerido.";
                     return;
                 }
 
                 if (string.IsNullOrEmpty(ddlCategoria.SelectedValue))
                 {
-                    prodError = true;
+                    lblError.Visible = true;
                     lblError.Text = "Debe seleccionar una categoría.";
                     return;
                 }
 
                 if (string.IsNullOrEmpty(ddlTalle.SelectedValue))
                 {
-                    prodError = true;
+                    lblError.Visible = true;
                     lblError.Text = "Debe seleccionar un talle.";
                     return;
                 }
@@ -214,7 +214,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 decimal precio;
                 if (!decimal.TryParse(txtPrecio.Text, System.Globalization.NumberStyles.Any, System.Globalization.CultureInfo.InvariantCulture, out precio) || precio < 0)
                 {
-                    prodError = true;
+                    lblError.Visible = true;
                     lblError.Text = "El precio debe ser un número válido mayor o igual a 0.";
                     return;
                 }
@@ -222,7 +222,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 int stock;
                 if (!int.TryParse(txtStock.Text, out stock) || stock < 0)
                 {
-                    prodError = true;
+                    lblError.Visible = true;
                     lblError.Text = "El stock debe ser un número válido mayor o igual a 0.";
                     return;
                 }
@@ -230,14 +230,14 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 int stockMinimo;
                 if (!int.TryParse(txtStockMinimo.Text, out stockMinimo) || stockMinimo < 0)
                 {
-                    prodError = true;
+                    lblError.Visible = true;
                     lblError.Text = "El stock mínimo debe ser un número válido mayor o igual a 0.";
                     return;
                 }
 
                 if (stockMinimo > stock)
                 {
-                    prodError = true;
+                    lblError.Visible = true;
                     lblError.Text = "El stock mínimo no puede ser mayor que el stock actual.";
                     return;
                 }
@@ -274,6 +274,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     }
                     prodSuccess = true;
                     lblSuccess.Text = "Producto modificado exitosamente.";
+                    Response.Redirect("../PaginasAdministrador/CatalogoAdministrador.aspx");
                 }
                 else
                 {
@@ -286,11 +287,12 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                     prodSuccess = true;
                     lblSuccess.Text = "Producto agregado exitosamente.";
                     LimpiarFormulario();
+                    Response.Redirect("../PaginasAdministrador/CatalogoAdministrador.aspx");
                 }
             }
             catch (Exception ex)
             {
-                prodError = true;
+                lblError.Visible = true;
                 lblError.Text = "Error al procesar el producto: " + ex.Message;
             }
         }
@@ -310,14 +312,14 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             }
             catch (Exception ex)
             {
-                prodError = true;
+                lblError.Visible = true;
                 lblError.Text = "Error al eliminar el producto: " + ex.Message;
             }
         }
 
         protected void btnCancelar_Click(object sender, EventArgs e)
         {
-            Response.Redirect("../PaginasPublic/Catalogo.aspx");
+            Response.Redirect("../PaginasAdministrador/CatalogoAdministrador.aspx");
         }
 
         private void LimpiarFormulario()
