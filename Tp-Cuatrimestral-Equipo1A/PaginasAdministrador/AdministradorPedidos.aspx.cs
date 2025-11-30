@@ -181,6 +181,12 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 }
                 negocio.actualizarEstado(idPedido, nuevoEstado);
 
+
+                // se intenta generar una nueva venta (factura) si el estado es cambiado a "Pagado" o "Enviado"
+                if (nuevoEstado.Equals("Pagado", StringComparison.OrdinalIgnoreCase) || nuevoEstado.Equals("Enviado", StringComparison.OrdinalIgnoreCase)) 
+                {
+                    pedidoMapeadoVenta(pedidoSeleccionado);
+                }
                 cargarTabla(ddlFiltroEstado.SelectedValue);
                 ModalHelper.CerrarModal(this, "modalCambiarEstado");
             }
@@ -237,6 +243,47 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             {
                 lblErrorCancelar.Text = "Error al cancelar el pedido: " + ex.Message;
                 ModalHelper.LimpiarBackdropYMostrarModal(this, "modalConfirmaCancelar");
+            }
+        }
+
+        protected void pedidoMapeadoVenta(Pedido pedido)
+        {
+            try
+            {
+                VentaNegocio ventaNegocio = new VentaNegocio();
+                Venta nuevaVenta = new Venta();
+                
+                nuevaVenta.IdCliente = pedido.Usuario.Id;
+                nuevaVenta.Fecha = DateTime.Now;
+                nuevaVenta.NumeroFactura = ventaNegocio.generarNumeroFactura();
+
+                int idVentaGenerada = ventaNegocio.crearVenta(nuevaVenta);
+                // Mapear detalles del pedido a detalles de venta
+
+                PedidoNegocio pedidoNegocio = new PedidoNegocio();
+
+                List<DetallePedido> detallesPedido = pedidoNegocio.listarDetalles(pedido.Id);
+
+                //Mapeamos los detalles
+
+                foreach (DetallePedido detallePedido in detallesPedido)
+                {
+                    VentaDetalle detalleVenta = new VentaDetalle
+                    {
+                        IdVenta = idVentaGenerada,
+                        IdProducto = detallePedido.IdProducto,
+                        Cantidad = detallePedido.Cantidad,
+                        PrecioUnitario = detallePedido.PrecioUnitario
+                    };
+
+                    ventaNegocio.agregarDetalleVenta(detalleVenta);
+                }
+
+            }
+            catch (Exception ex)
+            {
+
+                throw new Exception("Error al generar la venta a partir del pedido: " + ex.Message);
             }
         }
     }

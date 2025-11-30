@@ -1,7 +1,3 @@
-USE MASTER
-GO
-
-
 -- Crear la base de datos
 CREATE DATABASE ComercioTP_DB;
 GO
@@ -75,7 +71,7 @@ CREATE TABLE Carrito (
     IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
     IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
     Cantidad INT NOT NULL CHECK (Cantidad > 0),
-    Talle VARCHAR(10) NOT NULL DEFAULT 'Único' -- Agregado directamente aquí
+    Talle VARCHAR(10) NOT NULL DEFAULT 'Único'
 );
 
 -- Direcciones
@@ -83,7 +79,7 @@ CREATE TABLE Direcciones (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
     Calle VARCHAR(100),
-    Numero VARCHAR(50), -- Ya existe aquí, no hace falta ALTER
+    Numero VARCHAR(50),
     Ciudad VARCHAR(50),
     CodigoPostal VARCHAR(10),
     Provincia VARCHAR(50)
@@ -95,15 +91,26 @@ CREATE TABLE MetodosPago (
     Nombre VARCHAR(50) NOT NULL
 );
 
--- Pedidos
+-- Pedidos (ESTRUCTURA FINAL CON TUS CAMBIOS APLICADOS)
 CREATE TABLE Pedidos (
     Id INT IDENTITY(1,1) PRIMARY KEY,
     IdUsuario INT NOT NULL FOREIGN KEY REFERENCES Usuarios(Id),
     Fecha DATETIME NOT NULL,
     Estado VARCHAR(20) NOT NULL CHECK (Estado IN ('Pendiente','Pagado','Enviado','Cancelado')),
-    IdDireccion INT FOREIGN KEY REFERENCES Direcciones(Id),
+    
+    -- IdDireccion ahora es NULLABLE y tiene ON DELETE SET NULL
+    IdDireccion INT NULL,
+    CONSTRAINT FK_Pedidos_IdDireccion FOREIGN KEY (IdDireccion) REFERENCES Direcciones(Id) ON DELETE SET NULL,
+    
     IdMetodoPago INT FOREIGN KEY REFERENCES MetodosPago(Id),
-    Total MONEY NOT NULL CHECK (Total >= 0)
+    Total MONEY NOT NULL CHECK (Total >= 0),
+
+    -- Columnas Históricas de Dirección (Tus nuevos campos)
+    DireccionCalle VARCHAR(100),
+    DireccionNumero VARCHAR(20),
+    DireccionCiudad VARCHAR(50),
+    DireccionCodigoPostal VARCHAR(20),
+    DireccionProvincia VARCHAR(50)
 );
 
 -- Detalle del pedido
@@ -113,7 +120,7 @@ CREATE TABLE DetallePedido (
     IdProducto INT NOT NULL FOREIGN KEY REFERENCES Productos(Id),
     Cantidad INT NOT NULL CHECK (Cantidad > 0),
     PrecioUnitario MONEY NOT NULL CHECK (PrecioUnitario >= 0),
-    Talle VARCHAR(10) NOT NULL DEFAULT 'Único' -- Agregado directamente aquí
+    Talle VARCHAR(10) NOT NULL DEFAULT 'Único'
 );
 
 ------------------------------------------------------------
@@ -122,42 +129,42 @@ CREATE TABLE DetallePedido (
 
 -- Categorías
 INSERT INTO Categorias (Nombre) VALUES
-('Blusas'), ('Vestidos'), ('Bolsos'), ('Joyeria'), ('Accesorios'), ('Abrigos'); -- Agregué 'Abrigos' para que coincida con el ID 6 usado abajo
+('Blusas'), ('Vestidos'), ('Bolsos'), ('Joyeria'), ('Accesorios'), ('Abrigos');
 
 -- Productos
 INSERT INTO Productos (Nombre, Descripcion, IdCategoria, Talle, PrecioBase, StockActual, StockMinimo) VALUES
-('Blusa "Solsticio"', 'Una blusa elegante y versátil con detalles bordados.', 1, 'M', 25000, 50, 10), -- ID 1
-('Vestido "Arena"',   'Perfecto para un día de verano, fresco y cómodo.',     2, 'L', 48000, 30, 5),  -- ID 2
-('Bolso "Nómada"',    'Accesorio artesanal que complementa cualquier look.',  3, 'M', 32000, 20, 5),  -- ID 3
-('Pendientes "Liana"','Detalle final para un estilo bohemio y chic.',         4, 'M', 8000, 100, 20), -- ID 4
-('Vestido "Brisa"',   'Ligero y etéreo, ideal para ocasiones especiales.',    2, 'S', 62000, 15, 3),  -- ID 5
-('Saco "Primaveral"', 'Ligeramente abrigado perfecto para ir dejando atras el invierno..',    6, 'S', 42500, 25, 5), -- ID 6
-('Sueter "Ligero"', 'Buen sueter..',    6, 'M', 52500, 25, 5); -- ID 7
+('Blusa "Solsticio"', 'Una blusa elegante y versátil con detalles bordados.', 1, 'M', 25000, 50, 10),
+('Vestido "Arena"',   'Perfecto para un día de verano, fresco y cómodo.',     2, 'L', 48000, 30, 5),
+('Bolso "Nómada"',    'Accesorio artesanal que complementa cualquier look.',  3, 'M', 32000, 20, 5),
+('Pendientes "Liana"','Detalle final para un estilo bohemio y chic.',         4, 'M', 8000, 100, 20),
+('Vestido "Brisa"',   'Ligero y etéreo, ideal para ocasiones especiales.',    2, 'S', 62000, 15, 3),
+('Saco "Primaveral"', 'Ligeramente abrigado perfecto para ir dejando atras el invierno..',    6, 'S', 42500, 25, 5),
+('Sueter "Ligero"', 'Buen sueter..',    6, 'M', 52500, 25, 5);
 
 -- Usuarios
 INSERT INTO Usuarios (NombreUsuario, Contrasena, Rol, Nombre, Email, Telefono) VALUES
-('admin', 'admin', 'Administrador', 'Admin Admin', 'admin@mail.com', '1122334455'), -- ID 1
-('juanperez', 'clave123', 'Cliente', 'Juan Pérez', 'juanperez@mail.com', '1122334455'), -- ID 2
-('anagomez', 'clave123', 'Cliente', 'Ana Gómez', 'ana.gomez@mail.com', '1133445566'), -- ID 3
-('carlosruiz', 'clave123', 'Cliente', 'Carlos Ruiz', 'carlos.ruiz@mail.com', '1144556677'); -- ID 4
+('admin', 'admin', 'Administrador', 'Admin Admin', 'admin@mail.com', '1122334455'),
+('juanperez', 'clave123', 'Cliente', 'Juan Pérez', 'juanperez@mail.com', '1122334455'),
+('anagomez', 'clave123', 'Cliente', 'Ana Gómez', 'ana.gomez@mail.com', '1133445566'),
+('carlosruiz', 'clave123', 'Cliente', 'Carlos Ruiz', 'carlos.ruiz@mail.com', '1144556677');
 
--- Métodos de pago (MOVIDO AQUÍ ARRIBA PARA EVITAR ERROR DE FK)
+-- Métodos de pago
 INSERT INTO MetodosPago (Nombre) VALUES
-('Transferencia Bancaria'), -- ID 1
-('Tarjeta de Crédito'),     -- ID 2
-('Tarjeta de Débito'),      -- ID 3
-('Mercado Pago'),           -- ID 4
-('Efectivo en punto de entrega'); -- ID 5
+('Transferencia Bancaria'),
+('Tarjeta de Crédito'),
+('Tarjeta de Débito'),
+('Mercado Pago'),
+('Efectivo en punto de entrega');
 
--- Direcciones (IDs corregidos: Juan=2, Ana=3, Carlos=4)
+-- Direcciones
 INSERT INTO Direcciones (IdUsuario, Calle, Numero, Ciudad, CodigoPostal, Provincia) VALUES
-(2, 'Av. Siempre Viva', '123', 'Springfield', '1900', 'Buenos Aires'), -- ID 1 (Juan)
-(3, 'Calle Falsa', '456', 'La Plata', '7000', 'Buenos Aires'),         -- ID 2 (Ana)
-(4, 'Ruta 90 km', '34', 'Rosario', '2000', 'Santa Fe'),               -- ID 3 (Carlos)
-(2, 'Av. Libertador', '789', 'Zárate', '2800', 'Buenos Aires'),       -- ID 4 (Juan)
-(3, 'Calle Mayo', '654', 'Cordoba', '5000', 'Cordoba');               -- ID 5 (Ana)
+(2, 'Av. Siempre Viva', '123', 'Springfield', '1900', 'Buenos Aires'),
+(3, 'Calle Falsa', '456', 'La Plata', '7000', 'Buenos Aires'),
+(4, 'Ruta 90 km', '34', 'Rosario', '2000', 'Santa Fe'),
+(2, 'Av. Libertador', '789', 'Zárate', '2800', 'Buenos Aires'),
+(3, 'Calle Mayo', '654', 'Cordoba', '5000', 'Cordoba');
 
--- Ventas (IDs corregidos: Juan=2, Ana=3)
+-- Ventas
 INSERT INTO Ventas (IdCliente, Fecha, NumeroFactura) VALUES
 (2, '2025-10-10', 'F0001'),
 (3, '2025-10-12', 'F0002');
@@ -169,31 +176,31 @@ INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnitario) VALUES
 (2, 2, 1,  52000),
 (2, 5, 1,  75000);
 
--- Carrito (IDs corregidos: Juan=2, Ana=3, Carlos=4)
+-- Carrito
 INSERT INTO Carrito (IdUsuario, IdProducto, Cantidad) VALUES
-(2, 1, 3),    -- Juan Pérez tiene 3 Blusas
-(3, 2, 1),    -- Ana Gómez agregó 1 Vestido
-(4, 3, 2),    -- Carlos Ruiz quiso 2 Bolsos
-(2, 4, 4),    -- Juan Pérez añadió 4 Pendientes
-(3, 5, 1);    -- Ana Gómez seleccionó 1 Vestido
+(2, 1, 3),
+(3, 2, 1),
+(4, 3, 2),
+(2, 4, 4),
+(3, 5, 1);
 
--- Pedidos (IDs corregidos: Juan=2, Ana=3, Carlos=4)
-INSERT INTO Pedidos (IdUsuario, Fecha, Estado, IdDireccion, IdMetodoPago, Total) VALUES
-(2, '2025-11-01', 'Pagado', 1, 2, 120000),  -- Pedido 1 (Juan)
-(3, '2025-11-05', 'Pendiente', 2, 1, 52000), -- Pedido 2 (Ana)
-(4, '2025-11-07', 'Enviado', 3, 4, 64000),  -- Pedido 3 (Carlos)
-(2, '2025-11-10', 'Cancelado', 4, 5, 32000), -- Pedido 4 (Juan)
-(3, '2025-11-12', 'Pagado', 5, 3, 48000);   -- Pedido 5 (Ana)
+-- Pedidos (Actualizado con los campos de dirección histórica)
+INSERT INTO Pedidos (IdUsuario, Fecha, Estado, IdDireccion, IdMetodoPago, Total, DireccionCalle, DireccionNumero, DireccionCiudad, DireccionCodigoPostal, DireccionProvincia) VALUES
+(2, '2025-11-01', 'Pagado', 1, 2, 120000, 'Av. Siempre Viva', '123', 'Springfield', '1900', 'Buenos Aires'),
+(3, '2025-11-05', 'Pendiente', 2, 1, 52000, 'Calle Falsa', '456', 'La Plata', '7000', 'Buenos Aires'),
+(4, '2025-11-07', 'Enviado', 3, 4, 64000, 'Ruta 90 km', '34', 'Rosario', '2000', 'Santa Fe'),
+(2, '2025-11-10', 'Cancelado', 4, 5, 32000, 'Av. Libertador', '789', 'Zárate', '2800', 'Buenos Aires'),
+(3, '2025-11-12', 'Pagado', 5, 3, 48000, 'Calle Mayo', '654', 'Cordoba', '5000', 'Cordoba');
 
 -- DetallePedido
 INSERT INTO DetallePedido (IdPedido, IdProducto, Cantidad, PrecioUnitario) VALUES
-(1, 1, 4, 25000),  -- Juan (Pedido 1)
-(1, 3, 2, 32000),  -- Juan (Pedido 1)
-(2, 2, 1, 48000),  -- Ana (Pedido 2)
-(3, 4, 3, 8000),   -- Carlos (Pedido 3)
-(5, 5, 1, 62000);  -- Ana (Pedido 5)
+(1, 1, 4, 25000),
+(1, 3, 2, 32000),
+(2, 2, 1, 48000),
+(3, 4, 3, 8000),
+(5, 5, 1, 62000);
 
--- Imagenes (Simplificado para evitar duplicados visuales en el script)
+-- Imagenes (Consolidado y corregido)
 INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (1, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/15/ec/1744695942740c0ebd017afb104141f95abb9c156d_thumbnail_405x.webp'),
 (2, 'https://http2.mlstatic.com/D_NQ_NP_913956-MLA84211306237_042025-O.webp'),
@@ -202,9 +209,7 @@ INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (5, 'https://img.ltwebstatic.com/v4/j/pi/2025/04/23/84/17453729703da87c9bc65401c1f4fc6168d7b0539a_thumbnail_560x.webp'),
 (6, 'https://i.pinimg.com/1200x/16/7e/c5/167ec54de1eb97376ccda3bf34e6a3ce.jpg'),
 (7, 'https://i.pinimg.com/736x/1f/56/6b/1f566b32c4fa0d73331b5148a21d6d7d.jpg'),
-
-INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
-
+-- Segundas imágenes (Variaciones)
 (1, 'https://i.pinimg.com/736x/4b/46/5c/4b465c16ae630ef26dc96e6f9460826e.jpg'),
 (2, 'https://i.pinimg.com/1200x/ab/ab/0e/abab0e96ac0ce40f91da54d5629e2d09.jpg'),
 (3, 'https://i.pinimg.com/1200x/2f/d7/69/2fd769462b00d7f9b410baaf9711c542.jpg'),
@@ -212,31 +217,3 @@ INSERT INTO Imagenes (IdProducto, UrlImagen) VALUES
 (5, 'https://i.pinimg.com/736x/35/ce/04/35ce047e1224f17d95f92be262d165bf.jpg'),
 (6, 'https://i.pinimg.com/1200x/4c/8c/4a/4c8c4ae97542465607123a4ad68839ce.jpg'),
 (7, 'https://i.pinimg.com/736x/c9/98/c6/c998c685fc3b9dd27f9a56c68a82cb38.jpg');
-
---modificaciones para eliminar una direccion que esta en un pedido
-DELETE FROM DetallePedido;
-DELETE FROM Pedidos;
-
---Hacer IdDireccion nullable
-
-ALTER TABLE Pedidos
-ALTER COLUMN IdDireccion INT NULL;
-
---chau FK
-
-ALTER TABLE Pedidos
-DROP CONSTRAINT FK__Pedidos__IdDirec__5BE2A6F2;
-
-ALTER TABLE Pedidos
-ADD CONSTRAINT FK_Pedidos_IdDireccion
-FOREIGN KEY (IdDireccion) REFERENCES Direcciones(Id)
-ON DELETE SET NULL;
-
-
-ALTER TABLE Pedidos
-ADD DireccionCalle VARCHAR(100),
-    DireccionNumero VARCHAR(20),
-    DireccionCiudad VARCHAR(50),
-    DireccionCodigoPostal VARCHAR(20),
-    DireccionProvincia VARCHAR(50);
-

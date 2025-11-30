@@ -212,7 +212,30 @@ namespace Negocio
 
         public string generarNumeroFactura()
         {
-            return "FAC-" + DateTime.Now.ToString("yyyyMMdd") + "-" + DateTime.Now.Ticks.ToString().Substring(10);
+            return "F-" + DateTime.Now.ToString("yyyyMMdd") + "-" + DateTime.Now.Ticks.ToString().Substring(10);
+        }
+
+        public void agregarDetalleVenta(VentaDetalle detalle)
+        {
+            AccesoDatos datos = new AccesoDatos();
+            try
+            {
+                datos.setConsulta(@"INSERT INTO VentaDetalle (IdVenta, IdProducto, Cantidad, PrecioUnitario)
+                                VALUES (@IdVenta, @IdProducto, @Cantidad, @PrecioUnitario)");
+                datos.setearParametro("@IdVenta", detalle.IdVenta);
+                datos.setearParametro("@IdProducto", detalle.IdProducto);
+                datos.setearParametro("@Cantidad", detalle.Cantidad);
+                datos.setearParametro("@PrecioUnitario", detalle.PrecioUnitario);
+                datos.ejecutarAccion();
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+            }
+            finally
+            {
+                datos.cerrarConexion();
+            }
         }
     }
 }
