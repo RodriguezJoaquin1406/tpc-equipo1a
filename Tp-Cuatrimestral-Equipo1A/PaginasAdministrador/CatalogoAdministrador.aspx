@@ -6,8 +6,8 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 
     <h2>Productos Administrador</h2>
-    <asp:LinkButton Text="Añadir Nuevo" runat="server" href="AdministradorProducto.aspx" CssClass="btn btn-secondary" style="margin:20px;"/>
-    
+    <asp:LinkButton Text="Añadir Nuevo" runat="server" href="AdministradorProducto.aspx" CssClass="btn btn-secondary" Style="margin: 20px;" />
+
     <!-- Filtros -->
     <section>
         <div class="d-flex flex-column flex-md-row justify-content-start align-items-center mb-4 gap-3">
@@ -26,10 +26,18 @@
                         <asp:ListItem>Todos</asp:ListItem>
                     </asp:DropDownList>
                 </div>
+
+
+                <div>
+                    <asp:Label For="txtBusqueda" CssClass="form-label small fw-medium" Text="Búsqueda" runat="server" />
+                    <asp:TextBox runat="server" ID="txtBusqueda" CssClass="form-control" OnTextChanged="txtBusqueda_TextChanged" AutoPostBack="true" />
+                </div>
+
                 <div class="align-self-end">
-                    <asp:Button ID="btnLimpiarFiltros" runat="server" Text="Limpiar Filtros" 
+                    <asp:Button ID="btnLimpiarFiltros" runat="server" Text="Limpiar Filtros"
                         CssClass="btn btn-outline-secondary btn-sm" OnClick="btnLimpiarFiltros_Click" />
                 </div>
+
             </div>
         </div>
     </section>

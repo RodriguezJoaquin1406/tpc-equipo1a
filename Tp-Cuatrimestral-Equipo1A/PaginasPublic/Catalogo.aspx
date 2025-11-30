@@ -117,9 +117,9 @@
                 </div>
             </div>
 
-            <div class="text-muted small">
+            <%--<div class="text-muted small">
                 Mostrando 6 de 24 productos
-            </div>
+            </div>--%>
         </div>
 
         <div class="row row-cols-1 row-cols-sm-2 row-cols-lg-3 g-4">

@@ -1,11 +1,13 @@
-﻿using System;
+﻿using Dominio;
+using Negocio;
+using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
 using System.Web.UI.WebControls;
-using Dominio;
-using Negocio;
+using Tp_Cuatrimestral_Equipo1A.Helpers;
 
 namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
 {
@@ -30,12 +32,13 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
             {
                 string categoria = ddlCategoria.SelectedValue;
                 string talle = ddlTalle.SelectedValue;
+                string busqueda = txtBusqueda.Text.quitarAcentos();
 
                 ProductoNegocio negocio = new ProductoNegocio();
                 List<Producto> listaProductos;
 
                 // Si ambos filtros están en "Todos", usar el método listar normal
-                if (categoria == "Todos" && talle == "Todos")
+                if (categoria == "Todos" && talle == "Todos" && string.IsNullOrWhiteSpace(busqueda))
                 {
                     listaProductos = negocio.listar();
                 }
@@ -43,6 +46,14 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
                 {
                     // Usar el método filtrado
                     listaProductos = negocio.listarFiltrado(categoria, talle);
+
+                    if (!string.IsNullOrWhiteSpace(busqueda))
+                    {
+                        listaProductos = listaProductos.Where(p =>
+                        p.Nombre.quitarAcentos().Contains(busqueda) ||
+                        p.Descripcion.quitarAcentos().Contains(busqueda)
+                        ).ToList();
+                    }
                 }
 
                 dgvProductos.DataSource = listaProductos;
@@ -93,11 +104,16 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasAdministrador
         {
             cargarTabla();
         }
+        protected void txtBusqueda_TextChanged(object sender, EventArgs e)
+        {
+            cargarTabla();
+        }
 
         protected void btnLimpiarFiltros_Click(object sender, EventArgs e)
         {
             ddlCategoria.SelectedIndex = 0; // "Todos"
             ddlTalle.SelectedIndex = 0;     // "Todos"
+            txtBusqueda.Text = "";
             cargarTabla();
         }
     }
