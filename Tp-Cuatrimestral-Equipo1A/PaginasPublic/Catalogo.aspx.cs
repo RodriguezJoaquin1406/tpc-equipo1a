@@ -6,6 +6,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Dominio;
 using Negocio;
+using Tp_Cuatrimestral_Equipo1A.Helpers;
 
 namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
 {
@@ -41,12 +42,22 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         {
             string categoria = category.SelectedValue;
             string talle = size.SelectedValue;
+            string busqueda = txtBusqueda.Text.quitarAcentos();
 
             ProductoNegocio negocio = new ProductoNegocio();
             List<Producto> lista = negocio.listarFiltrado(categoria, talle);
 
             if (lista != null && lista.Count > 0)
             {
+                if (!string.IsNullOrEmpty(busqueda))
+                {
+                    lista = lista.Where(p =>
+                        p.Nombre.quitarAcentos().Contains(busqueda) ||
+                        p.Descripcion.quitarAcentos().Contains(busqueda)
+                    ).ToList();
+                }
+
+
                 RepeaterProductos.DataSource = lista;
                 RepeaterProductos.DataBind();
             }
@@ -64,6 +75,11 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
         }
 
         protected void ddlTalle_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            filtrarCatalogo();
+        }
+
+        protected void txtBusqueda_TextChanged(object sender, EventArgs e)
         {
             filtrarCatalogo();
         }
@@ -87,6 +103,7 @@ namespace Tp_Cuatrimestral_Equipo1A.PaginasPublic
             size.DataBind();
             size.Items.Insert(0, "Todos");
         }
+
 
     }
 }

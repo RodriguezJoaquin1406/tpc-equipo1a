@@ -111,6 +111,10 @@
                         <asp:ListItem>Todos</asp:ListItem>
                     </asp:DropDownList>
                 </div>
+                <div>
+                    <asp:Label For="txtBusqueda" CssClass="form-label small fw-medium" Text="Búsqueda" runat="server" />
+                    <asp:TextBox runat="server" ID="txtBusqueda" CssClass="form-control" OnTextChanged="txtBusqueda_TextChanged" AutoPostBack="true"/>
+                </div>
             </div>
 
             <div class="text-muted small">
